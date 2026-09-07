@@ -21,7 +21,7 @@ Run `npm test` for automated checks. `npm run preview` shows the disconnected vi
 
 | Path | Purpose |
 |---|---|
-| `program/program-manual.md` | Website copy, training, policies, questions and message templates. This is build source, not required reading for reviewers. |
+| `program/program-manual.md` | Website and program content source: copy, training, policies, questions and message templates. Despite the filename, it is not another guide reviewers need to read. |
 | `website/design-review/` | The website's current layout, styling and assets. The directory name is historical. |
 | `website/config/` | Public contact and application settings. |
 | `runtime/worker.mjs` | Website/API entry point and scheduled processing. |
@@ -33,6 +33,10 @@ Run `npm test` for automated checks. `npm run preview` shows the disconnected vi
 Keep participant records, credentials, `.wrangler/`, generated `website/dist/` and `runtime/private/` out of Git. `SOURCE.json` and `MANIFEST.json` identify the exported source and file checksums.
 
 ## Set up an operating installation
+
+These steps are for a new installation. To replace the Chair of an existing program, skip to [Connect the Chair's AI chat](#connect-the-chairs-ai-chat). Do not create a new database or change the mailbox just to replace the Chair.
+
+The authorized maintainer needs access to the program's Cloudflare account and, for a new installation, its Google, Backblaze and OpenAI accounts. GitHub access supplies none of those permissions. Run `npx wrangler login` and `npx wrangler whoami` to confirm the intended Cloudflare account. Its account ID is shown by `whoami`; `npx wrangler d1 create YOUR_DATABASE_NAME` returns the new database ID. Put that ID in the operating configuration under the existing `DB` binding. Choose the Worker name yourself; deployment creates it if it does not exist. Obtain the full source commit with `git rev-parse HEAD`.
 
 1. Create a Cloudflare Worker and an empty D1 database. Copy `wrangler.operating.example.jsonc` to `wrangler.operating.jsonc`; replace every placeholder with your installation's values.
 2. Set the website origin, Chair contact, dedicated program mailbox, operator ID and a unique backup namespace. Update `website/config/operating.json`. Supply your own permitted branding and review the Terms and Privacy Notice for your organization and providers.
@@ -47,7 +51,11 @@ npx wrangler deploy --config wrangler.operating.jsonc --var RELEASE:YOUR_FULL_CO
 
 5. Check `/api/health`, the public hostname, both application forms and training on desktop and mobile. Verify one controlled application, outgoing email, reply, scheduled follow-up and backup readback. Remove the test records afterward.
 
+Use a separate test installation and addresses you control for email/AI checks. Confirm the application is saved once after a retry, its receipt reaches the intended inbox, a reply updates the same request, and an unclear reply remains flagged. Check `program_recovery_status` for `ready` after a backup and inspect Worker logs for `scheduled-review-failed` or `operator-needs-attention`. A health response proves the website and database are reachable, not that email, AI or backups work. Flags enable capabilities; they are not test results. In the isolated setup, enable the relevant flags when ready to exercise those services, then verify the actual results before accepting real participants.
+
 The operating configuration uses `MODE=operating`, `MAIL_MODE=delivery` and hourly cron `0 * * * *`. Add a custom-domain route for your hostname and set `SITE_ORIGIN` to its HTTPS address. Do not rely only on the provider's hostname when checking a deployment.
+
+For a hostname managed in the same Cloudflare account, the route entry is `{"pattern":"YOUR-PROGRAM-HOST","custom_domain":true}` inside the configuration's `routes` array. Cloudflare provisions its DNS and certificate. Verify the address in an ordinary browser before sharing it.
 
 Tests build the local review version. Always rebuild with `website/config/operating.json` immediately before an operating deployment. Keep the previous code revision available for rollback; never reset the database to roll back code.
 
@@ -61,6 +69,14 @@ Store these through Cloudflare's secret storage, never in a committed file:
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REFRESH_TOKEN` | Dedicated program mailbox. |
 | `B2_KEY_ID`, `B2_APP_KEY` | Private backup bucket. Restrict the key to that bucket with list/read/write/delete access. |
 | `REVIEW_OPENAI_API_KEY` | Automated AI. The name also applies to operating mode. |
+
+For each secret, run `npx wrangler secret put SECRET_NAME --config wrangler.operating.jsonc` and paste the value at its hidden prompt. Check the Worker name and account first. This command updates the deployed Worker immediately. It is not a dry run. [Cloudflare secret instructions](https://developers.cloudflare.com/workers/configuration/secrets/).
+
+Where the values come from:
+
+- **Google:** download the web OAuth client JSON from the program's Google Cloud project. The authorization helper below writes `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` and `GOOGLE_REFRESH_TOKEN` to its private output file. Install those three values as separate Worker secrets.
+- **Backblaze:** the bucket details show its name and ID. Create a bucket-restricted application key in the account's Application Keys section. Its `keyID` is `B2_KEY_ID`; its one-time `applicationKey` is `B2_APP_KEY`. Save the latter privately when created. The namespace is a unique label you choose for this installation, not another credential.
+- **OpenAI:** an authorized administrator creates an API key in the program's OpenAI project and saves it as `REVIEW_OPENAI_API_KEY`. A chat subscription is not this API credential. Keep the existing approved spending limit; a new operator must approve its own charges.
 
 **Email:** Enable Gmail API and create a web OAuth client with redirect `http://127.0.0.1:8765/oauth2callback`. Set the mailbox constant in `runtime/scripts/authorize-mailbox.mjs` to your dedicated address, then run:
 
@@ -76,7 +92,62 @@ Use private paths outside the repository; the output must not exist. The helper 
 
 ### Connect the Chair's AI chat
 
-Add an MCP server to the Chair's AI client with command `node` and arguments consisting of the absolute path to `runtime/operator-server.mjs` and an optional absolute private JSON configuration path. That file contains `OPERATOR_ORIGIN`, `OPERATOR_ID`, `OPERATOR_BRIDGE_SECRET` and `CHAT_ACTIONS_ENABLED`. Keep it outside Git, readable only by its owner. File values override environment values.
+The program owner authorizes the Chair. A maintainer with permission to update this Cloudflare Worker performs the setup. This supports one Chair connection identity, not separate accounts for several Chairs. Reviewers need no live connection.
+
+| Setting | Where to get it |
+|---|---|
+| `OPERATOR_ORIGIN` | The existing program's HTTPS website address, the same origin as the Worker's `SITE_ORIGIN`. Do not include `/api/operator`. For a new installation, use its own deployed address. |
+| `OPERATOR_ID` | The Worker's current `OPERATOR_ID`. For a replacement Chair, choose a new label such as `chair-jane` and install that exact label on both sides. The label is not a password. |
+| `OPERATOR_BRIDGE_SECRET` | Generate a new random 64-character password with a password manager. Store it as a private item and use the exact same value for the Worker secret and connector file. Never use an example value, publish it or paste it into an AI conversation. Cloudflare does not reveal an existing secret; rotate it if the authorized private copy is unavailable. |
+
+**1. Prepare the private connector file.** Create a folder outside the checkout, accessible only to its owner. Save `mentorship-operator.json` there, replacing the three placeholders below. On macOS/Linux, set the folder to mode 700 and the file to mode 600 with `chmod`. File values override environment values.
+
+```json
+{
+  "OPERATOR_ORIGIN": "https://YOUR-PROGRAM-HOST",
+  "OPERATOR_ID": "chair-jane",
+  "OPERATOR_BRIDGE_SECRET": "REPLACE_WITH_NEW_PRIVATE_RANDOM_VALUE",
+  "CHAT_ACTIONS_ENABLED": "false"
+}
+```
+
+**2. Install the server settings.** Confirm the existing Worker name, account and database in `wrangler.operating.jsonc`. Keep its current mailbox, domain, recovery settings and other variables. Set `OPERATOR_ID` to the chosen label and temporarily set `CHAT_ACTIONS_ENABLED` to the string `false`. Rebuild and deploy using the operating commands above, then run:
+
+```sh
+npx wrangler secret put OPERATOR_BRIDGE_SECRET --config wrangler.operating.jsonc
+```
+
+Paste the new password at the hidden prompt. Coordinate this brief cutover with the outgoing Chair: changing the server key immediately invalidates the old connector. It does not stop the scheduled emails or delete program records.
+
+**3. Register the connector in the new Chair's AI app.** The app must support local MCP servers (stdio). In its MCP configuration use:
+
+- Command: the absolute Node executable path, found with `node -p process.execPath`.
+- First argument: the absolute checkout path to `runtime/operator-server.mjs`.
+- Second argument: the absolute path to the private `mentorship-operator.json` file.
+
+For clients that use an `mcpServers` JSON configuration, the entry looks like this. Replace all paths with actual absolute paths on the Chair's computer; other clients offer the same command and argument fields in settings.
+
+```json
+{
+  "mcpServers": {
+    "mentorship": {
+      "command": "/absolute/path/to/node",
+      "args": [
+        "/absolute/path/to/mentorship-program/runtime/operator-server.mjs",
+        "/absolute/private/mentorship-operator.json"
+      ]
+    }
+  }
+}
+```
+
+Reload that connection. A website URL alone is not an MCP connection, and an app that accepts only hosted MCP URLs cannot run this local connector. The secret stays in the private file; the AI app receives access to program tools and records, so use only an authorized account with appropriate data settings.
+
+The access key authorizes the operator, not one narrowly limited task. Keeping actions disabled in the local file is useful during testing but is not a separately restricted read-only credential. If the key is exposed, the authorized maintainer rotates the Worker secret and updates the authorized connector. Removing a local file alone does not revoke a copied key.
+
+**4. Test access before enabling changes.** Ask the new Chair's AI to call `program_results` and `program_recovery_status`. Successful tool responses prove the connection; an ordinary conversational answer does not. Ask the old connector to call `program_results` and confirm it fails authentication. Do not test by approving a real applicant. If only `connection_check` appears, the private file is missing, unreadable or lacks a required setting. An authentication error means the origin, ID or key does not match. If the new connection fails, the maintainer corrects the settings; do not share the old key as a workaround.
+
+**5. Enable approved changes.** Set `CHAT_ACTIONS_ENABLED` to the string `true` in both the Worker configuration and private connector file, redeploy the operating build, and reload the connection. Remove the old connector and its private key copy. Update the Chair's notification/contact email and mailbox forwarding separately if responsibility for those has changed. Do not reconnect a personal inbox.
 
 Verify read-only calls first. The exact string `true` enables `CHAT_ACTIONS_ENABLED` on both the connection and Worker. The assistant calls `program_prepare_action`, shows the exact proposal, waits for the Chair's explicit approval, then calls `program_action` with the approved parameters and checks the result. Authentication identifies the connection; it is not proof of human approval.
 
@@ -102,12 +173,14 @@ Protected changes mark recovery pending, then ready after snapshot/checkpoint ve
 
 ### Back up or transfer the program
 
-1. Use the Chair action `backup_now` and verify success. `export_recovery` reads the current verified set. Keep it private.
+1. The maintainer calls the signed operator API action `backup_now` and verifies success. `export_recovery` reads the current verified set. These are not registered tools in the ordinary Chair chat. Use `remoteOperatorBackend` from `runtime/operator-tools.mjs` with the private origin, ID and key, then call it with `('backup_now', {})` or `('export_recovery', {})`. Write exports directly to a private file, never chat or terminal output. The Chair can read backup status through `program_recovery_status`.
 2. Prepare the successor's accounts and an empty, stopped destination. Apply the current migrations.
 3. Use `runtime/recovery.mjs` to validate and import the export with the latest independent privacy checkpoint. Use `seedRecoveryState` from `runtime/recovery-cycle.mjs` with the verified manifest. Preserve record IDs, dates, replies, message receipts and results so prior deletions stay deleted and sent messages are not repeated.
 4. Verify the restored records and destination services without enabling a second sender. Stop the original sender before enabling the replacement, then verify a controlled reply and revoke former access.
 
 Do not import into a populated database, relabel old snapshot versions or put recovery files in GitHub. The current package is version 6. Older versions require their original code/schema and migration before a fresh export. Transfer the domain, mailbox, private records and credentials separately from the public code.
+
+Restoration is a maintainer operation using a destination D1 binding, not a built-in one-command installer. The executable examples are in `runtime/tests/recovery-cycle.test.mjs` and `runtime/tests/recovery.test.mjs`. Disable the destination cron and public intake while preparing it; setting chat actions to false alone does not stop scheduled work. After importing, check record counts, original deadlines, sent-message receipts and deleted-record absence before cutover. Do not enable two senders against a copied mailbox.
 
 ## Maintenance
 

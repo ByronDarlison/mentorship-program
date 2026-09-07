@@ -12,6 +12,8 @@ The mentee comes prepared, considers what the mentor shares, decides what to do 
 
 ## What you do as Chair
 
+Before your first use, the program owner authorizes your access and a technical maintainer connects your AI app using the [Chair connection steps](TECHNICAL_GUIDE.md#connect-the-chairs-ai-chat). You do not obtain a live access key from GitHub. Replacing a Chair does not require rebuilding the program.
+
 Use your connected program chat. Start with:
 
 > Show new applications and anything that needs my attention.
