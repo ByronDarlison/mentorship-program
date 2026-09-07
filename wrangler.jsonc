@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "chapter-mentorship-review",
+  "main": "runtime/worker.mjs",
+  "compatibility_date": "2026-09-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "website/dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
+    "not_found_handling": "404-page"
+  },
+  "d1_databases": [{"binding":"DB", "database_name":"chapter-mentorship-review", "database_id":"local-only", "migrations_dir":"runtime/migrations"}],
+  "vars": {"MODE":"review", "MAIL_MODE":"capture-only", "CHAIR_EMAIL":"chair@example.invalid", "SITE_ORIGIN":"http://127.0.0.1:8787"},
+  "triggers": {"crons":["0 * * * *"]},
+  "observability": {"enabled":true, "head_sampling_rate":1}
+}

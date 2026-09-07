@@ -1,0 +1,27 @@
+{
+  "name": "chapter-mentorship",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node website/scripts/build.mjs",
+    "dev": "node website/design-review/serve.mjs",
+    "preview": "node website/design-review/serve.mjs",
+    "test": "npm run build && node --test runtime/tests/*.test.mjs",
+    "dev:connected": "npm run build && wrangler d1 migrations apply DB --local && wrangler dev --local --port 8787",
+    "check:deploy": "npm run build && wrangler deploy --dry-run",
+    "test:browser": "node runtime/tests/browser-check.mjs && node runtime/tests/check-in-browser.mjs"
+  },
+  "dependencies": {
+    "markdown-it": "15.0.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260906.1",
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "miniflare": "5.20260903.0-alpha",
+    "playwright": "1.63.0",
+    "wrangler": "^4.129.0"
+  }
+}

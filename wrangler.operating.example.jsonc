@@ -1,0 +1,55 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "chapter-mentorship",
+  "workers_dev": true,
+  "preview_urls": false,
+  "account_id": "YOUR-CLOUDFLARE-ACCOUNT-ID",
+  "main": "runtime/worker.mjs",
+  "compatibility_date": "2026-09-06",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": "website/dist",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ],
+    "not_found_handling": "404-page"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "chapter-mentorship-operating",
+      "database_id": "YOUR-D1-DATABASE-ID",
+      "migrations_dir": "runtime/migrations"
+    }
+  ],
+  "vars": {
+    "MODE": "operating",
+    "MAIL_MODE": "delivery",
+    "CHAIR_EMAIL": "chair@example.invalid",
+    "SITE_ORIGIN": "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev",
+    "BACKUP_NAMESPACE": "program-v1",
+    "BACKUP_RETENTION_DAYS": "7",
+    "OPERATOR_ID": "chair",
+    "CHAT_ACTIONS_ENABLED": "false",
+    "PROGRAM_MAILBOX": "mentorship@example.invalid",
+    "MAILBOX_START_AT": "SET-INITIAL-CUTOVER-UTC",
+    "PROGRAM_MAILBOX_VERIFIED": "false",
+    "PRIVATE_RECOVERY_VERIFIED": "false",
+    "B2_BUCKET": "YOUR-BACKUP-BUCKET",
+    "B2_BUCKET_ID": "YOUR-BACKUP-BUCKET-ID",
+    "REVIEW_DELIVERY_VERIFIED": "false",
+    "REVIEW_AI_SPENDING_VERIFIED": "false"
+  },
+  "triggers": {
+    "crons": [
+      "0 * * * *"
+    ]
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

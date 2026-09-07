@@ -1,0 +1,16 @@
+.DS_Store
+.env
+.env.*
+participant-data/
+applications/data/
+matching/data/
+operations/private/
+node_modules/
+website/dist/
+website/.test-output/
+website/qa/screenshots/
+.dev.vars
+.dev.vars.*
+.wrangler/
+worker-configuration.d.ts
+runtime/private/
