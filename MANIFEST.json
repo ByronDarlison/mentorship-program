@@ -1,5 +1,5 @@
 {
-  "revision": "11af2301ac7c405aa1f7dc763948216b4638adaf",
+  "revision": "5ae94c8a33941a8932794dc1c3cc979145edf84e",
   "files": [
     {
       "path": ".gitignore",
@@ -7,7 +7,7 @@
     },
     {
       "path": "TECHNICAL_GUIDE.md",
-      "sha256": "e6353b359449989137aa40510c128016f01443bb460fcceb3a9a221f33e7ff2c"
+      "sha256": "5620e5109b165803d129fd4f49e92662b10a33c487d05b2c5fb47828035a0499"
     },
     {
       "path": "USER_GUIDE.md",
@@ -395,7 +395,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "baf3459abc6208480cb258e967aa1d79daf5b3557d85241897ce2ad354323e60"
+      "sha256": "b5b761b3a0a19f970c1c823f89b3d67084582d2b309037cdaf876053f3f56e89"
     },
     {
       "path": "LICENSE-CODE.txt",
@@ -407,7 +407,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "71cbde3cadecdc9425a03961c7c64535f72dbfdbe2edaa6f5e3da213e46db19f"
+      "sha256": "573bc8c932276e742e17bb1b1d462c98467e972f1a30d0d85d8333336192857e"
     }
   ]
 }

@@ -4,17 +4,12 @@ A simple mentorship program for entrepreneurs. People apply on the website; the 
 
 [Visit the EO Toronto website](https://mentorship.darlison.com)
 
-## Review the program
+## Documentation
 
-1. **Participant experience:** read the homepage and both applications. Are the offer, eligibility, commitments and matching expectations clear?
-2. **Training:** does the curriculum prepare mentors and mentees for useful conversations?
-3. **Running the program:** read the [user guide](USER_GUIDE.md). Are the Chair’s decisions, automatic follow-ups and measures of success appropriate?
-4. **Privacy and terms:** review the website notices, including AI use, confidentiality, paid services, retention and deletion. Identify any changes EO Toronto requires.
-5. **Taking it over:** ask a technical reviewer to check the [technical guide](TECHNICAL_GUIDE.md), local demonstration, account access, costs, backups and transfer steps. This does not require changing the live system.
+- [User guide](USER_GUIDE.md): running the program through AI chat.
+- [Technical guide](TECHNICAL_GUIDE.md): installation, AI connection, maintenance, backups and transfer.
 
-Return one short response: support the program or identify required changes, list any open questions, and distinguish optional improvements. No recruitment, live participant decisions or account transfer is required for this review.
-
-Everything needed to inspect or reuse the software is in this public repository. A technical reviewer can follow the [technical guide](TECHNICAL_GUIDE.md) to run a local demonstration, inspect the code or plan a transfer. Use the local demonstration for fictional applications; live submissions create records and send email.
+Use the local demonstration for fictional applications. Live submissions create records and send email.
 
 ## Run it locally
 
@@ -34,4 +29,4 @@ Open http://127.0.0.1:8787/. Use the supplied fictional answers. No real email i
 - **Roboto font:** [SIL Open Font License](website/design-review/assets/Roboto-OFL.txt).
 - EO names, logos and branding are not licensed for reuse. This source uses neutral branding. Supply your own branding, accounts and reviewed policies.
 
-Credentials and participant records are not stored here. The website's source copy remains in `program/program-manual.md`; reviewers do not need to read that build file.
+Credentials and participant records are not stored here. Website copy, training, policies and message templates are maintained in `program/program-manual.md`.

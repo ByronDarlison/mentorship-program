@@ -21,7 +21,7 @@ Run `npm test` for automated checks. `npm run preview` shows the disconnected vi
 
 | Path | Purpose |
 |---|---|
-| `program/program-manual.md` | Website and program content source: copy, training, policies, questions and message templates. Despite the filename, it is not another guide reviewers need to read. |
+| `program/program-manual.md` | Website and program content source: copy, training, policies, questions and message templates. |
 | `website/design-review/` | The website's current layout, styling and assets. The directory name is historical. |
 | `website/config/` | Public contact and application settings. |
 | `runtime/worker.mjs` | Website/API entry point and scheduled processing. |
@@ -92,7 +92,7 @@ Use private paths outside the repository; the output must not exist. The helper 
 
 ### Connect the Chair's AI chat
 
-The program owner authorizes the Chair. A maintainer with permission to update this Cloudflare Worker performs the setup. This supports one Chair connection identity, not separate accounts for several Chairs. Reviewers need no live connection.
+The program owner authorizes the Chair. A maintainer with permission to update this Cloudflare Worker performs the setup. This supports one Chair connection identity, not separate accounts for several Chairs.
 
 | Setting | Where to get it |
 |---|---|
