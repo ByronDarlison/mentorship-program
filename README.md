@@ -2,7 +2,7 @@
 
 A small, portable mentorship program: a website, applications, training curriculum, email check-ins, results and Chair administration through existing AI chat. Original program materials by Byron Darlison.
 
-This clean source edition comes from commit bf8684198fc93b9d6489200c5f7016de89ca333c. It contains no private Git history, participant records, credentials or EO brand assets. See SOURCE.json for adaptations and MANIFEST.json for source checksums. Supply your own permitted branding.
+This clean source edition comes from commit 1d83bc199109871181a608c3359ca9dbf3236e1f. It contains no private Git history, participant records, credentials or EO brand assets. See SOURCE.json for adaptations and MANIFEST.json for source checksums. Supply your own permitted branding.
 
 ## Try it locally
 
@@ -17,6 +17,7 @@ Open http://127.0.0.1:8787/. Review mode is the safe default: supplied invented 
 
 ## Understand and operate
 
+- [Chair's guide](docs/chair-guide.md): practical steps, approvals, examples and exception handling.
 - [Program Manual](program/program-manual.md): program design, commitments, training and communication copy.
 - [Runtime setup](runtime/README.md): local use, operating configuration, Chair chat, backups and transfer.
 - [Technical overview](docs/technical-overview.md): components, responsibility and privacy boundaries.

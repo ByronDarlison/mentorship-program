@@ -124,7 +124,7 @@ A mentor is ready when they:
 
 Mentees and mentors complete short applications.
 
-After launch, applications are welcome year-round. Participants begin together in groups, called cohorts.
+Applications are welcome year-round. Participants begin together in groups, called cohorts.
 There may be a wait while we arrange suitable matches and prepare the next group.
 The Chair decides when a cohort is ready. The first group may start with fewer than ten pairs.
 Applying does not guarantee a place or a start date.
@@ -187,12 +187,9 @@ The mentee owns the relationship, the decisions, and the action.
 The mentee is responsible for:
 
 - Scheduling the meetings.
-- Preparing the agenda.
-- Naming what would be useful to discuss.
-- Speaking candidly about the business and current reality.
-- Making decisions.
-- Taking action between meetings.
-- Following through on commitments.
+- Coming fully prepared to talk about what matters most.
+- Listening, considering what the mentor shares, and deciding what to do next.
+- Completing what they commit to between meetings.
 - Completing the short quarterly check-ins.
 - Contacting the Mentorship Chair when something is not working.
 
@@ -986,7 +983,7 @@ An important business decision can count as meaningful progress before financial
 
 For “How would you feel about mentoring again?”, AI classifies the answer as Interested, Unsure, or Not interested, preserving any conditions mentioned during the review. Only Interested counts as positive.
 
-The classification rules are fixed and include fictional test cases. Evaluate the configured model before live use and after changing the model or prompt. AI must not invent missing feedback or infer a participant's motivation from silence.
+The classification rules and fictional test cases are fixed. Evaluate your configured model before live use and after changes. AI must not invent missing feedback or infer a participant's motivation from silence.
 
 ### Targets and calculations
 
@@ -1029,7 +1026,7 @@ Keep that contribution pending for the full period, then include valid outcomes 
 
 **Status: Agreed**
 
-The Mentorship Chair will use one simple register to operate the program and calculate its measures.
+The Mentorship Chair uses one private register to operate the program and calculate its measures.
 
 For each pair, it records only:
 
@@ -1053,7 +1050,7 @@ The register does not contain confidential mentoring discussion content.
 ### Register requirements
 
 The approved approach uses private Cloudflare storage, initially controlled by the Mentorship Chair.
-The register must remain transferable to Example Chapter or a future Chair. The Chair may add named administrators if needed.
+The register remains transferable to Example Chapter or a future Chair. The current software has one operator. Additional-administrator management requires a separately requested change.
 
 Keep one linked record for each pair, with separate requests and answers for each participant.
 This describes the information needed, not a spreadsheet layout. The register contains:
@@ -1222,7 +1219,7 @@ The [Privacy Notice](#privacy-confidentiality-and-deletion) explains information
 **Status: Agreed**
 
 Byron Darlison created the program materials and has chosen to make them available for others to use.
-This reusable edition has two licenses:
+The public reusable edition uses two licenses:
 
 - Program guidance, training, questions, and templates: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Application code: [MIT](https://opensource.org/license/mit).
@@ -1231,14 +1228,14 @@ You may share and adapt the released materials, including commercially, with cre
 You may reuse and modify the released code, retaining its copyright and permission notice.
 
 EO and Example Chapter logos and branding are not included or licensed for reuse.
-The release contains no participant information, confidential conversations or private working records.
+The release contains no participant information, confidential conversations, or private working records.
 Third-party materials retain their own licenses.
 
 Anyone running their own version supplies their own branding, contact details, Terms, and Privacy Notice.
 The original operator's service-specific policies are separate from the reusable participation guidance.
 
 Attribution, license notices and branding exclusions belong in the repository and reusable release, not the participant footer.
-The original working repository and its history are not part of this release.
+The reusable edition is published. The working repository and its history remain private.
 
 ## Starting small and expanding carefully
 
@@ -1291,7 +1288,7 @@ Further reading:
 
 The Mentorship Chair follows this operating sequence:
 
-1. After launch approval, accept short mentee and mentor applications year-round.
+1. Accept short mentee and mentor applications year-round.
 2. Review participant readiness.
 3. Use AI to prepare matching recommendations.
 4. Approve each final match.
@@ -1302,7 +1299,7 @@ The Mentorship Chair follows this operating sequence:
 9. Record the final progress, value, and future-mentoring answers.
 10. Review lessons before opening another cohort.
 
-This manual defines the program. The runtime guide explains installation, configuration and verification.
+Use the Chair's guide in the repository to follow this sequence through AI chat. Configure and verify your own installation before live use.
 
 ### AI-led administration
 
@@ -1316,7 +1313,7 @@ The Chair still approves every participant and match.
 AI shows the exact proposed action, including affected records and recipients. The Chair approves or changes it in chat. AI then performs the authorized action and confirms its saved result.
 Before deletion, show unresolved classifications and missing answers. Explain that erased feedback cannot be revisited.
 The system must distinguish the Chair's approval from AI-generated or participant text. Approval cannot be supplied by the model itself or reused for a changed action.
-Secure chat approval must be tested during implementation. If a genuine limitation emerges, return it to the Chair before changing the requirement. Do not add a separate approval page or enable affected consequential actions without verified human approval.
+The Chair explicitly approves the exact proposal in chat. The connection identifies the operator; its signature does not independently prove human consent. AI text and participant replies cannot supply Chair approval.
 Chair-directed cycle corrections and early endings require a human-attributed chat instruction. Clear, verified participant confirmations and reschedules remain automatic under the approved rules. They do not require a new Chair approval for each routine reply.
 
 The private operating system stores records and runs schedules independently of any chat session.
@@ -1324,13 +1321,13 @@ AI has only defined actions and the minimum information needed for each task.
 The system checks permissions and inputs before applying changes. It records changes and supports corrections.
 
 Private backups and a basic recovery/export route support continuity and future handoff.
-The software uses Cloudflare storage, Google program email, Backblaze recovery and OpenAI processing. Configure and verify your own installation before real use.
+Cloudflare stores private records. Google handles program email, Backblaze holds recovery copies, and OpenAI supports approved AI work. Verify your own connections and recovery.
 
 ### Handling email replies
 
-Replace `chair@example.invalid` with the Chair contact. Configure a separate dedicated program mailbox for sending and reply processing. Forwarding to the Chair is optional; retain the originals in the program mailbox. Do not connect a personal inbox.
+Configure your Chair contact and a separate dedicated program mailbox. Forwarding is optional; retain originals for processing. Do not connect a personal inbox.
 
-Once approved and connected, program replies trigger processing without waiting for the Chair to open a chat.
+The hourly schedule processes program replies without waiting for the Chair to open a chat.
 The system must reliably match the sender and original request before applying an update.
 
 | Reply | Handling |
@@ -1362,19 +1359,17 @@ Keep processing failures visible to the Chair until resolved.
 
 ### Cohort operating sequence
 
-#### Before applications first open
+#### Before forming a group
 
 The Mentorship Chair:
 
 1. Confirms capacity for the cohort.
 2. Confirms the maximum number of pairs.
-3. Confirms the initial application opening and training options. Later cohort planning does not close applications.
-4. Tests the forms and Program Status Register.
-5. Confirms storage, access, retention, and deletion settings.
-6. Confirms the approved AI tools, coded matching process, and feedback classification rules and tests.
-7. Confirms the approved program email connection, incoming-reply processing, sending rules, and Chair notifications without unrestricted personal-inbox access.
-8. Reviews participant communications.
-9. Tests authorized AI actions, private backups, and recovery/export without relying on chat history.
+3. Arranges training options. Applications stay open between groups.
+4. Reviews any unresolved system alerts with the technical maintainer.
+5. Reviews participant communications before sending discretionary invitations or introductions.
+
+The maintainer owns configuration and recovery checks. The Chair does not repeat the full software test suite for each group.
 
 #### As applications arrive and a cohort takes shape
 
@@ -1385,7 +1380,7 @@ The Mentorship Chair:
 3. Invites mentors and reviews public expressions of interest against those needs.
 4. Holds a short conversation with any prospective mentor not already known to the Chair.
 5. Requests only information needed to complete the review.
-6. Removes names and contact details before AI matching.
+6. Uses the configured matching process to prepare coded profiles. Reviews any extract the automatic privacy checks cannot safely prepare.
 7. Uses AI to prepare matching recommendations.
 8. Reviews conflicts and match quality.
 9. Approves every final match and deletes the temporary coded matching copy.
@@ -1426,8 +1421,8 @@ The Mentorship Chair:
 
 The Mentorship Chair:
 
-1. Records and classifies the mentee's final progress and value feedback.
-2. Records and classifies the mentor's final value and interest in mentoring again.
+1. Reviews the mentee's recorded final progress and value feedback.
+2. Reviews the mentor's recorded final value and interest in mentoring again. Resolves unclear classifications.
 3. Thanks both participants.
 4. Updates aggregate measures, including early endings and final nonresponse failures after day twenty-one.
 5. After the final review, deletes detailed applications and free-text responses, retaining only the approved minimum record. Late feedback can still correct that result and follows the same deletion rule.
@@ -1443,7 +1438,7 @@ These templates define the minimum message content. The Chair may personalize th
 
 Example Chapter is preparing a mentorship cohort of up to ten pairs.
 
-Applications are welcome year-round once the program opens. There may be a wait while we prepare a suitable group.
+Applications are welcome year-round. There may be a wait while we prepare a suitable group.
 
 Each mentee will work with an experienced mentor to make meaningful progress in their business. Each relationship runs for twelve months.
 
@@ -1453,7 +1448,7 @@ Mentees must be current Example Chapter members. Mentors may come from any organ
 
 The Chair approves mentors based on relevant experience and judgment. Mentors may be invited or may express interest directly.
 
-Read the Program Manual before applying. Applying does not guarantee a place or a suitable match.
+Review the relevant application page before applying. Applying does not guarantee a place or a suitable match.
 
 #### Application received
 
@@ -1498,7 +1493,7 @@ We are seeking experienced people who can help an entrepreneur think, decide, an
 
 The commitment includes one joint online cohort training session and meeting for one hour in ten of the twelve months.
 
-Please review the Program Manual and complete the short mentor profile if the role suits you.
+Please review the mentor application page and complete the short profile if the role suits you.
 
 #### Match introduction
 
@@ -1521,7 +1516,7 @@ Your joint online cohort training is scheduled for [date and time].
 
 The session lasts one hour. Both people in a pair complete the training before their mentoring relationship begins.
 
-Please review the Program Manual before attending. The meeting link is [link].
+Please review the public Training page before attending. The meeting link is [link].
 
 Please have your calendar available. You will book your first 3–6 mentoring meetings together before leaving training.
 
@@ -1591,118 +1586,47 @@ If there is interest, Example Chapter may invite current and past participants t
 
 **Status: Agreed**
 
-The first cohort should not open until every item is complete.
-These are installation and program-launch checks, not evidence that a new operator has completed them.
+Verify your own installation using the runtime setup and tests before accepting applications.
+This checklist now distinguishes program decisions from technical maintenance.
 
-### Program approval
+### Before a group begins
 
-- The Mentorship Chair has approved the Program Manual's copy and structure.
-- Any required Example Chapter budget or policy approval is recorded.
-- The first cohort limit and initial application opening are confirmed. The application process supports year-round submissions afterward.
+The Chair:
 
-### Participant experience
+- Confirms suitable participants, every match and a group of no more than ten initial pairs.
+- Resolves conflicts and confirms the participation commitments.
+- Arranges the joint live training and chooses its facilitator.
+- Rehearses the provisional agenda within one hour.
+- Keeps meeting links and attendance private.
+- Records both participants' training completion.
+- Ensures each pair books its first 3–6 meetings and shares the planned first date.
+- Reviews any budget or policy decision requiring chapter authority.
 
-- The mentee application has been tested from start to submission.
-- The mentor profile has been tested from start to submission.
-- Both signup forms clearly explain the paid-services request before submission and include it in the existing acknowledgement.
-- Public Program Terms and Privacy Notice appear in the footer and beside each application acknowledgement.
-- Any required Example Chapter or legal wording has been reviewed before publication.
-- Applications explain cohort waiting without promising a place, a date, or a ten-pair minimum.
-- The full mentee experience has been reviewed on desktop and mobile.
-- The full mentor experience has been reviewed on desktop and mobile.
-- Every participant message contains the correct commitment and next step.
+A booked date does not start the cycle. Confirmed attendance does.
+Starting a group does not require rebuilding the website or closing applications.
 
-### Matching and training
+### After software or provider changes
 
-- The AI matching process has been tested using fictional information.
-- The Chair can see the evidence, gaps, risks, and conflicts for every recommendation.
-- The Chair's final approval remains required.
-- The training materials are complete.
-- Public training material is accessible without an account. Reading it does not count as completing the live cohort session.
-- The reviewed written-training curriculum remains aligned with the live session and current program requirements.
-- The facilitator has been chosen after the content review and can deliver the session using the approved materials.
-- The demonstration, fictional paired practice, and paid-services expectation are included in training.
-- The demonstration shows both useful questions and relevant experience-sharing without prescribing the mentee's decision.
-- The session leaves time for each pair to book its first 3–6 meetings and share the first meeting date with the Chair.
-- The training has been rehearsed within the agreed one-hour duration.
-- The provisionally accepted agenda has been adjusted if needed and received final approval after the rehearsal.
-- The video meeting and breakout-room process have been tested.
+The technical maintainer verifies:
 
-### Information handling
+- The public address, HTTPS, application forms and participant pages.
+- The current Terms and Privacy Notice beside application acknowledgements.
+- The Chair connection, exact-action approvals and private access.
+- Mailbox processing, sending, reminders and duplicate protection.
+- AI limits, privacy settings and classification behavior.
+- Reporting, deletion, current backups and restore behavior.
+- Transfer preservation of dates, deadlines and pending work.
 
-- The Chair controls the forms, storage system, and Program Status Register initially.
-- Access is limited initially to the Chair and any specific people the Chair adds.
-- The secure AI connection identifies authorized administrators and restricts their available actions.
-- The Chair can manage the program without custom admin screens.
-- Record changes show who made them and when.
-- Private records and schedules persist outside AI conversation history.
-- Private backup restoration and recovery/export have been tested. Participant backups remain outside GitHub.
-- The operating system can be transferred to Example Chapter or a future Chair without manually re-entering participant records.
-- A fictional transfer preserves deadlines, outcomes, pending work, and deletion history without repeating messages.
-- The receiving operator can run and recover the program without the previous Chair's personal accounts or conversations.
-- The AI tool meets the agreed information protections.
-- AI matching uses coded profiles without names or contact details, and the temporary matching copy is deleted after approval.
-- The privacy notice explains AI feedback classification, and the classification input excludes names, contact details, and confidential conversation content.
-- The privacy notice explains AI-assisted administration and routine email handling, with minimum necessary information supplied to each tool.
-- Privacy, retention, and deletion wording has been accepted.
-- A test deletion request has been completed.
-- No participant information appears in GitHub or website source files.
+Use fictional records in an isolated test environment.
+Do not submit test applications or send demonstration messages through the live program.
 
-### Measurement and support
+### Before a future transfer
 
-- The Program Status Register calculates every approved measure.
-- The register separates the planned first meeting date from the confirmed actual date.
-- The first-meeting confirmation email is scheduled for the following day and moves when the booking changes.
-- An unanswered confirmation receives reminders seven and fourteen days later and a Chair notification on day twenty-one.
-- A genuine reply stops confirmation reminders. Rescheduling cancels follow-up against the old booking and uses the new date.
-- Quarterly due dates use the confirmed actual first meeting date. Booking alone does not start the cycle or quarterly emails.
-- The register keeps matched pairs visible until their first meeting is confirmed.
-- Unanswered quarterly and final check-ins receive reminders on days seven and fourteen and a Chair notification on day twenty-one.
-- A genuine response stops only that participant's relevant no-response reminders.
-- An incomplete reply remains outstanding and visible. Automatic replies and delivery failures do not count as participant responses.
-- Day-twenty-one nonresponses count as failures until a late response corrects them and the measures.
-- A partial reply preserves the original deadline and valid answers. Missing outcome answers become failures only for their measures.
-- Missing meeting counts or contact preferences leave completion outstanding without inventing answers or replacing outcome results.
-- Meeting-count, value, and Chair-contact questions work for both participants at every check-in.
-- Final mentee progress and value questions work as defined.
-- Final mentor value and future-mentoring questions work as defined.
-- The Chair can identify every participant who requests contact.
-- Fixed classification rules have passed fictional-response tests, including mixed, unclear, and missing feedback.
-- Positive experience feedback cannot turn a failed business-progress result into a successful mentorship.
-- Low-value feedback is flagged to the Chair without automatic personal outreach.
-- Early closure stops quarterly messages, requests final feedback, and keeps the relationship in the results.
-- Final measures count each person's role in each relationship once, including early endings and expired nonresponses.
-- Incomplete outcome feedback remains pending across that role's measures until complete or the original day-twenty-one deadline.
-- Superseded quarterly requests leave completion calculations. Final feedback replaces them; previously missed deadlines remain recorded.
-- Personal-record deletion preserves overall totals and original deadlines using only temporary private reporting data, then overall totals. Verify recovery and transfer too.
-- Withdrawal and deletion before any final request use the approved twenty-one-day reporting period from the Chair-recorded ending.
-- That reporting period never delays deletion or sends messages to the deleted person. Preserve valid outcomes at reporting inclusion.
-
-### Email and AI administration
-
-- Fictional tests cover clear confirmations, rescheduling, emailed answers, incomplete replies, complaints, and requests for help.
-- The system reliably matches the sender and request before updating a record.
-- Unmatched or uncertain messages reach the Chair without unsafe updates.
-- Repeated message processing does not duplicate records, updates, or outgoing messages.
-- Incoming text cannot authorize unrelated actions or disclosure of participant records.
-- Clear email and form answers use the same classification rules and records.
-- Chair notifications arrive without requiring an open AI conversation.
-- Approved schedules continue when the AI interface is closed.
-- Only approved templates send automatically. Other responses remain unsent until the Chair approves them.
-- Processing and delivery failures remain visible until resolved.
-- Fictional tests verify the original twenty-one-day deadline after partial replies, per-measure failures, preserved answers, and late corrections.
-
-### Publication and handoff
-
-- The website matches the approved Program Manual.
-- Main navigation contains About the program, Mentees, Mentors, and Training.
-- Official Example Chapter branding uses verified assets and your organization's brand guidance.
-- Every link works.
-- Public pages contain no private participant information.
-- The website works with a keyboard and on a mobile screen.
-- A future Mentorship Chair can follow the operating sequence without another guide.
-- A future Chair has administrative access to every required program asset.
-- The Mentorship Chair has approved opening the first cohort.
+Follow the handover guide in the repository.
+Verify the destination with retained records transferred privately.
+Stop the former sender before enabling the replacement.
+Revoke superseded access after verification.
+A future live transfer remains a separate operating decision.
 
 ## Contact and support
 

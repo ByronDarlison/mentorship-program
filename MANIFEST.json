@@ -1,9 +1,13 @@
 {
-  "revision": "bf8684198fc93b9d6489200c5f7016de89ca333c",
+  "revision": "1d83bc199109871181a608c3359ca9dbf3236e1f",
   "files": [
     {
       "path": ".gitignore",
       "sha256": "f782b289b45040f0ff631f55507666af4d74a7826225b7a2c6a3fee3e17f07e4"
+    },
+    {
+      "path": "docs/chair-guide.md",
+      "sha256": "8974b8f7af585d25a4c02466402c8c5fb9156a25c9c7ec80a08f5477e0ff146e"
     },
     {
       "path": "docs/data-dictionary.md",
@@ -31,7 +35,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "3fc2ea9b26b9d1f0fee6bdce8c7f2d279fb55421e8f1bd6687dbaa3c55eeb785"
+      "sha256": "333a6c2f62da77fc29817696c1bdfb227a38d981798f1850a1ec125be1fc7301"
     },
     {
       "path": "runtime/README.md",
@@ -407,7 +411,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "e0266444c28c22b99e045f69ef41780f2a6c29781794f48ff73d9cf3863c15c2"
+      "sha256": "ec618985e0b8352d42bc9658869e9f226317d8e370a4ae4b21b5f86554e17c57"
     },
     {
       "path": "LICENSE-CODE.txt",
@@ -419,7 +423,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "9fc04274ce3b2ca8d96cdb2328bf90d26791d9983a1039bd6b11b5520dbfce57"
+      "sha256": "d3016175725c48a4175381869bafa399f20a1c3b808672e07d53d1afa03b44fb"
     }
   ]
 }
