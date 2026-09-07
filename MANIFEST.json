@@ -1,29 +1,17 @@
 {
-  "revision": "1d83bc199109871181a608c3359ca9dbf3236e1f",
+  "revision": "5cf42336ecf0c9899636041045a6b56b05f99e2a",
   "files": [
     {
       "path": ".gitignore",
       "sha256": "f782b289b45040f0ff631f55507666af4d74a7826225b7a2c6a3fee3e17f07e4"
     },
     {
-      "path": "docs/chair-guide.md",
-      "sha256": "8974b8f7af585d25a4c02466402c8c5fb9156a25c9c7ec80a08f5477e0ff146e"
+      "path": "TECHNICAL_GUIDE.md",
+      "sha256": "91f05c25e4b82485d81adb8166ab229af0b68ee1ebda23c4ac349d6532a61dd6"
     },
     {
-      "path": "docs/data-dictionary.md",
-      "sha256": "0d6ea8bf0876df87c19e79534f9a26b7850ca050e5b16755d54a09f58c827d54"
-    },
-    {
-      "path": "docs/email-processing.md",
-      "sha256": "7a8f9e3fd60c551e1085261af88d11f71a44ca1925aef1649d634a0a5b882110"
-    },
-    {
-      "path": "docs/feedback-classification.md",
-      "sha256": "14537f041466b5b46feb242daebb0c064fa1a3ee3ed53f28deb28c1348d91dad"
-    },
-    {
-      "path": "docs/technical-overview.md",
-      "sha256": "76377b35f2f75308dff2609289613ad168f486058d11746d9bcf426021ce169b"
+      "path": "USER_GUIDE.md",
+      "sha256": "ffb1a7e786ade1f3143176ebb1ba2166b2514a27ba9aa63d2aeebc92d2db396e"
     },
     {
       "path": "package-lock.json",
@@ -36,10 +24,6 @@
     {
       "path": "program/program-manual.md",
       "sha256": "333a6c2f62da77fc29817696c1bdfb227a38d981798f1850a1ec125be1fc7301"
-    },
-    {
-      "path": "runtime/README.md",
-      "sha256": "79e75ab96a81e9ec2bec63e5ae03df912053cf366121d826c36b2d2a82a1e538"
     },
     {
       "path": "runtime/administration.mjs",
@@ -411,7 +395,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "ec618985e0b8352d42bc9658869e9f226317d8e370a4ae4b21b5f86554e17c57"
+      "sha256": "6043db1007ad51f3ac760a038534eb2b05e79dfe8f7a42585562eb0fa55fec0a"
     },
     {
       "path": "LICENSE-CODE.txt",
@@ -419,11 +403,11 @@
     },
     {
       "path": "LICENSE-MATERIALS.md",
-      "sha256": "bc4134d7c2db67b6d19348123eb3dd4e2c3274b9860346a93b52840e0bbcc055"
+      "sha256": "9c52395836f240c63e79e7d9815f4fdce23086b732aad08e668c17a681022708"
     },
     {
       "path": "README.md",
-      "sha256": "d3016175725c48a4175381869bafa399f20a1c3b808672e07d53d1afa03b44fb"
+      "sha256": "10920e2f992293e8662d7f51875bdf9b84ac648eafe4ef2d3e28f10613aeee2a"
     }
   ]
 }

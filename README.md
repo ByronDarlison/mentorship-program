@@ -1,37 +1,33 @@
 # Mentorship Program
 
-A small, portable mentorship program: a website, applications, training curriculum, email check-ins, results and Chair administration through existing AI chat. Original program materials by Byron Darlison.
+A simple mentorship program for entrepreneurs. People apply on the website; the Chair approves participants and matches through AI chat. The software handles email check-ins and reminders.
 
-This clean source edition comes from commit 1d83bc199109871181a608c3359ca9dbf3236e1f. It contains no private Git history, participant records, credentials or EO brand assets. See SOURCE.json for adaptations and MANIFEST.json for source checksums. Supply your own permitted branding.
+[Visit the EO Toronto website](https://mentorship.darlison.com)
 
-## Try it locally
+## Review the program
 
-Install Node.js 22 or later:
+1. Visit the website. Read the mentee and mentor applications, training, Terms and Privacy Notice.
+2. Read the [user guide](USER_GUIDE.md) to see how the Chair runs it.
+3. Send Byron any questions or requested changes.
+
+Everything needed to inspect or reuse the software is in this public repository. A technical reviewer can follow the [technical guide](TECHNICAL_GUIDE.md) to run a local demonstration, inspect the code or plan a transfer. Use the local demonstration for fictional applications; live submissions create records and send email.
+
+## Run it locally
+
+Install Node.js 22 or later, clone this repository, then run:
 
 ```sh
 npm ci
 npm run dev:connected
 ```
 
-Open http://127.0.0.1:8787/. Review mode is the safe default: supplied invented applications only, no external connections or email delivery. Run npm test for behavior checks. The code also includes operating mode, which accepts ordinary applications and sends real email once configured.
+Open http://127.0.0.1:8787/. Use the supplied fictional answers. No real email is sent. Run `npm test` for automated checks.
 
-## Understand and operate
+## Reuse and licenses
 
-- [Chair's guide](docs/chair-guide.md): practical steps, approvals, examples and exception handling.
-- [Program Manual](program/program-manual.md): program design, commitments, training and communication copy.
-- [Runtime setup](runtime/README.md): local use, operating configuration, Chair chat, backups and transfer.
-- [Technical overview](docs/technical-overview.md): components, responsibility and privacy boundaries.
-- [Data dictionary](docs/data-dictionary.md): records and relationships.
-- [Email processing](docs/email-processing.md): mailbox setup, replies, deadlines and delivery.
-- [Classification guide](docs/feedback-classification.md): fixed categories and fictional examples.
-- runtime/migrations/ and runtime/tests/: schema and behavior tests.
+- **Code and technical documentation:** [MIT License](LICENSE-CODE.txt).
+- **Program guidance, questions and training:** [Creative Commons Attribution 4.0](LICENSE-MATERIALS.md). Credit Byron Darlison and identify changes.
+- **Roboto font:** [SIL Open Font License](website/design-review/assets/Roboto-OFL.txt).
+- EO names, logos and branding are not licensed for reuse. This source uses neutral branding. Supply your own branding, accounts and reviewed policies.
 
-Copy wrangler.operating.example.jsonc to your own operating configuration and replace every placeholder. Configure your own Cloudflare, Google, Backblaze and OpenAI accounts. Update the public contact in website/config/operating.json. Verify provider settings, costs, a full reply cycle, private recovery and rendered pages before real use. Verification flags begin disabled intentionally. The current AI cap is US$5 per UTC month; recheck model pricing assumptions before adopting them.
-
-Program terms and privacy text are examples, not legal approval for your organization, jurisdiction or providers. Adapt and review them. Database deletion does not automatically remove mailbox, forwarded, exported or provider copies. See the guides before enabling intake.
-
-For takeover, use one empty stopped destination, preserve records and request identifiers with the current privacy checkpoint, verify restoration, then stop the former sender before activating the replacement. Transfer private data outside GitHub. No phone-alert service or separate admin dashboard is required.
-
-## Licenses
-
-Code and technical documentation: [MIT](LICENSE-CODE.txt). Original program materials: [CC BY 4.0](LICENSE-MATERIALS.md). Credit Byron Darlison and identify changes. Roboto retains its included SIL Open Font License. No EO endorsement or right to use EO trademarks is granted.
+Credentials and participant records are not stored here. The website's source copy remains in `program/program-manual.md`; reviewers do not need to read that build file.
