@@ -13,10 +13,37 @@ const source=await readFile(path.join(root,'program/program-manual.md'),'utf8');
 const destination=path.join(root,'emails');
 await mkdir(destination,{recursive:true});
 const entries=[];
+function behavior(id){
+  const manualReply='If the reply reaches the program mailbox, it is flagged for the Chair rather than applied automatically. The Chair handles it and approves any record change in chat.';
+  const feedbackReply='The software matches the sender and request, records the answers and classifies feedback. A genuine reply stops that person’s no-response reminders. Missing answers keep the original deadline; unclear answers and requests for help go to the Chair. Automatic replies do not count.';
+  const triggers={
+    'applications-open':'The Chair decides to invite applications and approves the wording and recipients. No automatic campaign is scheduled.',
+    'application-received':'An applicant successfully submits either application. The system queues the receipt after saving it.',
+    'moving-to-matching':'After the readiness decision, the Chair chooses to tell the applicant they are moving to matching and approves this message. Approval of an application alone does not send it.',
+    'not-selected':'The Chair decides not to offer a place and separately approves this message. A decision alone does not send it.',
+    'mentor-invitation':'The Chair chooses a prospective mentor and approves the invitation. It is not sent automatically.',
+    'match-introduction':'After approving the match, the Chair personalizes and separately approves the introduction. Approving the match alone does not send it.',
+    'training-invitation':'The Chair sets the training arrangements and approves the invitation and recipients. No automatic invitation is scheduled.',
+    'first-meeting':'The day after the planned first meeting. If unanswered, the same request is repeated 7 and 14 days after the first email; the Chair is notified at day 21.',
+    'chair-review':'A check-in requests contact, reports low value or contains feedback needing review. The next scheduled processing run queues the Chair notice.',
+    'chair-meeting-review':'The first meeting needs a Chair decision, such as an unclear reply or no new date. The next scheduled processing run queues the notice.',
+    'chair-deadline':'A request reaches its original 21-day response deadline with required information still missing. The next scheduled processing run queues the notice.',
+    'chair-email-review':'An incoming email cannot be matched safely or its content needs a Chair decision. The next scheduled processing run queues the notice.',
+    'chair-processing-error':'A check-in processing error creates an unresolved Chair flag. The next scheduled processing run queues the notice.',
+    'custom-message':'The Chair asks for a personal message, reviews its exact wording and recipient, and approves sending. This example is not an automatic template.'
+  };
+  if(id.startsWith('chair-application-'))return {trigger:'A '+id.split('-').at(-1)+' application is saved. The system queues a separate notification to the Chair.',reply:'Replying to this notice does not approve or decline the applicant. The Chair makes that decision in program chat. A reply reaching the program mailbox is flagged for review.'};
+  if(id.startsWith('check-in-'))return {trigger:'At month '+id.split('-').at(-1)+' after the confirmed first meeting, each participant receives a separate check-in. The hourly job sends due requests.',reply:feedbackReply};
+  if(id.startsWith('final-'))return {trigger:id.endsWith('-0')?'The Chair records an early ending. The system cancels future quarterly requests and queues final feedback for each participant.':'At month 12 after the confirmed first meeting, the system queues final feedback with the questions for this participant’s role.',reply:feedbackReply+' Final answers update the program results; missing outcome answers count as failures after the original deadline until corrected.'};
+  if(id.startsWith('reminder-'))return {trigger:id.split('-').at(-1)+' days after the original check-in was sent, only if that participant has not genuinely replied and the request is still active.',reply:feedbackReply+' The reply updates the original check-in, not a new request.'};
+  if(id==='first-meeting')return {trigger:triggers[id],reply:'A clear attendance reply records the actual meeting date and starts the twelve-month cycle. A clear reschedule moves the booking and follow-up. An unclear reply goes to the Chair and does not start the cycle. A genuine reply stops the old no-response reminders; an automatic reply does not.'};
+  if(id.startsWith('chair-'))return {trigger:triggers[id],reply:'Replying does not resolve the item or authorize a change. The Chair handles the underlying issue in program chat. If the reply reaches the program mailbox, it is flagged for review.'};
+  return {trigger:triggers[id],reply:manualReply};
+}
 async function add(id,title,recipient,when,message){
   const body=message.body??message.text;
   await writeFile(path.join(destination,id+'.html'),renderEmailHTML({subject:message.subject,body}));
-  entries.push({id,title,recipient,when,subject:message.subject});
+  entries.push({id,title,recipient,when,subject:message.subject,...behavior(id)});
 }
 const manualTemplate=heading=>{
   const section=source.split('#### '+heading+'\n')[1]?.split('\n#### ')[0]?.split('\n## ')[0];
