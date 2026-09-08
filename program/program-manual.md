@@ -37,7 +37,7 @@ Share what you’ve learned, help another entrepreneur move forward, and gain fr
 1. **Apply.** Complete the short application.
 2. **Match.** We do our best to find you a match.
 3. **Training.** Take the one-hour training to kick off the program.
-4. **Meet.** Meet for one hour in 10 of the 12 months.
+4. **Meet.** Meet for one hour in 10 of the 12 months, starting with your first mentoring meeting.
 
 ### The commitment
 
@@ -45,8 +45,8 @@ Share what you’ve learned, help another entrepreneur move forward, and gain fr
 
 - Attend the joint one-hour training.
 - Book the first 3–6 meetings during training.
-- At each meeting, keep the next 3–6 meetings booked, or the remaining meetings near the end of the program.
-- Meet for one hour in 10 of the 12 months.
+- Keep your next 3–6 meetings booked. Near the end of the program, book the remaining meetings.
+- Meet for one hour in 10 of the 12 months, starting with your first mentoring meeting.
 - Keep mentoring conversations confidential.
 - Complete the short quarterly check-ins.
 
@@ -236,9 +236,9 @@ We will do our best to match you with a suitable mentor, but we cannot guarantee
 1. What is your name?
 2. What is your preferred email address?
 3. LinkedIn profile URL (optional)
-4. Briefly describe your business: what you sell, who you serve, how long it has been operating, its annual revenue, and how many people work there.
+4. Tell us what your business sells, who it serves, how long it has operated, annual revenue for its latest completed financial year (including currency), and how many people work there.
 5. What business challenge or opportunity would you most value a mentor's help with? Briefly tell us what is happening now.
-6. Is there any experience that would make a mentor especially useful to you?
+6. Is there any experience that would make a mentor especially useful to you? (Optional)
 7. Is there anything else you would like us to know that could help us find a suitable mentor for you? (Optional)
 
 
@@ -251,13 +251,13 @@ We will do our best to match you with a suitable mentor, but we cannot guarantee
 
 Please answer briefly and do not include confidential mentoring discussions or private details about other people. We use your answers to confirm eligibility, understand what support you want, and identify a suitable mentor.
 
-We use your application only for eligibility, matching, and program administration. The optional LinkedIn link provides background where accessible; your answers remain the main basis for matching.
+We use your application only to review your eligibility, find a suitable match and run the program. Your answers are the main basis for matching; an optional LinkedIn link can provide background.
 
-AI will compare only the necessary application information, without names, contact details or LinkedIn URLs, to suggest possible matches. AI also helps with administration and classifies brief check-in feedback. The Mentorship Chair makes every participant and matching decision and reviews unclear feedback. The Privacy Notice explains provider processing and the different information needed for Chair administration.
+AI helps compare applications, process replies and organize feedback. We limit the information shared, but details in your answers may still identify you. The Mentorship Chair approves every participant and match and reviews unclear feedback.
 
-We keep your application while you are being considered. If you are not selected, we ask whether you want to remain under consideration. The Chair decides when to delete unmatched applications; there is no automatic deadline. We keep yours if you ask to remain. If matched, detailed information stays through participation and final review. Only the minimal record described in the Privacy Notice may remain afterward.
+We keep your application while you are being considered and, if matched, through participation and final review. The Privacy Notice explains what may remain afterward and for how long.
 
-You may ask the Mentorship Chair to delete your information at any time. The Privacy Notice explains removal from active records and remaining recovery or provider copies.
+You may ask the Mentorship Chair to see, correct or delete your information at any time. The Privacy Notice explains your choices and the limits of deletion.
 
 
 
@@ -290,13 +290,13 @@ The profile asks these questions:
 
 Please answer briefly and do not include confidential mentoring discussions or private details about other people. We use your answers to understand your experience and identify a suitable mentee.
 
-We use your application only for eligibility, matching, and program administration. The optional LinkedIn link provides background where accessible; your answers remain the main basis for matching.
+We use your application only to review your eligibility, find a suitable match and run the program. Your answers are the main basis for matching; an optional LinkedIn link can provide background.
 
-AI will compare only the necessary application information, without names, contact details or LinkedIn URLs, to suggest possible matches. AI also helps with administration and classifies brief check-in feedback. The Mentorship Chair makes every participant and matching decision and reviews unclear feedback. The Privacy Notice explains provider processing and the different information needed for Chair administration.
+AI helps compare applications, process replies and organize feedback. We limit the information shared, but details in your answers may still identify you. The Mentorship Chair approves every participant and match and reviews unclear feedback.
 
-We keep your application while you are being considered. If you are not selected, we ask whether you want to remain under consideration. The Chair decides when to delete unmatched applications; there is no automatic deadline. We keep yours if you ask to remain. If matched, detailed information stays through participation and final review. Only the minimal record described in the Privacy Notice may remain afterward.
+We keep your application while you are being considered and, if matched, through participation and final review. The Privacy Notice explains what may remain afterward and for how long.
 
-You may ask the Mentorship Chair to delete your information at any time. The Privacy Notice explains removal from active records and remaining recovery or provider copies.
+You may ask the Mentorship Chair to see, correct or delete your information at any time. The Privacy Notice explains your choices and the limits of deletion.
 
 
 
@@ -381,8 +381,8 @@ A useful conversation helps the mentee see more clearly and decide what to do ne
 #### Together
 
 - Attend the joint one-hour training and book your first 3–6 meetings before leaving.
-- At each meeting, keep the next 3–6 meetings booked, or the remaining meetings near the end of the program.
-- Meet for one hour in 10 of the 12 months. Your twelve-month cycle begins when your first mentoring meeting takes place.
+- Keep your next 3–6 meetings booked. Near the end of the program, book the remaining meetings.
+- Meet for one hour in 10 of the 12 months, starting with your first mentoring meeting.
 - Keep mentoring conversations confidential. Give each other your full attention and room to speak openly.
 - Complete the short quarterly check-ins about meeting frequency and the value of participating. At the end, mentees also reflect on business progress and mentors on whether they would mentor again. Keep confidential conversation details out of these responses.
 
@@ -936,7 +936,7 @@ The Chair will explain which copies remain, where they are held, when they expir
 
 We restrict access and keep private backups, but no system can guarantee absolute security. Information may be stored or processed outside Canada and be subject to local laws, including lawful access by authorities. Our private backups are stored in the United States.
 
-For privacy questions or requests, contact the [Mentorship Chair](#contact-and-support) at chair@example.invalid.
+For privacy questions or requests, contact the [Mentorship Chair](#contact-and-support).
 
 
 
@@ -1486,7 +1486,7 @@ Following your applications to the [Example Chapter Mentorship Program](https://
 
 Before your mentoring meetings begin, you will complete the live online training together. Your first mentoring meeting starts your twelve months in the program.
 
-The mentee owns scheduling. You will book your first 3–6 meetings together before leaving training and share the first meeting date with the Chair. At each meeting, keep the next 3–6 meetings booked, or the remaining meetings near the end of the program.
+The mentee owns scheduling. You will book your first 3–6 meetings together before leaving training and share the first meeting date with the Chair. Keep your next 3–6 meetings booked. Near the end of the program, book the remaining meetings.
 
 Both participants should [review the training curriculum](https://mentorship.example.invalid/training) beforehand, including how to prepare for your first meeting.
 

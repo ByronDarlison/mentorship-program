@@ -24,7 +24,7 @@ export function validateApplication(input, config) {
     const value = answers[key];
     if (typeof value !== 'string' || value.length > (key === 'name' ? 200 : 6000)) { errors[key] = 'Please enter a shorter answer.'; continue; }
     clean[key] = value.trim();
-    if (!clean[key] && !['linkedin-url', 'additional-information'].includes(key)) errors[key] = 'Please answer this question.';
+    if (!clean[key] && !['linkedin-url', 'additional-information', 'mentor-experience'].includes(key)) errors[key] = 'Please answer this question.';
   }
   if (clean.email && (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean.email) || clean.email.length > 254)) errors.email = 'Please enter a valid email address.';
   if (clean['linkedin-url']) {

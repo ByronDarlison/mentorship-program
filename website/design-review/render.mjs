@@ -147,7 +147,9 @@ export function renderDesignReview(source, options = {}) {
     pages.set(route, document(pageTitle, `<div class="site-surface"><a class="skip-link" href="#main">Skip to content</a>${header(true)}<main id="main" class="container reference-main${training ? ' training-page' : ''}" tabindex="-1">${referenceBody}</main>${footer()}</div>`, 'review-page'));
   }
   for (const [route, html] of pages) {
-    pages.set(route, html.replace(/<a href="https:\/\/oo\.darlison\.com\/?"/g, '$& target="_blank" rel="noopener noreferrer"'));
+    const current = route === '/' ? '/home' : route;
+    const oriented = html.replace(/(<nav id="main-navigation"[^>]*>)([\s\S]*?)(<\/nav>)/, (_, open, links, close) => open + links.replace(`<a href="${current}">`, `<a href="${current}" aria-current="page">`) + close);
+    pages.set(route, oriented.replace(/<a href="https:\/\/oo\.darlison\.com\/?"/g, '$& target="_blank" rel="noopener noreferrer"'));
   }
   if (options.connected) {
     for (const [route, html] of pages) {

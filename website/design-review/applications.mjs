@@ -63,8 +63,8 @@ export function renderApplicationBody(manual, role) {
       const field = index < 2
         ? `<input id="${id}" name="${names[index]}" type="${index === 1 ? 'email' : 'text'}" autocomplete="${index === 0 ? 'name' : 'email'}" required>`
         : index === 2
-          ? `<input id="${id}" name="${names[index]}" type="url" autocomplete="url">`
-          : `<textarea id="${id}" name="${names[index]}" rows="${rows[index]}" autocomplete="off"${index === 6 ? '' : ' required'}></textarea>`;
+          ? `<input id="${id}" name="${names[index]}" type="url" autocomplete="url" aria-describedby="${id}-hint"><p id="${id}-hint">Example: https://www.linkedin.com/in/your-name</p>`
+          : `<textarea id="${id}" name="${names[index]}" rows="${rows[index]}" autocomplete="off"${index >= 5 ? '' : ' required'}></textarea>`;
       return `<li><label for="${id}">${escape(question)}</label>${field}${index === 4 ? optionalTool : ''}</li>`;
     };
     const questionGroup = (title, id, indexes) => `<section class="application-question-group" aria-labelledby="${id}"><h3 id="${id}">${title}</h3><ol class="application-questions" start="${indexes[0] + 1}">${indexes.map(renderMenteeQuestion).join('')}</ol></section>`;
@@ -90,9 +90,9 @@ ${questionGroup('Your business and focus', 'business-and-focus', [3, 4, 5, 6])}<
 
 <section class="application-information" aria-labelledby="information-use"><h2 id="information-use">How we use your information</h2>
 ${paragraph(sectionId, 'We use your application only')}
-${paragraph(sectionId, 'AI will compare only the necessary application information')}
+${paragraph(sectionId, 'AI helps compare applications')}
 ${paragraph(sectionId, 'We keep your application while')}
-${chairContactParagraph(sectionId, 'You may ask the Mentorship Chair to delete')}</section>
+${chairContactParagraph(sectionId, 'You may ask the Mentorship Chair to see')}</section>
 
 <section class="application-acknowledgement" aria-labelledby="confirm-application"><h2 id="confirm-application">Confirm and apply</h2>
 <label class="acknowledgement-label" for="mentee-acknowledgement"><input id="mentee-acknowledgement" type="checkbox" required> <span>${escape(acknowledgement)}</span></label>
@@ -111,7 +111,7 @@ ${chairContactParagraph(sectionId, 'You may ask the Mentorship Chair to delete')
     const field = index < 2
       ? `<input id="${id}" name="${names[index]}" type="${index === 1 ? 'email' : 'text'}" autocomplete="${index === 0 ? 'name' : 'email'}" required>`
       : index === 2
-        ? `<input id="${id}" name="${names[index]}" type="url" autocomplete="url">`
+        ? `<input id="${id}" name="${names[index]}" type="url" autocomplete="url" aria-describedby="${id}-hint"><p id="${id}-hint">Example: https://www.linkedin.com/in/your-name</p>`
         : `<textarea id="${id}" name="${names[index]}" rows="${rows[index]}" autocomplete="off"${index === 5 ? '' : ' required'}></textarea>`;
     return `<li><label for="${id}">${escape(question)}</label>${field}</li>`;
   };
@@ -138,9 +138,9 @@ ${questionGroup('Your experience', 'your-experience', [3, 4, 5])}</section>
 
 <section class="application-information" aria-labelledby="information-use"><h2 id="information-use">How we use your information</h2>
 ${paragraph(sectionId, 'We use your application only')}
-${paragraph(sectionId, 'AI will compare only the necessary application information')}
+${paragraph(sectionId, 'AI helps compare applications')}
 ${paragraph(sectionId, 'We keep your application while')}
-${chairContactParagraph(sectionId, 'You may ask the Mentorship Chair to delete')}</section>
+${chairContactParagraph(sectionId, 'You may ask the Mentorship Chair to see')}</section>
 
 <section class="application-acknowledgement" aria-labelledby="confirm-application"><h2 id="confirm-application">Confirm and apply</h2>
 <label class="acknowledgement-label" for="mentor-acknowledgement"><input id="mentor-acknowledgement" type="checkbox" required> <span>${escape(acknowledgement)}</span></label>

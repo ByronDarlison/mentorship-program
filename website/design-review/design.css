@@ -65,6 +65,7 @@ html:not([data-navigation-ready]) .site-surface{padding-block-start:0}
 #main-navigation{display:flex;align-items:center;gap:28px}
 #main-navigation a{position:relative;font-size:var(--text-control);line-height:var(--line-control);font-weight:700;color:var(--base-blue);text-decoration:none;white-space:nowrap}
 #main-navigation a:hover{text-decoration:none}
+#main-navigation a[aria-current="page"]::after{content:"";position:absolute;height:3px;left:0;right:0;bottom:-5px;background:var(--eo-pink)}
 #main-navigation a:hover::after,#main-navigation a:focus-visible::after{content:"";position:absolute;height:5px;left:0;right:0;bottom:-5px;background:var(--eo-pink)}
 .menu-toggle{display:none;background:white;border:1px solid var(--rule);border-radius:4px;min-height:44px;padding:8px 16px;font-size:var(--text-control);line-height:var(--line-control);font-weight:700}
 

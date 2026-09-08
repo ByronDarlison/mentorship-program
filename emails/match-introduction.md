@@ -4,7 +4,7 @@ Following your applications to the [Example Chapter Mentorship Program](https://
 
 Before your mentoring meetings begin, you will complete the live online training together. Your first mentoring meeting starts your twelve months in the program.
 
-The mentee owns scheduling. You will book your first 3–6 meetings together before leaving training and share the first meeting date with the Chair. At each meeting, keep the next 3–6 meetings booked, or the remaining meetings near the end of the program.
+The mentee owns scheduling. You will book your first 3–6 meetings together before leaving training and share the first meeting date with the Chair. Keep your next 3–6 meetings booked. Near the end of the program, book the remaining meetings.
 
 Both participants should [review the training curriculum](https://mentorship.example.invalid/training) beforehand, including how to prepare for your first meeting.
 
