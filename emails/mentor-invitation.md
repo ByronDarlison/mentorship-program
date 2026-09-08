@@ -6,7 +6,7 @@ The [Example Chapter Mentorship Program](https://mentorship.example.invalid/) co
 
 The commitment is one live, one-hour online training session together, followed by one-hour meetings in ten of the twelve months beginning with your first mentoring meeting.
 
-[Learn more and apply as a mentor](https://mentorship.example.invalid/mentors). We will do our best to find a suitable match, but cannot guarantee one.
+[Learn more and apply as a mentor](https://mentorship.example.invalid/apply/mentor). We will do our best to find a suitable match, but cannot guarantee one.
 
 If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 

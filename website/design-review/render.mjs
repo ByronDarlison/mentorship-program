@@ -19,7 +19,7 @@ function logo() {
 }
 
 function header(reference = false) {
-  return `<header class="site-header"><div class="draft-banner">Draft</div><div class="container header-inner">
+  return `<header class="site-header"><div class="draft-banner">Draft, subject to Example Chapter Board approval.</div><div class="container header-inner">
 <div class="header-identity"><a class="brand-link" href="/home" aria-label="Example Chapter Mentorship home">${logo()}</a><p class="header-program-name">Mentorship Program</p></div>
 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">Menu</button>
 <nav id="main-navigation" aria-label="Main navigation">
@@ -29,15 +29,9 @@ function header(reference = false) {
 
 function footer() {
   return `<footer class="site-footer"><div class="footer-band"><div class="container footer-inner">
-<p>Questions? Contact the Mentorship Chair: <a href="mailto:chair@example.invalid">chair@example.invalid</a></p>
+<p>Questions <a href="mailto:mentorship@example.invalid">mentorship@example.invalid</a></p>
 <nav aria-label="Supporting links"><a href="/terms">Program Terms</a><a href="/privacy">Privacy Notice</a></nav>
 </div></div></footer>`;
-}
-
-export function renderCheckInPage(copy){
-  return document(copy.title,`<div class="site-surface"><a class="skip-link" href="#main">Skip to content</a>${header()}<main id="main" class="container application-page" tabindex="-1">
-<h1 id="check-in-title">${escape(copy.title)}</h1><p>${escape(copy.emailOnly)}</p>
-</main>${footer()}</div>`,'review-page');
 }
 
 export function renderDesignReview(source, options = {}) {
@@ -126,15 +120,14 @@ export function renderDesignReview(source, options = {}) {
     const title = role === 'mentee' ? 'Mentee application' : 'Mentor application';
     pages.set(`/apply/${role}`, document(title, `<div class="site-surface"><a class="skip-link" href="#main">Skip to content</a>${header(true)}<main id="main" class="container application-page" tabindex="-1">${renderApplicationBody(manual, role)}</main>${footer()}</div>`, 'review-page'));
   }
-  // Supporting links expose the existing approved, closed content as reference.
-  // They do not imply that these pages have received this homepage's visual design.
+  // Render only the current supporting pages. Applications already use their own layout.
   const reference = renderSite(source, {
     mode: 'local-preview', siteName: 'Example Chapter Mentorship', operatorName: 'Example Chapter',
     origin: 'http://127.0.0.1:4318', contactEmail: null,
     applicationsOpen: false, externalServicesEnabled: false
   }, undefined, {mode:options.mode});
   for (const [route, html] of reference.pages) {
-    if (route === '/') continue;
+    if (route === '/' || route.startsWith('/apply/')) continue;
     const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
     if (!main) throw new Error(`Reference content missing: ${route}`);
     let referenceBody = main.replaceAll('href="/"', 'href="/home"').replace(/<a href="(https:[^"]+)"/g, '<a target="_blank" rel="noopener noreferrer" href="$1"');

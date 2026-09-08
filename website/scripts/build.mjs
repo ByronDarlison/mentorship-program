@@ -1,9 +1,9 @@
 import {sourceMetadata} from '../../release-origin.mjs';
-import { readFile, mkdir, writeFile, copyFile, cp } from 'node:fs/promises';
+import { readFile, mkdir, writeFile, copyFile, cp, rm } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { renderDesignReview,renderCheckInPage } from '../design-review/render.mjs';
+import { renderDesignReview } from '../design-review/render.mjs';
 import {checkInContent} from '../src/check-in-content.mjs';
 import { examples, fields } from '../../runtime/fixtures.mjs';
 
@@ -21,9 +21,8 @@ export async function build(configPath = 'website/config/review.json') {
   const result = renderDesignReview(source, {connected:true,mode:config.mode});
   const checkIn=checkInContent(source);
   if(operating)checkIn.copy.review='';
-  result.pages.set('/check-in',renderCheckInPage(checkIn.copy));
   if (!/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(config.contactEmail)) throw new Error('Set a valid contactEmail in the operator configuration.');
-  for (const [route, html] of result.pages) result.pages.set(route, html.replaceAll('mailto:chair@example.invalid', `mailto:${config.contactEmail}`).replaceAll('>chair@example.invalid</a>', `>${config.contactEmail}</a>`));
+  for (const [route, html] of result.pages) result.pages.set(route, html.replaceAll('mailto:chair@example.invalid', `mailto:${config.contactEmail}`).replaceAll('>chair@example.invalid</a>', `>${config.contactEmail}</a>`).replaceAll('mailto:mentorship@example.invalid', `mailto:${config.contactEmail}`).replaceAll('>mentorship@example.invalid</a>', `>${config.contactEmail}</a>`));
   const reviewSection = source.split(`## Application ${operating?'operating':'review'} messages\n`)[1]?.split('\n## ')[0];
   const copy = JSON.parse(reviewSection?.match(/```json\n([\s\S]*?)\n```/)?.[1] || 'null');
   if (!copy?.savedTitle || !copy?.saved || !copy?.failed || !copy?.saving) throw new Error('Missing canonical application review messages');
@@ -32,6 +31,10 @@ export async function build(configPath = 'website/config/review.json') {
   copy.receiptBody = receipt?.split(/\*\*Subject:\*\* [^\n]+\n/)[1]?.trim();
   if (!copy.receiptSubject || !copy.receiptBody) throw new Error('Missing canonical application receipt');
   const destination = path.join(root, 'website/dist');
+  // Remove obsolete generated pages before upload; keep their source documentation in Git.
+  for (const page of ['program','mentees','mentors','contact','manual','licensing','check-in']) {
+    await rm(path.join(destination,page,'index.html'), {force:true});
+  }
   await mkdir(path.join(destination, 'assets'), {recursive:true});
   for (const [route, html] of result.pages) {
     const output = route === '/404' ? path.join(destination, '404.html') : path.join(destination, route, 'index.html');

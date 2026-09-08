@@ -193,7 +193,7 @@ Applications, receipts and Chair notifications save together. Submission IDs pre
 
 Each hourly run reads mail before applying reminders and deadlines. Sender and original message references must match. Quoted text, attachments and automatic replies are excluded. A failed mailbox scan holds deadline processing. The current scan bound is 500 messages; monitor volume before reaching it.
 
-Check-ins are email-only. Sender and email-thread/request matching connect replies to records; message IDs prevent duplicate updates. Partial replies preserve the original deadline. An uncertain send is held until mailbox evidence resolves it, not blindly retried. The retired `/api/check-in` endpoint returns 410 and does not read or write participant records. `/check-in` only directs visitors to reply to their email. Legacy form helpers remain for historical tests, not as an available participant response route.
+Check-ins are email-only. Sender and email-thread/request matching connect replies to records; message IDs prevent duplicate updates. Partial replies preserve the original deadline. An uncertain send is held until mailbox evidence resolves it, not blindly retried. The retired `/api/check-in` endpoint returns 410 and does not read or write participant records. There is no check-in webpage. Legacy form helpers remain for historical tests, not as an available participant response route.
 
 AI receives limited text and coded matching facts, not name, email or LinkedIn fields. Identifier checks are not guaranteed anonymization. AI failures leave work pending for review. Only the Chair approves participants, matches and discretionary messages. Record versions prevent stale proposals being applied.
 

@@ -69,7 +69,7 @@ Quarterly check-ins ask how many meetings took place, what value the participant
 
 Month 6, 9 and 12 emails briefly recall that person's previous check-in in conversational language, including its date, meeting count and exact feedback. They do not repeat previous Chair-contact requests, show AI ratings or share the partner's report. The meeting question gives an explicit start date based on the last reported count, or the first meeting if no count was received. Missing prior answers are identified, not invented. At month 12, progress and overall value refer to the whole mentorship, while meeting counts cover only the stated period.
 
-Participants reply directly to the check-in email. The software connects the reply to the participant and original request. Reminders repeat the questions, so nobody needs to find another page or an earlier message. Unclear or incomplete answers go to the Chair for follow-up. The old `/check-in` page only explains that answers are now sent by email.
+Participants reply directly to the check-in email. The software connects the reply to the participant and original request. Reminders repeat the questions, so nobody needs to find another page or an earlier message. Unclear or incomplete answers go to the Chair for follow-up. There is no check-in webpage.
 
 The four targets are 80% of mentees reporting meaningful business progress, 80% of mentees receiving meaningful value, 80% of mentors receiving meaningful value and 80% of mentors interested in mentoring again. Progress and value are separate. Enjoying the conversations does not replace business progress; an important decision can count without financial proof.
 

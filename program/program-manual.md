@@ -1470,7 +1470,7 @@ The [Example Chapter Mentorship Program](https://mentorship.example.invalid/) co
 
 The commitment is one live, one-hour online training session together, followed by one-hour meetings in ten of the twelve months beginning with your first mentoring meeting.
 
-[Learn more and apply as a mentor](https://mentorship.example.invalid/mentors). We will do our best to find a suitable match, but cannot guarantee one.
+[Learn more and apply as a mentor](https://mentorship.example.invalid/apply/mentor). We will do our best to find a suitable match, but cannot guarantee one.
 
 If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
@@ -1678,7 +1678,9 @@ Participants should contact the Mentorship Chair when they have a concern or nee
 
 Selected participants receive the Chair's direct contact details.
 
-For questions, contact the Mentorship Chair at `chair@example.invalid`.
+Website banner: Draft, subject to Example Chapter Board approval.
+
+Website footer: Questions mentorship@example.invalid
 Please do not send confidential mentoring discussions or private details about other people.
 Program email uses the dedicated mentorship mailbox and forwards to the Chair. This does not grant AI access to the Chair's personal inbox.
 AI handles clear routine replies. The Chair receives unclear replies, complaints, and requests for help.

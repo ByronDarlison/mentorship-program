@@ -73,7 +73,9 @@ function renderTokens(manual, tokens, route, config) {
   renderer.rules.link_open = (items, index, options, env, self) => {
     const item = items[index];
     const href = item.attrGet('href');
-    if (href.startsWith('#')) {
+    if (href === '#contact-and-support') {
+      item.attrSet('href', 'mailto:chair@example.invalid');
+    } else if (href.startsWith('#')) {
       const destination = manual.headingDestinations.get(href.slice(1));
       if (!destination) throw new Error(`Unknown manual anchor: ${href}`);
       item.attrSet('href', `${route.path === '/manual' ? '/manual' : destination}${href}`);
@@ -157,7 +159,7 @@ function shell(route, config, body, metadata, toc = '') {
 <div class="preview-banner"><div class="container"><span class="preview-label">Local preview</span> Program under development. No applications are open.</div></div>
 <main id="main" class="container" tabindex="-1">${toc ? `<div class="reading-layout">${toc}<article>${body}</article></div>` : body}</main>
 <footer class="site-footer"><div class="container"><a class="footer-title" href="/">${escape(config.siteName)}</a>
-<nav aria-label="Supporting links"><a href="/terms">Program Terms</a><a href="/privacy">Privacy Notice</a><a href="/contact">Contact and support</a><a href="/licensing">Licensing and reuse</a></nav>
+<nav aria-label="Supporting links"><a href="/terms">Program Terms</a><a href="/privacy">Privacy Notice</a></nav><p>Questions <a href="mailto:mentorship@example.invalid">mentorship@example.invalid</a></p>
 <p class="review-note">Local review only. Official branding and final design remain under review.</p>
 <p class="source-note">Manual updated ${escape(metadata.updated)} · Source ${escape(metadata.commit.slice(0, 7))}</p></div></footer>
 </body></html>`;
@@ -198,6 +200,6 @@ export function renderSite(source, config, metadata = { updated: '2026-09-04', c
     pages.set(route.path, shell(route, config, body, metadata, toc));
   }
   const notFound = { path: '/404', title: 'Page not found' };
-  pages.set('/404', shell(notFound, config, '<div class="not-found"><p class="eyebrow">404</p><h1>Page not found</h1><p><a href="/">Return to mentorship home</a></p><p><a href="/program">About the program</a> · <a href="/contact">Contact and support</a></p></div>', metadata));
+  pages.set('/404', shell(notFound, config, '<div class="not-found"><p class="eyebrow">404</p><h1>Page not found</h1><p><a href="/">Return to mentorship home</a></p><p><a href="mailto:chair@example.invalid">Contact the Mentorship Chair</a></p></div>', metadata));
   return { pages, report: { ...metadata, manualSHA256: manual.digest, internalNoteCount: manual.internalNoteCount, sections: manual.sections.map(section => ({ id: section.id, title: section.title, destination: manual.headingDestinations.get(section.id) })) } };
 }
