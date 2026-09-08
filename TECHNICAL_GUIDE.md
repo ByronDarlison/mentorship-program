@@ -61,6 +61,8 @@ The operating configuration uses `MODE=operating`, `MAIL_MODE=delivery` and hour
 
 For a hostname managed in the same Cloudflare account, the route entry is `{"pattern":"YOUR-PROGRAM-HOST","custom_domain":true}` inside the configuration's `routes` array. Cloudflare provisions its DNS and certificate. Verify the address in an ordinary browser before sharing it.
 
+When moving the program to another domain, update every website and email link, not just DNS. Change `SITE_ORIGIN` and the Chair's `OPERATOR_ORIGIN`, then replace the old domain in the manual's email templates, website configuration and documentation. Regenerate the website and HTML email examples with `npm run emails` and deploy the updated application. The application links in the manual are written explicitly and do not automatically follow `SITE_ORIGIN`. Use descriptive hyperlinks in HTML emails, such as “Apply as a mentee”, rather than displaying full URLs. Keep the old domain redirecting to the new one where possible so previously sent links continue to work; otherwise those old emails retain their original addresses. Check application and check-in links before retiring the old domain.
+
 Tests build the local review version. Always rebuild with `website/config/operating.json` immediately before an operating deployment. Keep the previous code revision available for rollback; never reset the database to roll back code.
 
 ### Secrets and providers

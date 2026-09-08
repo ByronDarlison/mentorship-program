@@ -2,13 +2,13 @@
 // Message wording stays in the existing templates. All dynamic text is escaped.
 export const escapeHTML=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 function inline(text){
-  const pattern=/https:\/\/[^\s<>"']+/g;
+  const pattern=/\[([^\]\n]+)\]\((https:\/\/[^\s<>"')]+)\)|https:\/\/[^\s<>"']+/g;
   let result='',position=0;
   for(const match of text.matchAll(pattern)){
-    const url=match[0].replace(/[.,;!?)]+$/,'');
+    const url=match[2]||match[0].replace(/[.,;!?)]+$/,'');
     result+=escapeHTML(text.slice(position,match.index));
-    result+=`<a href="${escapeHTML(url)}" style="color:#3d46f2;text-decoration:underline;overflow-wrap:anywhere;word-break:break-word">${escapeHTML(url)}</a>`;
-    position=match.index+url.length;
+    result+=`<a href="${escapeHTML(url)}" style="color:#3d46f2;text-decoration:underline;overflow-wrap:anywhere;word-break:break-word">${escapeHTML(match[1]||url)}</a>`;
+    position=match.index+(match[2]?match[0].length:url.length);
   }
   return result+escapeHTML(text.slice(position));
 }

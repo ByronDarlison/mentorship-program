@@ -1,5 +1,5 @@
 {
-  "revision": "39e666a1e6e43541a84ad531f71a5cce2e1dbe5e",
+  "revision": "ad2dec6d346cdf9b77397383ac3a42ed698c61a0",
   "files": [
     {
       "path": ".gitignore",
@@ -7,7 +7,7 @@
     },
     {
       "path": "TECHNICAL_GUIDE.md",
-      "sha256": "226bf60cf20f2b5db3692af52db394ec75d4bf91f08bc84ebb529b6b7f277cbc"
+      "sha256": "629d4f3d6bda10b22712bab6d9f283dcaa7b2cb048d7740668a6530b3b660433"
     },
     {
       "path": "USER_GUIDE.md",
@@ -19,7 +19,7 @@
     },
     {
       "path": "emails/applications-open.html",
-      "sha256": "95a91df4a2bfb46cbb5c40743db107d67a84b67991bb0a9732f2976654732456"
+      "sha256": "a98e950dba4a889b45661c21b2e5af0cef0bb5da49cf2869fe3fbb80382ba0db"
     },
     {
       "path": "emails/chair-application-mentee.html",
@@ -131,7 +131,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "88e021834c16a091ca3641f9f1136d299ebc9b27008595b26ff207220810a4a6"
+      "sha256": "48f3f1032ebfa76efda2a609c681267555fa3dbfb9f4d8f4d700654fa4477d3e"
     },
     {
       "path": "runtime/administration.mjs",
@@ -171,7 +171,7 @@
     },
     {
       "path": "runtime/email-html.mjs",
-      "sha256": "3d1204bf80281e23b71393548bd854257af418403a8fe7f38b3d29809768c8a1"
+      "sha256": "92bb6b36d0d8af18df22448f093954755ef964c94774e2c5b0c155a5e4dbc6ff"
     },
     {
       "path": "runtime/email-replies.mjs",
@@ -515,7 +515,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "3b18607d4c766588f4739f2119d4802fc2901b31b3a0b77a2aef83b378f45b1c"
+      "sha256": "fff16d179d830eb0e9b59116c39bcbd0b32513aef6c803b4258a569eb37aabc9"
     },
     {
       "path": "LICENSE-CODE.txt",

@@ -1448,9 +1448,9 @@ Mentees must be current Example Chapter members. Mentors may come from any organ
 
 The Chair approves mentors based on relevant experience and judgment. Mentors may be invited or may express interest directly.
 
-Apply as a mentee: https://mentorship.example.invalid/mentees
+[Apply as a mentee](https://mentorship.example.invalid/mentees)
 
-Apply as a mentor: https://mentorship.example.invalid/mentors
+[Apply as a mentor](https://mentorship.example.invalid/mentors)
 
 Each application page explains the program and commitments. Applying does not guarantee a place or a suitable match.
 
