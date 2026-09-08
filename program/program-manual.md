@@ -49,7 +49,6 @@ Share what you’ve learned, help another entrepreneur move forward, and gain fr
 - Meet for one hour in 10 of the 12 months.
 - Keep mentoring conversations confidential.
 - Complete the short quarterly check-ins.
-- Do not engage in paid services between each other.
 
 #### As a mentee
 
@@ -244,10 +243,6 @@ We will do our best to match you with a suitable mentor, but we cannot guarantee
 
 
 
-> Do not engage in paid services between each other.
-
-
-
 > I understand the commitments and how my information will be used, and I would like to be considered for the program.
 
 
@@ -288,10 +283,6 @@ The profile asks these questions:
 4. What experience do you have that could be useful to an entrepreneur?
 5. What types of businesses, challenges, or situations do you know best?
 6. Is there anything else you would like us to know that could help us find a suitable mentee for you? (Optional)
-
-
-
-> Do not engage in paid services between each other.
 
 
 
@@ -394,7 +385,6 @@ A useful conversation helps the mentee see more clearly and decide what to do ne
 - Meet for one hour in 10 of the 12 months. Your twelve-month cycle begins when your first mentoring meeting takes place.
 - Keep mentoring conversations confidential. Give each other your full attention and room to speak openly.
 - Complete the short quarterly check-ins about meeting frequency and the value of participating. At the end, mentees also reflect on business progress and mentors on whether they would mentor again. Keep confidential conversation details out of these responses.
-- Do not engage in paid services between each other.
 
 #### The mentee's part
 
@@ -592,7 +582,6 @@ By the end, participants understand:
 - How questions help a mentee think and find their own answers.
 - When and how a mentor may share experience or a direct view.
 - The confidentiality and participation commitments.
-- The commitment not to engage in paid services with each other.
 - How the brief quarterly check-ins work.
 - How the first meeting starts the twelve-month cycle.
 
@@ -640,8 +629,6 @@ Ask participants to notice one distinction throughout the session:
 #### How the program works
 
 Review the twelve-month cycle, ten-meeting commitment, quarterly check-ins, confidentiality, and Chair support.
-
-Reinforce the signup expectation: “Do not engage in paid services between each other.”
 
 Confirm that the first mentoring meeting starts each pair's cycle. Cohort membership does not create a common end date.
 
@@ -1187,10 +1174,6 @@ The program provides volunteer mentorship. It does not replace legal, accounting
 The mentor does not become the mentee's consultant, manager, or operator.
 
 A mentor may share relevant experience or a direct view after understanding the situation and asking what kind of help the mentee wants. The mentee remains responsible for seeking qualified advice and making every decision.
-
-> Do not engage in paid services between each other.
-
-Both signup forms explain this request before submission, and training reinforces it. It applies only while the pair is participating together in the program.
 
 Both participants should disclose any conflict or commercial interest that could affect the relationship.
 
