@@ -4,7 +4,7 @@ import {readdir,readFile} from 'node:fs/promises';
 import {messageRenderer} from '../templates.mjs';
 
 const closing='If you have any questions, reply to this email and the Mentorship Chair will get back to you.';
-const guidance='Please keep your answers brief. There is no need to share the details of your mentoring conversations.';
+const guidance='There is no need to share the details of your mentoring conversations.';
 const directory=new URL('../../emails/',import.meta.url);
 
 test('each of the 25 email examples has the closing appropriate to its action',async()=>{
@@ -16,6 +16,7 @@ test('each of the 25 email examples has the closing appropriate to its action',a
     assert.equal(html.includes(closing),contactClosing.has(file),file);
     if(file.startsWith('check-in-')||file.startsWith('final-'))assert.ok(html.includes(guidance),file);
     assert.ok(!html.includes('Please answer briefly without confidential details.'),file);
+    assert.ok(!html.includes('Please keep your answers brief.'),file);
     assert.ok(!html.includes('Please keep confidential mentoring details out of your reply.'),file);
   }
 });

@@ -845,7 +845,7 @@ At month twelve, or when a relationship ends early, the mentor answers:
 
 Meeting counts are numbers. Value, progress, and future-mentoring questions use free text, not rating choices. Only the contact request is yes or no. For the first check-in, count meetings since the relationship began.
 
-Please answer briefly and do not include confidential details.
+There is no need to share the details of your mentoring conversations.
 
 Reply to the check-in email with your answers. There is no separate check-in form or participant login.
 
@@ -1593,7 +1593,7 @@ Please reply to this email with your answers to the questions below. Tell us how
 
 Count meetings since your last check-in, or since your mentorship began if this is your first.
 
-Please keep your answers brief. There is no need to share the details of your mentoring conversations.
+There is no need to share the details of your mentoring conversations.
 
 Thank you for being part of the program and helping us make it better.
 
@@ -1627,7 +1627,7 @@ Your twelve months in the [Example Chapter Mentorship Program](https://mentorshi
 
 Please reply to this email with your answers to the questions below. Your feedback helps us understand what the mentorship has meant for you and improve the program.
 
-Please keep your answers brief. There is no need to share the details of your mentoring conversations.
+There is no need to share the details of your mentoring conversations.
 
 Count meetings since your last check-in, or since your mentorship began if this is your first.
 
@@ -1746,7 +1746,7 @@ This is reusable program guidance. Each operator sets its own application and co
   "title": "Mentorship check-in",
   "emailOnly": "Check-ins are now answered by email. Please reply to the check-in message you received with your answers. If you cannot find it, contact the Mentorship Chair below.",
   "finalTitle": "Final mentorship check-in",
-  "instruction": "Please answer briefly and do not include confidential details.",
+  "instruction": "There is no need to share the details of your mentoring conversations.",
   "partialGuidance": "You can save some answers now and add others later. Answers already sent by email do not need repeating.",
   "firstPeriod": "Count meetings since your mentorship began.",
   "finalScopeMentee": "For the progress and value questions, think about the whole mentorship. Only the meeting count covers the period stated above.",
