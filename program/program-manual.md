@@ -1607,7 +1607,7 @@ Send only to a participant whose check-in is still unanswered. These templates c
 
 **Day seven subject:** A reminder about your mentorship check-in
 
-We recently emailed you a check-in for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Your feedback helps us understand how the program is working for you.
+We recently emailed you your {{check_in_label}} for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Your feedback helps us understand how the program is working for you.
 
 {{check_in_context}}
 
@@ -1621,7 +1621,7 @@ Thank you for taking a moment to share your feedback.
 
 **Day fourteen subject:** Your mentorship feedback
 
-We have not yet received your answers to the check-in we emailed you for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/).
+We have not yet received your answers to the {{check_in_label}} we emailed you for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/).
 
 {{check_in_context}}
 

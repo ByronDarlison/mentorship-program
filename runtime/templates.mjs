@@ -1,6 +1,12 @@
 import content from '../website/dist/check-in-config.json' with {type:'json'};
 import {historyDate,historyText} from './check-in-history.mjs';
 
+export function reminderTemplate(day){
+  const message=content.messages.reminders[day];
+  if(!message)throw new Error('Unknown approved reminder.');
+  return {...message};
+}
+
 export function messageRenderer(origin){
   const site=new URL(origin);
   if(site.protocol!=='https:'&&!['localhost','127.0.0.1'].includes(site.hostname))throw new Error('Use the configured HTTPS program origin.');
@@ -12,7 +18,7 @@ export function messageRenderer(origin){
       return {...messages.first,body:messages.first.body.replaceAll('{{mentor_name}}',mentorName).replaceAll('{{first_meeting_date}}',meetingDate),mentorName,meetingDate,requestId:request.id,phase};
     }
     let message;
-    if(phase.startsWith('reminder-'))message=messages.reminders[Number(phase.split('-')[1])];
+    if(phase.startsWith('reminder-'))message=reminderTemplate(Number(phase.split('-')[1]));
     else message=request.kind==='final'?messages.final:messages.quarterly;
     if(!message)throw new Error('Unknown approved message.');
     let body=message.body;
@@ -25,17 +31,14 @@ export function messageRenderer(origin){
     if(request.period===0)list[0]=content.copy.earlyMeetingQuestion;
     if([6,9,12].includes(request.period))list[0]=`How many times have you met since ${historyDate(history.countFrom)}?`;
     if([6,9].includes(request.period))list[1]=content.copy.laterValueQuestion;
-    if(phase.startsWith('reminder-')){
-      const label=request.kind==='final'?'final check-in':`month-${request.period} check-in`;
-      body=body.replace('a check-in for',`your ${label} for`).replace('the check-in we emailed you',`the ${label} we emailed you`);
-    }
     const values={months_elapsed:({3:'three',6:'six',9:'nine',12:'twelve'})[request.period]??'',
+      check_in_label:request.kind==='final'?'final check-in':`month-${request.period} check-in`,
       check_in_context:history?historyText(history):'',
       reporting_guidance:request.period===0?content.copy.earlyMeetingGuidance:request.period===12?content.copy[request.role==='mentor'?'finalScopeMentor':'finalScopeMentee']:'',
       check_in_questions:list.map((q,i)=>`${i+1}. ${q}`).join('\n')};
     // Insert once into the approved layout. Never rewrite participant quotes or
     // append an extra explanation/footer after rendering the canonical copy.
-    body=body.replace(/\{\{(months_elapsed|check_in_context|reporting_guidance|check_in_questions)\}\}/g,(_,key)=>values[key]).replace(/\n{3,}/g,'\n\n').trim();
+    body=body.replace(/\{\{(months_elapsed|check_in_label|check_in_context|reporting_guidance|check_in_questions)\}\}/g,(_,key)=>values[key]).replace(/\n{3,}/g,'\n\n').trim();
     return {subject:message.subject,body,requestId:request.id,phase,...(history?{history}:{})};
   };
 }

@@ -21,8 +21,8 @@ All examples are fictional. The same HTML renderer is used for outgoing email. T
 - [Early ending: mentee](final-mentee-0.html): mentee. Final feedback. Each role receives its own questions.
 - [Month 12: mentor](final-mentor-12.html): mentor. Final feedback. Each role receives its own questions.
 - [Early ending: mentor](final-mentor-0.html): mentor. Final feedback. Each role receives its own questions.
-- [Day 7 reminder](reminder-7.html): Participant who has not replied. Automatic for quarterly and final check-ins. First-meeting reminders use the confirmation above.
-- [Day 14 reminder](reminder-14.html): Participant who has not replied. Automatic for quarterly and final check-ins. First-meeting reminders use the confirmation above.
+- [Day 7 reminder](reminder-7.html): Participant who has not replied. Variable template for quarterly and final check-ins. First-meeting reminders use the confirmation above.
+- [Day 14 reminder](reminder-14.html): Participant who has not replied. Variable template for quarterly and final check-ins. First-meeting reminders use the confirmation above.
 - [Contact request, low value or unclear feedback](chair-review.html): Chair. Automatic notice. The underlying item remains open until handled.
 - [Meeting needs review](chair-meeting-review.html): Chair. Automatic notice. The underlying item remains open until handled.
 - [Missing response at deadline](chair-deadline.html): Chair. Automatic notice. The underlying item remains open until handled.
