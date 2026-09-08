@@ -6,7 +6,7 @@ All examples are fictional. The same HTML renderer is used for outgoing email. T
 
 - [Applications open](applications-open.html): Prospective participants. Chair-approved invitation; not automatic.
 - [Application received](application-received.html): Applicant. Automatic receipt after an application is saved.
-- [Moving to matching](moving-to-matching.html): Applicant. Chair-approved message.
+- [Moving to matching](moving-to-matching.html): Mentee. Chair-approved message.
 - [Not selected](not-selected.html): Applicant. Chair-approved message.
 - [Mentor invitation](mentor-invitation.html): Prospective mentor. Chair-approved invitation.
 - [Match introduction](match-introduction.html): Matched participants. Chair personalizes and approves the introduction.

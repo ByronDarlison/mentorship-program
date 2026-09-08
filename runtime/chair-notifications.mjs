@@ -2,14 +2,14 @@
 // existing mail. The underlying flag remains open until the Chair resolves it.
 const reasons={
   'chair-review':'A participant has requested contact, reported low value, or provided feedback that needs review.',
-  'chair-meeting-review':'The first meeting needs your review. Its status has not been inferred.',
+  'chair-meeting-review':'We could not confirm whether the first meeting took place. Review the reply or missing response and confirm the meeting status in your program AI chat.',
   'chair-deadline':'The response deadline has passed and required information is still missing.',
   'chair-email-review':'A program email needs your review.',
   'chair-processing-error':'A check-in could not be processed. Please review its status.'
 };
 export function chairNoticeMessage(kind,name,id){
   if(!reasons[kind])throw new Error('Unknown Chair notice.');
-  return {subject:'Mentorship: your attention is needed',body:[name?'Participant: '+name:null,reasons[kind],'Review this item in your program AI chat.','Item: '+id].filter(Boolean).join('\n\n')};
+  return {subject:'Mentorship: your attention is needed',body:[name?'Participant: '+name:null,reasons[kind],kind==='chair-meeting-review'?null:'Review this item in your program AI chat.','Item: '+id].filter(Boolean).join('\n\n')};
 }
 export async function queueChairNotifications(db,{delivery=false,now=new Date().toISOString()}={}){
   const flags=(await db.prepare("SELECT j.*,a.answers,a.details_removed_at FROM jobs j LEFT JOIN applications a ON a.id=j.application_id WHERE j.status IN ('captured','pending','held') ORDER BY j.created_at,j.id").all()).results;

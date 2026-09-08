@@ -34,7 +34,7 @@ function behavior(id){
   };
   if(id.startsWith('chair-application-'))return {trigger:'A '+id.split('-').at(-1)+' application is saved. The system queues a separate notification to the Chair.',reply:'Replying to this notice does not approve or decline the applicant. The Chair makes that decision in program chat. A reply reaching the program mailbox is flagged for review.'};
   if(id.startsWith('check-in-'))return {trigger:'At month '+id.split('-').at(-1)+' after the confirmed first meeting, each participant receives a separate check-in. The hourly job sends due requests.',reply:feedbackReply};
-  if(id.startsWith('final-'))return {trigger:id.endsWith('-0')?'The Chair records an early ending. The system cancels future quarterly requests and queues final feedback for each participant.':'At month 12 after the confirmed first meeting, the system queues final feedback with the questions for this participant’s role.',reply:feedbackReply+' Final answers update the program results; missing outcome answers count as failures after the original deadline until corrected.'};
+  if(id.startsWith('final-'))return {trigger:id.endsWith('-0')?'The Chair records an early ending. The system cancels future quarterly requests and queues final feedback for each participant whose information has not been deleted.':'At month 12 after the confirmed first meeting, the system queues final feedback with the questions for this participant’s role.',reply:feedbackReply+' Final answers update the program results; missing outcome answers count as failures after the original deadline until corrected.'};
   if(id.startsWith('reminder-'))return {trigger:id.split('-').at(-1)+' days after the original check-in was sent, only if that participant has not genuinely replied and the request is still active.',reply:feedbackReply+' The reply updates the original check-in, not a new request.'};
   if(id==='first-meeting')return {trigger:triggers[id],reply:'A clear attendance reply records the actual meeting date and starts the twelve-month cycle. A clear reschedule moves the booking and follow-up. An unclear reply goes to the Chair and does not start the cycle. A genuine reply stops the old no-response reminders; an automatic reply does not.'};
   if(id.startsWith('chair-'))return {trigger:triggers[id],reply:'Replying does not resolve the item or authorize a change. The Chair handles the underlying issue in program chat. If the reply reaches the program mailbox, it is flagged for review.'};
@@ -50,12 +50,12 @@ const manualTemplate=heading=>{
   const subject=section?.match(/\*\*Subject:\*\* ([^\n]+)/)?.[1];
   const body=section?.split(/\*\*Subject:\*\* [^\n]+\n/)[1]?.trim();
   if(!subject||!body)throw new Error('Missing email source: '+heading);
-  return {subject,body:body.replaceAll('[link]','https://example.invalid/training').replaceAll('[date and time]','October 1 at 12:00 p.m.').replaceAll('[Brief positive explanation of why this fit may be useful.]','For this fictional example, Alex is exploring delegation and Jordan brings experience building leadership teams.')};
+  return {subject:subject.replaceAll('[date]','October 1'),body:body.replaceAll('[link]','https://example.invalid/training').replaceAll('[date and time, including time zone]','October 1 at noon Eastern Time').replaceAll('[Brief positive explanation of why this fit may be useful.]','For this fictional example, Alex is exploring delegation and Jordan brings experience building leadership teams.')};
 };
 for(const [id,heading,to,when] of [
   ['applications-open','Applications open','Prospective participants','Chair-approved invitation; not automatic.'],
   ['application-received','Application received','Applicant','Automatic receipt after an application is saved.'],
-  ['moving-to-matching','Moving to matching','Applicant','Chair-approved message.'],
+  ['moving-to-matching','Moving to matching','Mentee','Chair-approved message.'],
   ['not-selected','Not selected','Applicant','Chair-approved message.'],
   ['mentor-invitation','Mentor invitation','Prospective mentor','Chair-approved invitation.'],
   ['match-introduction','Match introduction','Matched participants','Chair personalizes and approves the introduction.'],
