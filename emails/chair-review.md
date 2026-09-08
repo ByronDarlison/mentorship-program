@@ -4,8 +4,8 @@ Participant: {{participant_name}}
 
 A participant has requested contact, reported low value, or provided feedback that needs review.
 
-Open an AI chat with the mentorship program connection and ask: “Using the mentorship program connection, show me anything that needs my attention.”
+Open your connected AI chat and say: “Show me the mentorship issue mentioned in this email.”
 
-[Chair instructions](https://github.com/ByronDarlison/mentorship-program/blob/main/USER_GUIDE.md#what-you-do-as-chair). Use the item reference below to identify this notice.
+You can paste this email into the chat to identify the issue.
 
-Item: {{item_id}}
+Reference: {{item_id}}

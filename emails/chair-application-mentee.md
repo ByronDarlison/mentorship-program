@@ -2,6 +2,8 @@
 
 {{applicant_name}} applied as a mentee.
 
-Open an AI chat with the mentorship program connection and ask: “Using the mentorship program connection, show me new applications and anything that needs my attention.”
+Open your connected AI chat and say: “Show me the mentorship application mentioned in this email.”
 
-[How to review applications](https://github.com/ByronDarlison/mentorship-program/blob/main/USER_GUIDE.md#what-you-do-as-chair). Replying to this notice does not approve or decline the applicant.
+You can paste this email into the chat to identify the application.
+
+Approve or decline the application in that chat, not by replying to this email.

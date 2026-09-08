@@ -1,6 +1,6 @@
 import { examples, fields } from './fixtures.mjs';
 
-export function chairApplicationMessage(name,role){return {subject:'New mentorship application',text:`${name} applied as a ${role}.\n\nOpen an AI chat with the mentorship program connection and ask: “Using the mentorship program connection, show me new applications and anything that needs my attention.”\n\n[How to review applications](https://github.com/ByronDarlison/mentorship-program/blob/main/USER_GUIDE.md#what-you-do-as-chair). Replying to this notice does not approve or decline the applicant.`};}
+export function chairApplicationMessage(name,role){return {subject:'New mentorship application',text:`${name} applied as a ${role}.\n\nOpen your connected AI chat and say: “Show me the mentorship application mentioned in this email.”\n\nYou can paste this email into the chat to identify the application.\n\nApprove or decline the application in that chat, not by replying to this email.`};}
 
 export class InputError extends Error {
   constructor(message, status = 400, errors = {}) { super(message); this.status = status; this.errors = errors; }

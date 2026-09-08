@@ -9,7 +9,7 @@ const reasons={
 };
 export function chairNoticeMessage(kind,name,id){
   if(!reasons[kind])throw new Error('Unknown Chair notice.');
-  return {subject:'Mentorship: your attention is needed',body:[name?'Participant: '+name:null,reasons[kind],'Open an AI chat with the mentorship program connection and ask: “Using the mentorship program connection, show me anything that needs my attention.”','[Chair instructions](https://github.com/ByronDarlison/mentorship-program/blob/main/USER_GUIDE.md#what-you-do-as-chair). Use the item reference below to identify this notice.','Item: '+id].filter(Boolean).join('\n\n')};
+  return {subject:'Mentorship: your attention is needed',body:[name?'Participant: '+name:null,reasons[kind],'Open your connected AI chat and say: “Show me the mentorship issue mentioned in this email.”','You can paste this email into the chat to identify the issue.','Reference: '+id].filter(Boolean).join('\n\n')};
 }
 export async function queueChairNotifications(db,{delivery=false,now=new Date().toISOString()}={}){
   const flags=(await db.prepare("SELECT j.*,a.answers,a.details_removed_at FROM jobs j LEFT JOIN applications a ON a.id=j.application_id WHERE j.status IN ('captured','pending','held') ORDER BY j.created_at,j.id").all()).results;
