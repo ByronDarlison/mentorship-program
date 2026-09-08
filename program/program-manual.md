@@ -1493,7 +1493,9 @@ We are sorry that we cannot offer you a place in this cohort.
 This may reflect cohort capacity or the availability of a suitable match.
 
 Would you like us to keep your application for a future group? Please reply to this email to let us know.
+
 If you ask to remain, we keep your application. Otherwise, the Chair decides when to delete it.
+
 There is no automatic deletion deadline. You may request deletion at any time.
 
 If you have any questions, reply to this email and the Mentorship Chair will get back to you.
@@ -1521,6 +1523,7 @@ The Mentorship Chair would like to introduce you for a twelve-month mentorship r
 Your shared cohort training must be complete before mentoring begins. Your first mentoring meeting will start your individual cycle.
 
 The mentee owns scheduling. You will book your first 3–6 meetings together before leaving training and share the first meeting date with the Chair. At each meeting, keep the next 3–6 meetings booked, or the remaining meetings near the end of the program.
+
 Both participants should [review the training curriculum](https://mentorship.example.invalid/training) beforehand, including how to prepare for your first meeting.
 
 Please reply to this email if either person identifies a conflict or concern.
