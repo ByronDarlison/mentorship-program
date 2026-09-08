@@ -36,10 +36,8 @@ function footer() {
 
 export function renderCheckInPage(copy){
   return document(copy.title,`<div class="site-surface"><a class="skip-link" href="#main">Skip to content</a>${header()}<main id="main" class="container application-page" tabindex="-1">
-<h1 id="check-in-title">${escape(copy.title)}</h1><p>${escape(copy.instruction)}</p><p>${escape(copy.partialGuidance)}</p>
-<p id="check-in-status" role="status"></p><form id="check-in-form" method="post" hidden><ol class="application-questions" id="check-in-questions"></ol><button class="apply" type="submit" disabled>${escape(copy.save)}</button></form>
-<section id="check-in-confirmation" hidden><h2 tabindex="-1"></h2><p></p>${copy.review?`<p>${escape(copy.review)}</p>`:''}<button class="apply" type="button">${escape(copy.again)}</button></section>
-</main>${footer()}</div>`,'review-page').replace('</head>','<script src="/check-in.js" defer></script></head>');
+<h1 id="check-in-title">${escape(copy.title)}</h1><p>${escape(copy.emailOnly)}</p>
+</main>${footer()}</div>`,'review-page');
 }
 
 export function renderDesignReview(source, options = {}) {

@@ -9,7 +9,7 @@ All examples are fictional. The same HTML renderer is used for outgoing email. T
 - [Moving to matching](moving-to-matching.html): Mentee. Chair-approved message.
 - [Not selected](not-selected.html): Applicant. Chair-approved message.
 - [Mentor invitation](mentor-invitation.html): Prospective mentor. Chair-approved invitation.
-- [Match introduction](match-introduction.html): Matched participants. Chair personalizes and approves the introduction.
+- [Match introduction](match-introduction.html): Matched participants. Approved together with the match, then queued for both participants.
 - [Training invitation](training-invitation.html): Selected participants. Chair fills in the meeting details and approves sending.
 - [New mentee application](chair-application-mentee.html): Chair. Automatic notice after an application is saved.
 - [New mentor application](chair-application-mentor.html): Chair. Automatic notice after an application is saved.

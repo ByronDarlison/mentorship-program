@@ -21,6 +21,7 @@ export const OWNER_EMAIL = 'mentorship@example.invalid';
 export const SCOPES = Object.freeze([
   'https://www.googleapis.com/auth/gmail.readonly',
   'https://www.googleapis.com/auth/gmail.send',
+  'https://www.googleapis.com/auth/calendar.events.owned',
 ]);
 export const AUTH_ENDPOINT = 'https://accounts.google.com/o/oauth2/v2/auth';
 export const TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
@@ -165,7 +166,7 @@ export function verifyGrantedScopes(scope) {
   const granted = new Set(String(scope ?? '').split(/\s+/).filter(Boolean));
   const missing = SCOPES.filter((s) => !granted.has(s));
   if (missing.length > 0) {
-    throw new Error('granted scopes are missing a required Gmail scope');
+    throw new Error('granted scopes are missing a required Google scope');
   }
   const extra = [...granted].filter((s) => !SCOPES.includes(s));
   if (extra.length > 0) {

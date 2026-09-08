@@ -21,5 +21,5 @@ export function checkInContent(source){
   const earlyOpening=final.body.match(/If the relationship ends early,[^\n]*“([^”]+)”/)?.[1];
   final.body=final.body.replace(/^If the relationship ends early,[^\n]+\n?/m,'').trim();
   if(!earlyOpening)throw new Error('Missing canonical early-ending opening.');
-  return {copy,questions:{quarterly:lists[0],mentee:lists[1],mentor:lists[2]},messages:{first:template('First meeting confirmation'),quarterly:template('Quarterly check-in'),final,earlyOpening,reminders}};
+  return {copy,questions:{quarterly:lists[0],mentee:lists[1],mentor:lists[2]},messages:{training:template('Training invitation'),first:template('First meeting confirmation'),quarterly:template('Quarterly check-in'),final,earlyOpening,reminders}};
 }

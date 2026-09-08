@@ -7,22 +7,33 @@ import {signOperatorRequest} from './operator-api.mjs';
 export function createAdministrativeConnection({callBackend,chatActionsEnabled=false}={}){
   const server=createOperatorConnection();
   if(typeof callBackend!=='function')return server;
-  const programActionInput={operation:z.enum(['administration','end_relationship','delete_participant','finish_final_review','correct_cycle','correct_classification','message_action','repair_recovery']),params:z.record(z.string(),z.unknown())};
+  const programActionInput={operation:z.enum(['administration','end_relationship','delete_participant','finish_final_review','correct_cycle','correct_classification','message_action','calendar_action','repair_recovery']),params:z.record(z.string(),z.unknown()).describe('For administration approve_match, include introduction:{subject,body}. Show the pair, recipient addresses and complete introduction for one approval. Include both people’s names, roles and contact details in the body because each receives a separate email.')};
+  server.registerTool('program_training_calendar',{description:'Read program-created training events and guest RSVP status. RSVP never means attendance. Supply eventId for one event or pageToken for another page.',inputSchema:{eventId:z.string().optional(),pageToken:z.string().optional()},annotations:{readOnlyHint:true}},async params=>({content:[{type:'text',text:JSON.stringify(await callBackend('calendar_events',params))}]}));
   server.registerTool('program_records',{description:'Read the fictional program records. Does not change records or send messages.',inputSchema:{},annotations:{readOnlyHint:true}},async()=>({content:[{type:'text',text:JSON.stringify(await callBackend('inspect',{}))}]}));
   server.registerTool('program_results',{description:'Read the four separate mentorship outcome measures and completion totals.',inputSchema:{},annotations:{readOnlyHint:true}},async()=>({content:[{type:'text',text:JSON.stringify(await callBackend('report',{}))}]}));
   server.registerTool('program_recovery_status',{description:'Read whether private recovery is ready or needs attention. No records or backups are changed.',inputSchema:{},annotations:{readOnlyHint:true}},async()=>({content:[{type:'text',text:JSON.stringify(await callBackend('recovery_status',{}))}]}));
   server.registerTool('program_followups',{description:'Read check-in answers, classifications, missing answers, deadlines and message status. No records are changed.',inputSchema:{},annotations:{readOnlyHint:true}},async()=>({content:[{type:'text',text:JSON.stringify(await callBackend('followups',{}))}]}));
   server.registerTool('program_recommendations',{description:'Compare approved fictional applications and suggest matches with reasons, risks and questions. Does not approve a match or send an introduction. Requires the separately configured review AI connection.',inputSchema:{},annotations:{readOnlyHint:true}},async()=>({content:[{type:'text',text:JSON.stringify(await callBackend('recommend',{}))}]}));
   server.registerTool('program_prepare_action',{
-    description:'Prepare one exact named action from current records and return the proposal as text. Does not change records or send messages.',
+    description:'Prepare one exact named action from current records and return the proposal as text. Does not change records or send messages. For calendar_action: params.action is create, update or cancel; id is a fresh UUID with hyphens removed; eventId is the same as id for create or an existing program event ID for update/cancel. Create/update require applicationIds, start (RFC3339 with seconds and offset), timeZone (IANA), zoomUrl; optional zoomMeetingId and zoomPasscode. Updates supply the complete desired attendee list. Show date, time zone, full invitation, recipients and effect before asking for approval.',
     inputSchema:programActionInput,
     annotations:{readOnlyHint:true}
   },async({operation,params})=>{
-    let deletionPreview,finalReviewPreview,snapshot,request,messagePreview,recoveryPreview;
+    let deletionPreview,finalReviewPreview,snapshot,request,messagePreview,recoveryPreview,calendarPreview,introductionPreview;
     try{
       deletionPreview=operation==='delete_participant'?await callBackend('deletion_preview',{applicationId:params.applicationId}):null;
       finalReviewPreview=operation==='finish_final_review'?await callBackend('final_review_preview',{applicationId:params.applicationId}):null;
       snapshot=await callBackend('inspect',{});
+      if(operation==='administration'&&params.name==='approve_match'){
+        if(!params.introduction?.subject||!params.introduction?.body)throw new Error('Include the introduction subject and body in the match proposal.');
+        const recipients=snapshot.applications.filter(a=>[params.menteeId,params.mentorId].includes(a.id)).map(a=>({id:a.id,name:a.answers.name,email:a.answers.email,role:a.role}));
+        if(recipients.length!==2)throw new Error('Read both participants before proposing the match.');
+        introductionPreview={...params.introduction,recipients,effect:'Approve this match and queue this introduction for both people in one action. A queued message is not yet sent.'};
+      }
+      if(operation==='calendar_action'){
+        calendarPreview=await callBackend('calendar_preview',params);
+        params={...params,reviewHash:calendarPreview.reviewHash};
+      }
       if(operation==='repair_recovery'){
         recoveryPreview=await callBackend('recovery_status',{});
         if(recoveryPreview.status!=='pending'||params.previousRunStopped!==true)throw new Error('Verify that prior work stopped and review the pending recovery item.');
@@ -45,7 +56,7 @@ export function createAdministrativeConnection({callBackend,chatActionsEnabled=f
     if(messagePreview?.applicationId)ids.add(messagePreview.applicationId);
     for(const pair of snapshot.pairs??[])if(ids.has(pair.id)){ids.add(pair.mentee_id);ids.add(pair.mentor_id);}
     const affected=(snapshot.applications??[]).filter(r=>ids.has(r.id)).map(r=>({id:r.id,name:r.answers.name,role:r.role}));
-    return {content:[{type:'text',text:JSON.stringify({operation,params,affected,...(messagePreview?{messagePreview}:{}),...(recoveryPreview?{recoveryPreview}:{}),...(request?{currentAnswer:request.reviewed_at?'Written feedback removed after final review.':request.answers[params.field],currentClassification:request.classifications[params.field]??'Missing'}:{}),...(deletionPreview?{deletionPreview}:{}),...(finalReviewPreview?{finalReviewPreview}:{})},null,2)}]};
+    return {content:[{type:'text',text:JSON.stringify({operation,params,affected,...(introductionPreview?{introductionPreview}:{}),...(calendarPreview?{calendarPreview}:{}),...(messagePreview?{messagePreview}:{}),...(recoveryPreview?{recoveryPreview}:{}),...(request?{currentAnswer:request.reviewed_at?'Written feedback removed after final review.':request.answers[params.field],currentClassification:request.classifications[params.field]??'Missing'}:{}),...(deletionPreview?{deletionPreview}:{}),...(finalReviewPreview?{finalReviewPreview}:{})},null,2)}]};
   });
   server.registerTool('program_action',{
     description:'Execute one exact named action using the exact operation and params already shown in a prior proposal in this chat. Call only after the user explicitly approved that exact proposal after it was shown. Tool flags and signatures do not prove consent.',

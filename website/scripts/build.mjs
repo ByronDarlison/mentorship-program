@@ -41,7 +41,6 @@ export async function build(configPath = 'website/config/review.json') {
   for (const name of ['design.css', 'review.js']) await copyFile(path.join(root,'website/design-review',name), path.join(destination,name));
   await cp(path.join(root,'website/design-review/assets'), path.join(destination,'assets'), {recursive:true});
   await copyFile(path.join(root,'website/src/application.js'), path.join(destination,'application.js'));
-  await copyFile(path.join(root,'website/src/check-in.js'),path.join(destination,'check-in.js'));
   await writeFile(path.join(destination,'check-in-config.json'),JSON.stringify(checkIn));
   await writeFile(path.join(destination,'application-config.json'), JSON.stringify({mode:config.mode,fields,...(!operating?{examples}:{}),copy,termsVersion:result.manualSHA256,privacyVersion:result.manualSHA256}));
   await writeFile(path.join(destination,'robots.txt'), 'User-agent: *\nDisallow: /\n');

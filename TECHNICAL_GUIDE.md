@@ -13,7 +13,7 @@ npm ci
 npm run dev:connected
 ```
 
-Open http://127.0.0.1:8787/. Submit the prefilled fictional applications. Messages are captured locally, not sent. In a second terminal, run `node runtime/scripts/seed-review.mjs` and open the printed check-in link. Try partial answers, completion and corrections.
+Open http://127.0.0.1:8787/. Submit the prefilled fictional applications. Messages are captured locally, not sent. Check-ins are email-only; inspect the rendered examples in `emails/index.html`. Reply processing is exercised by the email-reply tests and, separately, a controlled mailbox test in an isolated installation.
 
 Run `npm test` for automated checks. `npm run preview` shows the disconnected visual preview. The local demonstration does not exercise real email, paid AI or production backups.
 
@@ -84,13 +84,35 @@ Where the values come from:
 - **Backblaze:** the bucket details show its name and ID. Create a bucket-restricted application key in the account's Application Keys section. Its `keyID` is `B2_KEY_ID`; its one-time `applicationKey` is `B2_APP_KEY`. Save the latter privately when created. The namespace is a unique label you choose for this installation, not another credential.
 - **OpenAI:** an authorized administrator creates an API key in the program's OpenAI project and saves it as `REVIEW_OPENAI_API_KEY`. A chat subscription is not this API credential. Keep the existing approved spending limit; a new operator must approve its own charges.
 
-**Email:** Enable Gmail API and create a web OAuth client with redirect `http://127.0.0.1:8765/oauth2callback`. Set the mailbox constant in `runtime/scripts/authorize-mailbox.mjs` to your dedicated address, then run:
+**Email and training calendar:** Enable Gmail API and Google Calendar API in the same Google Cloud project. Create a web OAuth client with redirect `http://127.0.0.1:8765/oauth2callback`. Set the mailbox constant in `runtime/scripts/authorize-mailbox.mjs` to your dedicated address, then run:
 
 ```sh
 node runtime/scripts/authorize-mailbox.mjs /absolute/private/client.json /absolute/private/mailbox-oauth.json
 ```
 
-Use private paths outside the repository; the output must not exist. The helper requests `gmail.readonly` and `gmail.send`. Connect the program mailbox, not a personal inbox. Forwarding to the Chair's usual inbox is optional; retain originals for processing. Set `PROGRAM_MAILBOX_VERIFIED` and `REVIEW_DELIVERY_VERIFIED` after testing.
+Use private paths outside the repository; the output must not exist. The helper requests `gmail.readonly`, `gmail.send` and `calendar.events.owned`. Connect the program mailbox, not a personal inbox. Forwarding to the Chair's usual inbox is optional; retain originals for processing. Set `PROGRAM_MAILBOX_VERIFIED` and `REVIEW_DELIVERY_VERIFIED` after testing.
+
+For an existing Gmail-only connection, enable Calendar API, add the Calendar scope to the OAuth consent configuration and repeat authorization into a new private output file. Install the resulting secrets on the same Worker. Keep `PROGRAM_CALENDAR_ENABLED=false` until the calendar is ready for controlled verification. Enable it in an isolated operating-mode installation using only test recipients, verify creation, RSVP readback, rescheduling, cancellation and retry behavior, then enable the operating installation. Review mode cannot send calendar invitations.
+
+### Training calendar operation
+
+`runtime/training-calendar.mjs` uses the program Google account's primary calendar. The Chair supplies the Zoom link; the software does not create Zoom meetings or require a new scheduling service. Google owns events and RSVP status, separate from D1 attendance records. Guest names and addresses, event details and responses are stored by Google. Google Calendar copies are not included in the D1/B2 backup, and database deletion does not remove them. Handle those provider copies separately during deletion and transfer.
+
+The chat connection exposes `program_training_calendar` for reading events and responses. `program_prepare_action` and `program_action` use operation `calendar_action`. Parameters are:
+
+- `action`: `create`, `update` or `cancel`.
+- `id`: a new UUID with hyphens removed, retained for retries of this exact action.
+- `eventId`: the same as `id` for creation; the existing returned event ID for changes or cancellation.
+- For creation or update: `applicationIds`, `start` as an RFC3339 timestamp with seconds and offset, `timeZone` as an IANA zone, and `zoomUrl`. Optional `zoomMeetingId` and `zoomPasscode` are omitted from the description when absent. The end is one hour later.
+- `reviewHash`: returned by preparation, included unchanged in the approved execution.
+
+Preview resolves recipients from current approved, matched applications and renders the canonical invitation. Updates supply the complete desired recipient list. Show the exact recipients, removed guests, date, time zone and full invitation in chat before approval. No automatic invitation follows from matching, and no separate ordinary training email should duplicate it.
+
+Creation uses a stable event ID. Updates and cancellation keep that ID and use the current event version so changed events require a fresh proposal. Google sends guest notifications using `sendUpdates=all`. On an uncertain result, inspect the event and retry the same approved action, not a new event ID. RSVP reads do not mark attendance, start the pair's cycle or reschedule anything. Ordinary emailed requests still go to the Chair. A calendar acceptance does not guarantee that every mail client added the event automatically.
+
+On transfer, retain or migrate the program Google account and its calendar separately from the database. If changing domains, update future invitation links and explicitly update existing events whose links must change. Do not recreate events simply because the Chair changes.
+
+API references: [Google Calendar events](https://developers.google.com/workspace/calendar/api/v3/reference/events), [event updates and guest notifications](https://developers.google.com/workspace/calendar/api/v3/reference/events/patch).
 
 **Backups:** Set `B2_BUCKET`, `B2_BUCKET_ID`, `BACKUP_NAMESPACE` and `BACKUP_RETENTION_DAYS` (currently 7). Verify a snapshot and deletion checkpoint before setting `PRIVATE_RECOVERY_VERIFIED`. Expiry removes exact old versions while protecting the latest complete recovery set. Cloudflare and other provider retention are separate.
 
@@ -165,11 +187,13 @@ Applications, receipts and Chair notifications save together. Submission IDs pre
 
 Each hourly run reads mail before applying reminders and deadlines. Sender and original message references must match. Quoted text, attachments and automatic replies are excluded. A failed mailbox scan holds deadline processing. The current scan bound is 500 messages; monitor volume before reaching it.
 
-Email and private forms update the same request. Link secrets travel in URL fragments and API authorization headers. Message IDs prevent duplicate updates. Partial replies preserve the original deadline. An uncertain send is held until mailbox evidence resolves it, not blindly retried.
+Check-ins are email-only. Sender and email-thread/request matching connect replies to records; message IDs prevent duplicate updates. Partial replies preserve the original deadline. An uncertain send is held until mailbox evidence resolves it, not blindly retried. The retired `/api/check-in` endpoint returns 410 and does not read or write participant records. `/check-in` only directs visitors to reply to their email. Legacy form helpers remain for historical tests, not as an available participant response route.
 
 AI receives limited text and coded matching facts, not name, email or LinkedIn fields. Identifier checks are not guaranteed anonymization. AI failures leave work pending for review. Only the Chair approves participants, matches and discretionary messages. Record versions prevent stale proposals being applied.
 
 ## Records, deletion and recovery
+
+The Chair's `administration` action `approve_match` includes `introduction: {subject, body}`. The proposal shows the pair, current recipient addresses and complete introduction. One approval saves the pair and queues both message copies in the same database transaction. Versions and the action ID prevent stale or duplicate execution. Include both names, roles and contact details in the body, since each person receives a separate email. This replaces a second approval/send step; it does not authorize an introduction that was omitted from the reviewed proposal.
 
 The SQL migrations define applications, groups, pairs, check-ins, responses, message jobs, actions, aggregate results and recovery state. Business dates are `YYYY-MM-DD`; event times use UTC. Keep booked and actual meeting dates distinct. Captured jobs are not sent jobs.
 

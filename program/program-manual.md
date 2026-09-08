@@ -819,32 +819,31 @@ The check-in does not record the confidential substance of mentoring conversatio
 
 ### Check-in questions
 
-The mentee and mentor each receive the same three questions at months three, six, and nine:
+The mentee and mentor each receive the same three questions at months three, six, and nine. At month three, replace the first question with “How many times have you met since your mentorship began?” At an early ending, ask “How many mentoring meetings have you had in the period described above?” and explain that the count is zero if they have not begun meeting. Later scheduled check-ins count from the previous check-in.
 
 1. How many times have you met since the last check-in?
 2. What value, if any, have you received from participating in this mentorship?
-3. Would you like the Mentorship Chair to contact you? Yes or no.
+3. Would you like the Mentorship Chair to contact you?
 
 At month twelve, or when a relationship ends early, the mentee answers:
 
 1. How many times have you met since the last check-in?
 2. What progress, if any, did this mentorship help you make in your business?
 3. What value, if any, did you receive from participating?
-4. Would you like the Mentorship Chair to contact you? Yes or no.
+4. Would you like the Mentorship Chair to contact you?
 
 At month twelve, or when a relationship ends early, the mentor answers:
 
 1. How many times have you met since the last check-in?
 2. What value, if any, did you receive from participating as a mentor?
 3. How would you feel about mentoring again?
-4. Would you like the Mentorship Chair to contact you? Yes or no.
+4. Would you like the Mentorship Chair to contact you?
 
 Meeting counts are numbers. Value, progress, and future-mentoring questions use free text, not rating choices. Only the contact request is yes or no. For the first check-in, count meetings since the relationship began.
 
 Please answer briefly and do not include confidential details.
 
-You may use the private form or reply by email with the same answers.
-You do not need to enter an email answer again through the form.
+Reply to the check-in email with your answers. There is no separate check-in form or participant login.
 
 AI classifies the written feedback to measure the program and identify where support may be useful. The Mentorship Chair reviews unclear answers.
 
@@ -891,11 +890,11 @@ Both participants receive the final questions above. The same seven-, fourteen-,
 
 ### What information the program uses
 
-Applications and check-ins will use private forms without a participant account or portal. Participants may also answer check-ins by email.
+Applications use website forms without a participant account or portal. Check-ins are answered by replying to email, without a separate form.
 
 The program uses applications only for eligibility, matching and administration. They include your name, email, business or professional experience, matching answers and any optional LinkedIn profile link you provide. The Chair may consult accessible background at that link. You may leave it blank; your application answers remain the main basis for matching.
 
-During participation, the program records approvals, training and meeting dates, check-in status, meeting counts, brief feedback, classifications and requests for Chair contact. Final feedback covers business progress, value and interest in mentoring again. Program emails and replies also create copies in mailboxes.
+During participation, the program records approvals, training and meeting dates, check-in status, meeting counts, brief feedback, classifications and requests for Chair contact. Final feedback covers business progress, value and interest in mentoring again. Program emails and replies also create copies in mailboxes. Training calendar invitations contain guest names and email addresses, event details and RSVP responses. Calendar acceptance is separate from actual training attendance.
 
 Mentor-mentee conversations are confidential and stay outside program records. Keep application and check-in answers brief. Do not include confidential mentoring discussions or private details about clients, employees or other people.
 
@@ -923,7 +922,7 @@ The program requires AI settings that do not use participant information to trai
 
 ### Providers and safeguards
 
-The program uses Cloudflare for hosting and private records, Backblaze for private recovery copies, Google Workspace for program email, and OpenAI for routine AI processing and the Chair's Codex interface.
+The program uses Cloudflare for hosting and private records, Backblaze for private recovery copies, Google Workspace for program email and training calendar invitations, and OpenAI for routine AI processing and the Chair's Codex interface. Calendar and guest copies are provider-held records; removing a participant from the program database does not erase those copies.
 
 Provider processing may occur outside Canada and be subject to the laws of those countries, including lawful access by authorities. Backblaze recovery copies are stored in the United States. The program does not promise Canadian-only storage or absolute security.
 
@@ -1412,7 +1411,7 @@ The Mentorship Chair:
 1. Keeps each matched pair visible until its actual first meeting date is confirmed.
 2. Reviews exceptions to automatic first-meeting confirmation. Rescheduling changes only the planned date and confirmation timing.
 3. Uses the confirmed actual date to schedule automatic check-ins at months three, six, nine, and twelve.
-4. Reviews unclear feedback, incomplete replies, and processing failures. Clear form and email answers update records automatically.
+4. Reviews unclear feedback, incomplete replies, and processing failures. Clear email answers update records automatically.
 5. Uses reminders on days seven and fourteen and a day-twenty-one notification and nonresponse failure for each unanswered check-in.
 6. Reviews low-value flags and decides whether to contact the participant. Contacts participants who request help.
 7. Checks that substantive late answers correct the same record and measures. Acknowledgements do not supply missing results.
@@ -1434,9 +1433,9 @@ The Mentorship Chair:
 
 These templates define the minimum message content. The Chair may personalize the wording without changing the commitments.
 
-Every email must provide a descriptive link back to the program website. The shared email heading links the program name to the homepage. When the body names the program, link its first mention too. Keep specific application, training and check-in links directed to their relevant pages. When moving domains, update the shared heading in `runtime/email-html.mjs` as well as these templates.
+Every email must provide a descriptive link back to the program website. The shared email heading links the program name to the homepage. When the body names the program, link its first mention too. Keep application and training links directed to their relevant pages. Check-ins are answered by email and have no form links. When moving domains, update the shared heading in `runtime/email-html.mjs` as well as these templates.
 
-Use descriptive hyperlinks in HTML emails. Before sending an invitation, replace any example.invalid meeting address and date placeholder with the actual arrangements. The software replaces the example.invalid check-in address with the participant's private link when it prepares a check-in. If the program moves domains, update the application and training links here and regenerate the emails. Participant emails end with the invitation to reply below; Chair-only notices instead explain the action to take in program AI chat.
+Use descriptive hyperlinks in HTML emails. Before sending an invitation, replace meeting and date placeholders with the actual arrangements. If the program moves domains, update the application and training links here and regenerate the emails. Participant emails end with the invitation to reply below; Chair-only notices instead explain the action to take in program AI chat.
 
 #### Applications open
 
@@ -1502,6 +1501,8 @@ If you have any questions, reply to this email and the Mentorship Chair will get
 
 #### Match introduction
 
+Review the proposed pair, recipients and complete introduction together. One Chair approval records the match and queues the introduction for both people. Include each person's name, role and contact details in the approved body, since each receives a separate copy. Do not share full applications or rankings.
+
 **Subject:** Your Example Chapter mentorship introduction
 
 Following your applications to the [Example Chapter Mentorship Program](https://mentorship.example.invalid/), we are pleased to introduce you as a mentor and mentee. [Brief positive explanation of why this fit may be useful.]
@@ -1519,6 +1520,8 @@ If you have any questions, reply to this email and the Mentorship Chair will get
 #### Training invitation
 
 Send this as a calendar invitation, not only a regular email. The event includes the title, start and end time, time zone, organizer, selected participants, Zoom joining details and description below. Keep the same event identity for updates or cancellation. Calendar acceptance records an RSVP, not training attendance. Confirm actual attendance separately. Variables use `{{double_braces}}`; replace them before sending. The end time is one hour after the start time. Omit a passcode field if the meeting does not require one. In the completed invitation, show the Zoom address as a descriptive “Join Zoom” hyperlink.
+
+Use the existing program Google account's primary calendar. The Chair supplies the Zoom link and approves the exact invitation and recipients in chat. Google sends invitations and change/cancellation notices. The Chair can ask the AI to read current RSVPs. An emailed request to change arrangements goes to the Chair; it does not automatically change the calendar. Keep mentoring meetings on the pair's own calendars, with three to six upcoming meetings booked. Do not send a duplicate ordinary training email.
 
 **Subject:** Your mentorship training: {{training_date}}
 
@@ -1561,7 +1564,7 @@ A rescheduled meeting uses the new date and follow-up sequence.
 
 **Subject:** Did your first mentoring meeting take place?
 
-You recently joined the [Example Chapter Mentorship Program](https://mentorship.example.invalid/) and were matched with {{mentor_name}}. Your first mentoring meeting was scheduled for {{first_meeting_date}}.
+You joined the [Example Chapter Mentorship Program](https://mentorship.example.invalid/) and were matched with {{mentor_name}}. Your first mentoring meeting was scheduled for {{first_meeting_date}}.
 
 Did you meet as planned? Please reply to confirm. If you rescheduled, let us know the new date. If you have not met or chosen another date yet, tell us that too.
 
@@ -1572,19 +1575,19 @@ If you have any questions, reply to this email and the Mentorship Chair will get
 #### Quarterly check-in
 
 Include the applicable questions from [Check-in questions](#check-in-questions) so participants can answer directly by email.
-Use those canonical questions rather than maintaining separate form and email wording.
+Use those canonical questions in the email. Do not offer a separate check-in form.
+
+At month three, state “Count meetings since your mentorship began” and use the matching first question. At months six and nine, count since the previous check-in. Reminders name the original month or final check-in and never create another request.
 
 **Subject:** Your Example Chapter mentorship check-in
 
 It is time for your month-[three, six, nine, or twelve] check-in for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Your feedback helps us understand how the mentorship is working for you.
 
-Please [complete your short check-in](https://example.invalid/check-in). Tell us how often you have met, what value you are getting, and whether you would like the Mentorship Chair to contact you.
-
-You may also reply by email with your answers. You do not need to submit them twice.
+Please reply to this email with your answers to the questions below. Tell us how often you have met, what value you are getting, and whether you would like the Mentorship Chair to contact you.
 
 Count meetings since your last check-in, or since your mentorship began if this is your first.
 
-Please answer briefly without confidential details. AI helps classify the feedback for program review, and the Chair reviews unclear answers.
+Please answer briefly without confidential details.
 
 If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
@@ -1594,17 +1597,17 @@ Send only to a participant whose check-in is still unanswered. These templates c
 
 **Day seven subject:** A reminder about your mentorship check-in
 
-We recently emailed you a check-in for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Please [complete your short mentorship check-in](https://example.invalid/check-in). Your feedback helps us understand how the program is working for you.
+We recently emailed you a check-in for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Your feedback helps us understand how the program is working for you.
 
-You can also reply with your answers to the questions in our original check-in email.
+Please reply with your answers to the questions below.
 
 If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 **Day fourteen subject:** Your mentorship feedback
 
-We have not yet received your answers to the check-in we emailed you for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Please [complete your check-in](https://example.invalid/check-in) so we can understand how the mentorship is working for you.
+We have not yet received your answers to the check-in we emailed you for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/).
 
-You can also reply with your answers to the questions in our original check-in email.
+Please reply with your answers to the questions below so we can understand how the mentorship is working for you.
 
 If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
@@ -1618,9 +1621,7 @@ Your twelve months in the [Example Chapter Mentorship Program](https://mentorshi
 
 Thank you for the time and thought you brought to the relationship.
 
-Please [complete your final check-in](https://example.invalid/check-in). Your feedback helps us understand what the mentorship has meant for you and improve the program.
-
-You may also reply by email with your answers. Please keep confidential mentoring details out of your reply.
+Please reply to this email with your answers to the questions below. Your feedback helps us understand what the mentorship has meant for you and improve the program. Please keep confidential mentoring details out of your reply.
 
 Count meetings since your last check-in, or since your mentorship began if this is your first.
 
@@ -1737,10 +1738,14 @@ This is reusable program guidance. Each operator sets its own application and co
 ```json
 {
   "title": "Mentorship check-in",
+  "emailOnly": "Check-ins are now answered by email. Please reply to the check-in message you received with your answers. If you cannot find it, contact the Mentorship Chair below.",
   "finalTitle": "Final mentorship check-in",
   "instruction": "Please answer briefly and do not include confidential details.",
   "partialGuidance": "You can save some answers now and add others later. Answers already sent by email do not need repeating.",
   "firstPeriod": "Count meetings since your mentorship began.",
+  "firstMeetingQuestion": "How many times have you met since your mentorship began?",
+  "earlyMeetingGuidance": "Count meetings since your last check-in, or all your mentoring meetings if there has not been a check-in. Enter 0 if you have not begun meeting.",
+  "earlyMeetingQuestion": "How many mentoring meetings have you had in the period described above?",
   "save": "Save answers",
   "saving": "Saving…",
   "completeTitle": "Check-in complete",

@@ -7,6 +7,7 @@ import {correctRecord} from './corrections.mjs';
 import {recommendMatches} from './matching.mjs';
 import {createReviewAI} from './review-ai.mjs';
 import {previewMessageAction,executeMessageAction} from './message-actions.mjs';
+import {inspectTrainingCalendar,previewTrainingCalendar,executeTrainingCalendar} from './training-calendar.mjs';
 import {previewFinalReview,finishFinalReview} from './retention.mjs';
 import {withPrivateRecovery,inspectRecovery,repairPrivateRecovery,readCurrentRecovery,recoveryStorage} from './recovery-cycle.mjs';
 
@@ -26,7 +27,7 @@ export async function handleOperatorRequest(db,envelope,env,now=Date.now()){
   if(!await crypto.subtle.verify('HMAC',await key(env.OPERATOR_BRIDGE_SECRET),bytes(signature),encoder.encode(JSON.stringify(payload))))throw new InputError('Operator authentication required.',401);
   if(Object.keys(payload).some(k=>!['operation','params','operator','expiresAt'].includes(k)))throw new InputError('Unexpected operator request.');
   const {operation,params}=payload;
-  if(!['inspect','followups','recommend','report','recovery_status','repair_recovery','backup_now','export_recovery','deletion_preview','final_review_preview','finish_final_review','message_preview','message_action','administration','end_relationship','delete_participant','correct_cycle','correct_classification'].includes(operation))throw new InputError('Unknown named operator action.');
+  if(!['inspect','followups','recommend','report','recovery_status','repair_recovery','backup_now','export_recovery','deletion_preview','final_review_preview','finish_final_review','message_preview','message_action','calendar_events','calendar_preview','calendar_action','administration','end_relationship','delete_participant','correct_cycle','correct_classification'].includes(operation))throw new InputError('Unknown named operator action.');
   if(!params||Array.isArray(params)||typeof params!=='object')throw new InputError('Operator parameters must be an object.');
   if(operation==='inspect')return inspectProgram(db);
   if(operation==='followups')return inspectFollowups(db);
@@ -42,13 +43,17 @@ export async function handleOperatorRequest(db,envelope,env,now=Date.now()){
   if(operation==='deletion_preview')return previewDeletion(db,params.applicationId);
   if(operation==='final_review_preview')return previewFinalReview(db,params.applicationId);
   if(operation==='message_preview')return previewMessageAction(db,params,env);
+  if(operation==='calendar_events')return inspectTrainingCalendar(env,params);
+  if(operation==='calendar_preview')return previewTrainingCalendar(db,params,env);
+  if(operation==='administration'&&params.name==='approve_match'&&!params.introduction)throw new InputError('Review the match and its introduction together before approving.');
   if(env.CHAT_ACTIONS_ENABLED!=='true')throw new InputError('Chat actions are not enabled. No change was made.',403);
   const execute=()=>{
+    if(operation==='calendar_action')return executeTrainingCalendar(db,params,env);
     if(operation==='message_action')return executeMessageAction(db,params,env.OPERATOR_ID,env);
     if(['correct_cycle','correct_classification'].includes(operation))return correctRecord(db,operation,params,env.OPERATOR_ID);
     if(operation==='delete_participant')return deleteParticipant(db,params,env.OPERATOR_ID);
     if(operation==='finish_final_review')return finishFinalReview(db,params,env.OPERATOR_ID);
-    if(operation==='administration')return executeChairAction(db,params,env.OPERATOR_ID);
+    if(operation==='administration')return executeChairAction(db,params,env.OPERATOR_ID,env);
     if(operation==='end_relationship')return endRelationship(db,params,env.OPERATOR_ID);
     throw new InputError('Unknown named operator action.');
   };

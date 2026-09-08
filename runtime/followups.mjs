@@ -72,19 +72,17 @@ export async function runFollowups(db,{now=new Date().toISOString(),inboxHealthy
     if(delivery&&await db.prepare("SELECT id FROM jobs WHERE id=? AND status='captured'").bind(r.id+':initial').first())continue;
     if(!r.sent_at){
       if(await db.prepare('SELECT id FROM jobs WHERE id=?').bind(r.id+':initial').first())continue;
-      const token=crypto.randomUUID()+crypto.randomUUID();
-      next.sent_at=delivery?null:now;next.deadline=delivery?null:addDays(now,21);next.token_hash=await sha256(token);
+      next.sent_at=delivery?null:now;next.deadline=delivery?null:addDays(now,21);next.token_hash=null;
       let messageRequest=r;
       if(r.kind==='first'){
         const context=await db.prepare('SELECT p.planned_date,a.answers FROM pairs p JOIN applications a ON a.id=p.mentor_id WHERE p.id=?').bind(r.pair_id).first();
         messageRequest={...r,mentor_name:context?JSON.parse(context.answers).name:null,first_meeting_date:context?.planned_date};
       }
-      jobs.push(queue(db,r.id+':initial',r,'request',renderMessage(messageRequest,'initial',token),now,delivery?'pending':'captured'));
+      jobs.push(queue(db,r.id+':initial',r,'request',renderMessage(messageRequest,'initial',null),now,delivery?'pending':'captured'));
     }else if(!r.replied_at){
       const latest=Date.parse(now)>=Date.parse(addDays(r.sent_at,14))?14:7;
       for(const day of [latest])if(Date.parse(now)>=Date.parse(addDays(r.sent_at,day))&&Date.parse(now)<Date.parse(r.deadline)){
-        // Use the original captured message link. Raw tokens exist only in the
-        // private delivery job, never on the request or in a public read API.
+        // Retain the original meeting context for first-meeting reminders.
         const initial=await db.prepare('SELECT payload FROM jobs WHERE id=?').bind(r.id+':initial').first('payload');
         const original=JSON.parse(initial??'{}');
         if(r.kind==='first'&&(!original.mentorName||!original.meetingDate)){

@@ -1,10 +1,8 @@
 import { InputError, saveApplication } from './applications.mjs';
 import policy from '../website/dist/application-config.json' with { type: 'json' };
-import {checkInRequest,saveReviewCheckIn,publicRequestDetails} from './check-in-api.mjs';
 import {runReviewSchedule} from './review-schedule.mjs';
 import {handleOperatorRequest} from './operator-api.mjs';
 import {withPrivateRecovery} from './recovery-cycle.mjs';
-import {createReviewAI} from './review-ai.mjs';
 
 const responseHeaders = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer' };
 export const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: responseHeaders });
@@ -40,13 +38,7 @@ export default {
         return json(await handleOperatorRequest(env.DB,await readJSON(request),env));
       }
       if(url.pathname==='/api/check-in'){
-        if(!['review','operating'].includes(env.MODE))throw new InputError('Check-ins are unavailable.',403);
-        if(!['GET','POST'].includes(request.method))return json({error:'Method not allowed.'},405);
-        const origin=request.headers.get('origin');
-        if(origin&&origin!==url.origin&&origin!==env.SITE_ORIGIN)throw new InputError('Use the program website.',403);
-        const record=await checkInRequest(env.DB,request.headers.get('authorization'));
-        const ai=createReviewAI({apiKey:env.REVIEW_OPENAI_API_KEY,spendingVerified:env.REVIEW_AI_SPENDING_VERIFIED==='true',fixturesOnly:env.MODE==='review',db:env.DB});
-        return json(request.method==='GET'?publicRequestDetails(record):await saveReviewCheckIn(env.DB,record,await readJSON(request),new Date().toISOString(),{mode:env.MODE,...(env.MODE==='operating'?{classify:ai.classify}:{})}));
+        return json({error:'Check-ins are now answered by replying to the check-in email.'},410);
       }
       if (url.pathname === '/api/applications') {
         if(request.method !== 'POST')return json({error:'Method not allowed.'},405);

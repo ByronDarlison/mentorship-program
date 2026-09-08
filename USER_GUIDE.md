@@ -27,8 +27,8 @@ The AI should use that connection to read current program records, not infer sta
 You can keep a dedicated mentorship chat and use shorter follow-up requests once that context is established. In a new or general chat, name the mentorship program connection explicitly. The examples below assume you have already done that.
 
 1. **Review applications.** Speak with each prospective mentee about readiness, membership and commitments. Speak with prospective mentors you do not know. Approve, wait or decline. Ask waiting applicants whether they want to remain under consideration; there is no automatic expiry.
-2. **Make matches.** Ask AI for suggestions and the reasons behind them. Consider experience, fit and conflicts. Choose the pair and group yourself, then approve a separate introduction email. Do not share full applications or rankings.
-3. **Arrange training.** Choose the facilitator and date. Use the website curriculum. Record attendance for both people and their planned first meeting date. The pair manages the rest of its calendar.
+2. **Make matches.** Ask AI for suggestions and the reasons behind them. Consider experience, fit and conflicts. Review the pair, group, recipients and introduction together. One approval records the match and queues the introduction for both people. Do not share full applications or rankings.
+3. **Arrange training.** Choose the facilitator, date, time zone and Zoom link. Ask the AI to prepare a one-hour calendar invitation for the selected matched participants. Review the invitation and guest list, then approve it. Ask to see responses or change/cancel the same event when needed. Calendar acceptance is not attendance: record actual attendance after training and the pair's planned first meeting date separately. The pair manages its own mentoring meetings, keeping three to six booked.
 4. **Review exceptions.** Handle unclear replies, requests for contact, low-value feedback and delivery problems. Ask for a proposed correction or message when needed.
 5. **Review final results.** Confirm classifications, request a summary and approve removal of detailed applications and feedback after the final review.
 
@@ -38,7 +38,11 @@ Useful requests:
 
 > Suggest matches from the approved applications. Explain the fit and any concerns. Do not contact anyone.
 
-> Draft an introduction for this pair and show me the recipients before sending.
+> Propose this match with its introduction. Show me both recipients and the complete email so I can approve them together.
+
+> Prepare a training calendar invitation for these matched participants on [date] at [time and time zone], using this Zoom link: [link]. Show me the invitation and guests before sending.
+
+> Show the training calendar and who has accepted, declined or not answered.
 
 > Show missing replies, requests for help and anything that failed.
 
@@ -50,7 +54,7 @@ See [email examples](emails/index.md) for the wording, recipients and HTML forma
 
 - An application is saved, a receipt is queued and you are notified.
 - The day after the booked first meeting, the mentee is asked whether it happened or was rescheduled. Confirmed attendance starts the twelve-month cycle. Booking alone does not.
-- Both people receive check-ins at months 3, 6, 9 and 12. They may answer by email or private form.
+- Both people receive check-ins at months 3, 6, 9 and 12. They reply to the email with their answers. There is no separate check-in form.
 - Unanswered requests receive reminders after 7 and 14 days. At 21 days, you are notified of the failure.
 - A genuine reply stops that person's no-response reminders. Partial answers remain incomplete and do not reset the deadline. Automatic replies do not count.
 - AI classifies brief feedback and flags unclear answers or low value for you. It does not approve participants or matches.
@@ -59,7 +63,9 @@ The hourly process runs even when your chat is closed. It sends the approved rou
 
 ## Check-ins and results
 
-Quarterly check-ins ask how many meetings took place, what value the participant received and whether they want you to contact them. The final check-in also asks mentees about business progress and mentors about mentoring again.
+Quarterly check-ins ask how many meetings took place, what value the participant received and whether they want you to contact them. Month three counts from the first mentoring meeting; later scheduled check-ins count from the previous check-in. An early-ending check-in allows zero meetings if the pair never began. The final check-in also asks mentees about business progress and mentors about mentoring again.
+
+Participants reply directly to the check-in email. The software connects the reply to the participant and original request. Reminders repeat the questions, so nobody needs to find another page or an earlier message. Unclear or incomplete answers go to the Chair for follow-up. The old `/check-in` page only explains that answers are now sent by email.
 
 The four targets are 80% of mentees reporting meaningful business progress, 80% of mentees receiving meaningful value, 80% of mentors receiving meaningful value and 80% of mentors interested in mentoring again. Progress and value are separate. Enjoying the conversations does not replace business progress; an important decision can count without financial proof.
 
@@ -71,7 +77,7 @@ Ask for a correction if a recorded date or classification is wrong. If a pair en
 
 Participants may request access, corrections or deletion. Review the proposed deletion before approving. Deletion removes personal detail, not the person's contribution to overall results. Erased feedback cannot be revisited. Limited pending reporting data remains only until its reporting window closes, then becomes totals without an individual lookup. Withdrawal and deletion before a final request use a 21-day reporting-only window without sending further messages.
 
-After the final review, retain only the permitted minimal participation record. Deleting database records does not erase email, forwarded copies, exports or chat history. Handle those copies separately and follow the website Privacy Notice. Never put participant data or confidential mentoring conversations in GitHub.
+After the final review, retain only the permitted minimal participation record. Deleting database records does not erase email, calendar events or guest copies, forwarded copies, exports or chat history. Handle those copies separately and follow the website Privacy Notice. Never put participant data or confidential mentoring conversations in GitHub.
 
 ## If something stops working
 

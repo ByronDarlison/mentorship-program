@@ -10,7 +10,7 @@ const date=value=>typeof value==='string' && /^\d{4}-\d{2}-\d{2}$/.test(value) &
 const allowed={
   participant_decision:['applicationId','version','decision','readiness'],
   retention_choice:['applicationId','version','choice'],
-  approve_match:['menteeId','mentorId','menteeVersion','mentorVersion','group','conflictsChecked','fitReason'],
+  approve_match:['menteeId','mentorId','menteeVersion','mentorVersion','group','conflictsChecked','fitReason','introduction'],
   training:['pairId','version','menteeAttended','mentorAttended'],
   planned_meeting:['pairId','version','date']
 };
@@ -33,7 +33,7 @@ export async function inspectProgram(db){
     pairs:(await db.prepare('SELECT * FROM pairs ORDER BY created_at,id').all()).results};
 }
 
-export async function executeChairAction(db,action,actor){
+export async function executeChairAction(db,action,actor,env={}){
   validate(action);
   if(typeof actor!=='string'||!actor.trim())fail('Configured operator required.');
   const hash=await sha256(JSON.stringify(Object.fromEntries(Object.keys(action).sort().map(k=>[k,action[k]]))));
@@ -74,6 +74,20 @@ export async function executeChairAction(db,action,actor){
     }
     writes.push(db.prepare(`DELETE FROM matching_copies WHERE ${gate}`).bind(execution));
     result={pairId:id,menteeId:mentee.id,mentorId:mentor.id,group:cohort,fitReason:action.fitReason.trim(),status:'matched',version:1};
+    if(action.introduction){
+      const {subject,body}=action.introduction;
+      if(Object.keys(action.introduction).some(k=>!['subject','body'].includes(k))||typeof subject!=='string'||!subject.trim()||subject.length>250||/[\r\n]/.test(subject)||typeof body!=='string'||!body.trim()||body.length>20000||/\{\{/.test(body))fail('Review a complete introduction subject and body with the match.');
+      const enabled=env.PROGRAM_MAILBOX_VERIFIED==='true'&&env.REVIEW_DELIVERY_VERIFIED==='true';
+      const status=enabled?'pending':'captured';
+      result.introductionJobs=[];
+      for(const person of [mentee,mentor]){
+        const to=env.MODE==='operating'?JSON.parse(person.answers).email:env.REVIEW_RECIPIENT??'capture-only@example.test';
+        const jobId=action.id+':introduction:'+person.role;
+        writes.push(db.prepare(`INSERT INTO jobs(id,application_id,kind,status,payload,created_at) SELECT ?,?,'chair-approved-message',?,?,? WHERE ${gate}`).bind(jobId,person.id,status,JSON.stringify({to,subject,body}),now,execution));
+        result.introductionJobs.push({id:jobId,to,status});
+      }
+      result.emailSent=false;
+    }
   }else{
     const row=await pair(db,action.pairId,action.version);protect('pairs',row);
     if(action.name==='training'){
