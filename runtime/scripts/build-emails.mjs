@@ -23,7 +23,7 @@ function behavior(id){
     'not-selected':'The Chair decides not to offer a place and separately approves this message. A decision alone does not send it.',
     'mentor-invitation':'The Chair chooses a prospective mentor and approves the invitation. It is not sent automatically.',
     'match-introduction':'After approving the match, the Chair personalizes and separately approves the introduction. Approving the match alone does not send it.',
-    'training-invitation':'The Chair sets the training arrangements and approves the invitation and recipients. No automatic invitation is scheduled.',
+    'training-invitation':'The Chair fills the double-braced variables with the training date, one-hour time slot, time zone, Zoom details and recipients, then approves a calendar invitation. This is the content template; calendar-invite delivery still needs implementation.',
     'first-meeting':'The day after the planned first meeting. If unanswered, the same request is repeated 7 and 14 days after the first email; the Chair is notified at day 21.',
     'chair-review':'A check-in requests contact, reports low value or contains feedback needing review. The next scheduled processing run queues the Chair notice.',
     'chair-meeting-review':'The first meeting needs a Chair decision, such as an unclear reply or no new date. The next scheduled processing run queues the notice.',
@@ -37,6 +37,7 @@ function behavior(id){
   if(id.startsWith('final-'))return {trigger:id.endsWith('-0')?'The Chair records an early ending. The system cancels future quarterly requests and queues final feedback for each participant whose information has not been deleted.':'At month 12 after the confirmed first meeting, the system queues final feedback with the questions for this participant’s role.',reply:feedbackReply+' Final answers update the program results; missing outcome answers count as failures after the original deadline until corrected.'};
   if(id.startsWith('reminder-'))return {trigger:id.split('-').at(-1)+' days after the original check-in was sent, only if that participant has not genuinely replied and the request is still active.',reply:feedbackReply+' The reply updates the original check-in, not a new request.'};
   if(id==='first-meeting')return {trigger:triggers[id],reply:'A clear attendance reply records the actual meeting date and starts the twelve-month cycle. A clear reschedule moves the booking and follow-up. An unclear reply goes to the Chair and does not start the cycle. A genuine reply stops the old no-response reminders; an automatic reply does not.'};
+  if(id==='training-invitation')return {trigger:triggers[id],reply:'Accepting or declining the calendar invitation records an RSVP, not training attendance. Questions or requests to change arrangements go to the Chair. Actual attendance is recorded separately. Calendar RSVP handling remains to be implemented.'};
   if(id.startsWith('chair-'))return {trigger:triggers[id],reply:'Replying does not resolve the item or authorize a change. The Chair handles the underlying issue in program chat. If the reply reaches the program mailbox, it is flagged for review.'};
   return {trigger:triggers[id],reply:manualReply};
 }

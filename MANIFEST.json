@@ -1,5 +1,5 @@
 {
-  "revision": "711e3f5c143a3661bd9be22cbd5249f2532eca98",
+  "revision": "75fbd3e0053d427c268d4aaf00629ef9dd582cdd",
   "files": [
     {
       "path": ".gitignore",
@@ -91,7 +91,7 @@
     },
     {
       "path": "emails/index.html",
-      "sha256": "8c5af01e3666a5aea02735f685beaa236a9d701f60aa637785143acf4f2a9897"
+      "sha256": "f26fb77f42898c815c8007cfbcafd5aba735991987679d33e1847d01feaa4f6e"
     },
     {
       "path": "emails/index.md",
@@ -123,7 +123,7 @@
     },
     {
       "path": "emails/training-invitation.html",
-      "sha256": "4ff5b7162973a5bd7d60f22b02e337b945550c1e075de5a6647e9374d4cc9940"
+      "sha256": "934f17e1c7c90dfe751d60859460943c616b420ab83b17fac7926364484a6d72"
     },
     {
       "path": "package-lock.json",
@@ -135,7 +135,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "71be4706be8e775ecb5fb3e0db9e52efe090fd09b5e24ef4edd2c69ac465fe45"
+      "sha256": "79193d0c47a13b9af6dfdbfaeee7da9e557210b67328239bd6f9a1a972628e68"
     },
     {
       "path": "runtime/administration.mjs",
@@ -299,7 +299,7 @@
     },
     {
       "path": "runtime/scripts/build-emails.mjs",
-      "sha256": "eb5d87da31930089bff9627fb06d507b58d0fc4621da98f06ff15885947a5ff0"
+      "sha256": "5372eade600ff0fbeaaa9cafd4842c14e61fec73d9ba645e77d9af482dd2bd74"
     },
     {
       "path": "runtime/scripts/print-manual.mjs",
@@ -519,7 +519,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "7afe8c2a4de6730beb09ce00d3790f0c5fa2a817e418ba66b5dbf8f8093dfb25"
+      "sha256": "875c5185dd975d83fda36116e7a1fe4a5578857347272830edb511f441800ac8"
     },
     {
       "path": "LICENSE-CODE.txt",

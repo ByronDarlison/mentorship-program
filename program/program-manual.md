@@ -1518,15 +1518,35 @@ If you have any questions, reply to this email and the Mentorship Chair will get
 
 #### Training invitation
 
-**Subject:** Your mentorship training: [date]
+Send this as a calendar invitation, not only a regular email. The event includes the title, start and end time, time zone, organizer, selected participants, Zoom joining details and description below. Keep the same event identity for updates or cancellation. Calendar acceptance records an RSVP, not training attendance. Confirm actual attendance separately. Variables use `{{double_braces}}`; replace them before sending. The end time is one hour after the start time. Omit a passcode field if the meeting does not require one. In the completed invitation, show the Zoom address as a descriptive “Join Zoom” hyperlink.
 
-Your live online mentorship training is on [date and time, including time zone]. Mentors and mentees attend together.
+**Subject:** Your mentorship training: {{training_date}}
+
+You are invited to the live online mentorship training. Mentors and mentees attend together.
+
+Event: Example Chapter Mentorship training
+
+Date: {{training_date}}
+
+Time: {{start_time}} to {{end_time}} ({{time_zone}})
+
+Organizer: {{organizer_name}} ({{organizer_email}})
+
+Invited participants: {{participant_names_and_emails}}
+
+Location: Zoom
+
+Join Zoom: {{zoom_join_link}}
+
+Meeting ID: {{zoom_meeting_id}}
+
+Passcode: {{zoom_passcode}}
+
+Please accept the calendar invitation to add it to your calendar.
 
 The session lasts one hour. Both people in a pair complete the training before their mentoring relationship begins.
 
 Please [review the training curriculum](https://mentorship.example.invalid/training) before attending.
-
-[Join the online training](https://example.invalid/training).
 
 Please have your calendar available. You will book your first 3–6 mentoring meetings together before leaving training.
 
