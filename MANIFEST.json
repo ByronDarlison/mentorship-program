@@ -1,5 +1,5 @@
 {
-  "revision": "012c81c9641617297a86899756141c5268bcda04",
+  "revision": "fb8946a873b54560b5ec6703d97b350b6008a654",
   "files": [
     {
       "path": ".gitignore",
@@ -19,7 +19,7 @@
     },
     {
       "path": "emails/applications-open.html",
-      "sha256": "ec119d3f45e8f0437cb23c8d8ecc9f46a76a5955ceb1bf8ebbee3898202f88b5"
+      "sha256": "0e646b72752bf15e75cfc98af94d20056f9c73606e4386cea4b9356bc649d795"
     },
     {
       "path": "emails/chair-application-mentee.html",
@@ -87,7 +87,7 @@
     },
     {
       "path": "emails/index.html",
-      "sha256": "a38c845598a0d038019761939f238f02fcba046e7bd9532f88148bfa59e839e4"
+      "sha256": "779ad3447d6e559d1793bce15945e4b27cd43de68670552ec4fce86dc4389c53"
     },
     {
       "path": "emails/index.md",
@@ -131,7 +131,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "2e633859777c6cd3a9022629790e38b4ee9bb75d562248a634e75beb9c77ff99"
+      "sha256": "df400a91d64e863fe02580c7bcfb51ff442aaee7f10dd3c51f644cc2954e9240"
     },
     {
       "path": "runtime/administration.mjs",
@@ -515,7 +515,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "e58101710c88b930c0b59222b8de721b2005fd743e978aa4dcb0ee3702fe2460"
+      "sha256": "7615098e8ec37a1fca584bffdd212ce80650abe9b3a7a127460eb719a798d078"
     },
     {
       "path": "LICENSE-CODE.txt",

@@ -1436,25 +1436,13 @@ Use descriptive hyperlinks in HTML emails. Before sending an invitation, replace
 
 #### Applications open
 
-**Subject:** Example Chapter Mentorship applications
+**Subject:** You don’t have to work through every business challenge alone
 
-Example Chapter is preparing a mentorship cohort of up to ten pairs.
+Running a business can feel lonely, especially when an important decision rests with you. A conversation with someone who has been there can bring a fresh perspective and help you see a way forward.
 
-Applications are welcome year-round. There may be a wait while we prepare a suitable group.
+The Example Chapter Mentorship Program connects members with experienced mentors for a year of thoughtful conversations and practical support. For mentors, it is a chance to give back, share what they have learned and gain new perspectives themselves.
 
-Each mentee will work with an experienced mentor to make meaningful progress in their business. Each relationship runs for twelve months.
-
-Participants complete one joint online cohort training session. Each pair then meets for one hour in ten of the twelve months.
-
-Mentees must be current Example Chapter members. Mentors may come from any organization or affiliation.
-
-The Chair approves mentors based on relevant experience and judgment. Mentors may be invited or may express interest directly.
-
-[Apply as a mentee](https://mentorship.example.invalid/mentees)
-
-[Apply as a mentor](https://mentorship.example.invalid/mentors)
-
-Each application page explains the program and commitments. Applying does not guarantee a place or a suitable match.
+[Explore the program](https://mentorship.example.invalid/) to learn more about participating as a mentee or mentor.
 
 If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
