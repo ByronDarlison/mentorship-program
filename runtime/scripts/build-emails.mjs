@@ -64,7 +64,7 @@ for(const [id,heading,to,when] of [
 ])await add(id,heading,to,when,manualTemplate(heading));
 for(const role of ['mentee','mentor'])await add('chair-application-'+role,'New '+role+' application','Chair','Automatic notice after an application is saved.',chairApplicationMessage('{{applicant_name}}',role));
 const render=messageRenderer('https://example.invalid');
-await add('first-meeting','First meeting confirmation','Mentee','Day after the booked meeting. The same wording is repeated on days 7 and 14 if unanswered.',render({id:'example',kind:'first'},'initial',null));
+await add('first-meeting','First meeting confirmation','Mentee','Day after the booked meeting. The same wording is repeated on days 7 and 14 if unanswered.',render({id:'example',kind:'first',mentor_name:'{{mentor_name}}',first_meeting_date:'{{first_meeting_date}}'},'initial',null));
 for(const period of [3,6,9])await add('check-in-'+period,'Month '+period+' check-in','Mentee and mentor','Automatic, measured from confirmed first attendance.',render({id:'example',kind:'quarterly',role:'mentee',period},'initial','FICTIONAL-LINK'));
 for(const role of ['mentee','mentor'])for(const period of [12,0])await add('final-'+role+'-'+period,(period?'Month 12':'Early ending')+': '+role,role,'Final feedback. Each role receives its own questions.',render({id:'example',kind:'final',role,period},'initial','FICTIONAL-LINK'));
 for(const day of [7,14])await add('reminder-'+day,'Day '+day+' reminder','Participant who has not replied','Automatic for quarterly and final check-ins. First-meeting reminders use the confirmation above.',render({id:'example',kind:'quarterly',role:'mentee',period:3},'reminder-'+day,'FICTIONAL-LINK'));

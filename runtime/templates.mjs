@@ -6,14 +6,18 @@ export function messageRenderer(origin){
   return (request,phase,token,initial={})=>{
     const {messages,questions}=content;
     const link=token?new URL('/check-in#'+token,site).href:initial.link;
-    if(request.kind==='first')return {...messages.first,requestId:request.id,phase};
+    if(request.kind==='first'){
+      const mentorName=request.mentor_name??initial.mentorName,meetingDate=request.first_meeting_date??initial.meetingDate;
+      if(!mentorName||!meetingDate)throw new Error('First-meeting email requires mentor name and booked date.');
+      return {...messages.first,body:messages.first.body.replaceAll('{{mentor_name}}',mentorName).replaceAll('{{first_meeting_date}}',meetingDate),mentorName,meetingDate,requestId:request.id,phase};
+    }
     if(!link)throw new Error('Private request link unavailable.');
     let message;
     if(phase.startsWith('reminder-'))message=messages.reminders[Number(phase.split('-')[1])];
     else message=request.kind==='final'?messages.final:messages.quarterly;
     if(!message)throw new Error('Unknown approved message.');
     let body=message.body.replaceAll('[link]',link).replaceAll('https://example.invalid/check-in',link).replace('month-[three, six, nine, or twelve]','month-'+({3:'three',6:'six',9:'nine',12:'twelve'}[request.period]??request.period));
-    if(request.kind==='final'&&request.period===0)body=body.replace('Your twelve-month mentorship cycle is complete.',messages.earlyOpening);
+    if(request.kind==='final'&&request.period===0)body=body.replace(/^Your twelve months[^\n]+/,messages.earlyOpening);
     const list=questions[request.kind==='final'?request.role:'quarterly'];
     if(phase==='initial'){
       const closing='If you have any questions, reply to this email and the Mentorship Chair will get back to you.';

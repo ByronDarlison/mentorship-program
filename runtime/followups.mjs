@@ -74,14 +74,24 @@ export async function runFollowups(db,{now=new Date().toISOString(),inboxHealthy
       if(await db.prepare('SELECT id FROM jobs WHERE id=?').bind(r.id+':initial').first())continue;
       const token=crypto.randomUUID()+crypto.randomUUID();
       next.sent_at=delivery?null:now;next.deadline=delivery?null:addDays(now,21);next.token_hash=await sha256(token);
-      jobs.push(queue(db,r.id+':initial',r,'request',renderMessage(r,'initial',token),now,delivery?'pending':'captured'));
+      let messageRequest=r;
+      if(r.kind==='first'){
+        const context=await db.prepare('SELECT p.planned_date,a.answers FROM pairs p JOIN applications a ON a.id=p.mentor_id WHERE p.id=?').bind(r.pair_id).first();
+        messageRequest={...r,mentor_name:context?JSON.parse(context.answers).name:null,first_meeting_date:context?.planned_date};
+      }
+      jobs.push(queue(db,r.id+':initial',r,'request',renderMessage(messageRequest,'initial',token),now,delivery?'pending':'captured'));
     }else if(!r.replied_at){
       const latest=Date.parse(now)>=Date.parse(addDays(r.sent_at,14))?14:7;
       for(const day of [latest])if(Date.parse(now)>=Date.parse(addDays(r.sent_at,day))&&Date.parse(now)<Date.parse(r.deadline)){
         // Use the original captured message link. Raw tokens exist only in the
         // private delivery job, never on the request or in a public read API.
         const initial=await db.prepare('SELECT payload FROM jobs WHERE id=?').bind(r.id+':initial').first('payload');
-        jobs.push(queue(db,r.id+':reminder:'+day,r,'reminder',renderMessage(r,'reminder-'+day,null,JSON.parse(initial??'{}')),now,delivery?'pending':'captured'));
+        const original=JSON.parse(initial??'{}');
+        if(r.kind==='first'&&(!original.mentorName||!original.meetingDate)){
+          const context=await db.prepare('SELECT p.planned_date,a.answers FROM pairs p JOIN applications a ON a.id=p.mentor_id WHERE p.id=?').bind(r.pair_id).first();
+          original.mentorName=context?JSON.parse(context.answers).name:null;original.meetingDate=context?.planned_date;
+        }
+        jobs.push(queue(db,r.id+':reminder:'+day,r,'reminder',renderMessage(r,'reminder-'+day,null,original),now,delivery?'pending':'captured'));
         if(day===14)jobs.push((gate,args)=>db.prepare(`INSERT OR IGNORE INTO jobs(id,application_id,kind,status,payload,created_at,request_id) SELECT ?,?,'reminder','cancelled',?,?,? WHERE ${gate}`).bind(r.id+':reminder:7',r.application_id,JSON.stringify({requestId:r.id,reason:'Superseded by the later due reminder.'}),now,r.id,...args));
       }
     }

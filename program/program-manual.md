@@ -1468,7 +1468,7 @@ If you have any questions, reply to this email and the Mentorship Chair will get
 
 **Subject:** Your Example Chapter Mentorship application
 
-We are looking for a suitable mentor for you. We will do our best, but cannot guarantee a match.
+Following your application to the [Example Chapter Mentorship Program](https://mentorship.example.invalid/), we are looking for a suitable mentor for you. We will do our best, but cannot guarantee a match.
 
 The Mentorship Chair will contact you when there is an update. You do not need to do anything now.
 
@@ -1478,7 +1478,7 @@ If you have any questions, reply to this email and the Mentorship Chair will get
 
 **Subject:** Your Example Chapter Mentorship application
 
-Thank you for your interest in the program. We are sorry that we cannot offer you a place in the next group.
+Thank you for applying to the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). We are sorry that we cannot offer you a place in the next group.
 
 Would you like us to keep your application for a future group? Please reply to this email to let us know.
 
@@ -1504,7 +1504,7 @@ If you have any questions, reply to this email and the Mentorship Chair will get
 
 **Subject:** Your Example Chapter mentorship introduction
 
-We are pleased to introduce you as a mentor and mentee. [Brief positive explanation of why this fit may be useful.]
+Following your applications to the [Example Chapter Mentorship Program](https://mentorship.example.invalid/), we are pleased to introduce you as a mentor and mentee. [Brief positive explanation of why this fit may be useful.]
 
 Before your mentoring meetings begin, you will complete the live online training together. Your first mentoring meeting starts your twelve months in the program.
 
@@ -1522,7 +1522,7 @@ Send this as a calendar invitation, not only a regular email. The event includes
 
 **Subject:** Your mentorship training: {{training_date}}
 
-You are invited to the live online mentorship training. Mentors and mentees attend together.
+As a matched participant in the [Example Chapter Mentorship Program](https://mentorship.example.invalid/), you are invited to the live online training. Mentors and mentees attend together.
 
 Event: Example Chapter Mentorship training
 
@@ -1559,9 +1559,13 @@ If unanswered, repeat the request seven and fourteen days later. Notify the Chai
 Stop these reminders after a genuine mentee response, not an automatic reply.
 A rescheduled meeting uses the new date and follow-up sequence.
 
-**Subject:** Your first mentoring meeting
+**Subject:** Did your first mentoring meeting take place?
 
-Did your first mentoring meeting take place as planned? Please reply to confirm. If it was rescheduled, please include the new date.
+You recently joined the [Example Chapter Mentorship Program](https://mentorship.example.invalid/) and were matched with {{mentor_name}}. Your first mentoring meeting was scheduled for {{first_meeting_date}}.
+
+Did you meet as planned? Please reply to confirm. If you rescheduled, let us know the new date. If you have not met or chosen another date yet, tell us that too.
+
+Your first meeting starts your twelve months in the program, so your reply helps us keep the timing right.
 
 If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
@@ -1572,7 +1576,7 @@ Use those canonical questions rather than maintaining separate form and email wo
 
 **Subject:** Your Example Chapter mentorship check-in
 
-It is time for your month-[three, six, nine, or twelve] check-in. Your feedback helps us understand how the mentorship is working for you.
+It is time for your month-[three, six, nine, or twelve] check-in for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Your feedback helps us understand how the mentorship is working for you.
 
 Please [complete your short check-in](https://example.invalid/check-in). Tell us how often you have met, what value you are getting, and whether you would like the Mentorship Chair to contact you.
 
@@ -1590,7 +1594,7 @@ Send only to a participant whose check-in is still unanswered. These templates c
 
 **Day seven subject:** A reminder about your mentorship check-in
 
-Please [complete your short mentorship check-in](https://example.invalid/check-in). Your feedback helps us understand how the program is working for you.
+We recently emailed you a check-in for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Please [complete your short mentorship check-in](https://example.invalid/check-in). Your feedback helps us understand how the program is working for you.
 
 You can also reply with your answers to the questions in our original check-in email.
 
@@ -1598,7 +1602,7 @@ If you have any questions, reply to this email and the Mentorship Chair will get
 
 **Day fourteen subject:** Your mentorship feedback
 
-We have not yet received your check-in answers. Please [complete your check-in](https://example.invalid/check-in) so we can understand how the mentorship is working for you.
+We have not yet received your answers to the check-in we emailed you for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Please [complete your check-in](https://example.invalid/check-in) so we can understand how the mentorship is working for you.
 
 You can also reply with your answers to the questions in our original check-in email.
 
@@ -1610,7 +1614,7 @@ Include the applicable final questions from [Check-in questions](#check-in-quest
 
 **Subject:** Your final mentorship check-in
 
-Your twelve-month mentorship cycle is complete.
+Your twelve months in the [Example Chapter Mentorship Program](https://mentorship.example.invalid/) are complete.
 
 Thank you for the time and thought you brought to the relationship.
 
@@ -1620,7 +1624,7 @@ You may also reply by email with your answers. Please keep confidential mentorin
 
 Count meetings since your last check-in, or since your mentorship began if this is your first.
 
-If the relationship ends early, use the same questions and replace the twelve-month opening with: “As your mentorship relationship comes to an end, we would value your feedback.”
+If the relationship ends early, use the same questions and replace the twelve-month opening with: “As your relationship in the [Example Chapter Mentorship Program](https://mentorship.example.invalid/) comes to an end, we would value your feedback.”
 
 If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
