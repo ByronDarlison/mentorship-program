@@ -1,5 +1,5 @@
 {
-  "revision": "75fbd3e0053d427c268d4aaf00629ef9dd582cdd",
+  "revision": "0e026a4efc141d2f7bc078a720bf46428cdb8475",
   "files": [
     {
       "path": ".gitignore",
@@ -123,7 +123,7 @@
     },
     {
       "path": "emails/training-invitation.html",
-      "sha256": "934f17e1c7c90dfe751d60859460943c616b420ab83b17fac7926364484a6d72"
+      "sha256": "46c52879cdbe6d0ddb852611b691cbdabe048e8a0083cb0d2218957d36ec6a03"
     },
     {
       "path": "package-lock.json",
@@ -135,7 +135,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "79193d0c47a13b9af6dfdbfaeee7da9e557210b67328239bd6f9a1a972628e68"
+      "sha256": "a0c6141ac70fc18993045673961745f52525ab2a30093c0d4192d280651bbe8d"
     },
     {
       "path": "runtime/administration.mjs",
@@ -519,7 +519,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "875c5185dd975d83fda36116e7a1fe4a5578857347272830edb511f441800ac8"
+      "sha256": "ec930e3bb024dd01ec2521ba9d5bf66d85dc1c8c5613a053b6af754032306613"
     },
     {
       "path": "LICENSE-CODE.txt",

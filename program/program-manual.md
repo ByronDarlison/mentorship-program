@@ -1532,8 +1532,6 @@ Time: {{start_time}} to {{end_time}} ({{time_zone}})
 
 Organizer: {{organizer_name}} ({{organizer_email}})
 
-Invited participants: {{participant_names_and_emails}}
-
 Location: Zoom
 
 Join Zoom: {{zoom_join_link}}
