@@ -7,6 +7,7 @@ A simple mentorship program for entrepreneurs. People apply on the website; the 
 ## Documentation
 
 - [User guide](USER_GUIDE.md): running the program through AI chat.
+- [Email examples](emails/index.md): message wording, recipients and downloadable HTML previews.
 - [Technical guide](TECHNICAL_GUIDE.md): installation, AI connection, maintenance, backups and transfer.
 
 Use the local demonstration for fictional applications. Live submissions create records and send email.

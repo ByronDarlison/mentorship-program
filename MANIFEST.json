@@ -1,5 +1,5 @@
 {
-  "revision": "5ae94c8a33941a8932794dc1c3cc979145edf84e",
+  "revision": "b3ecd0f94b6b295ebcab537f89ab60d1533aad6e",
   "files": [
     {
       "path": ".gitignore",
@@ -7,11 +7,119 @@
     },
     {
       "path": "TECHNICAL_GUIDE.md",
-      "sha256": "5620e5109b165803d129fd4f49e92662b10a33c487d05b2c5fb47828035a0499"
+      "sha256": "226bf60cf20f2b5db3692af52db394ec75d4bf91f08bc84ebb529b6b7f277cbc"
     },
     {
       "path": "USER_GUIDE.md",
-      "sha256": "ca4ddffc0d348ba32f6f7ed8261e6abaa360777d44d3958ce96c2d5ac64633c9"
+      "sha256": "bd7c9faf396dace88853d1c9e5db9ab5506b916acf50e6592738c35b53b8051b"
+    },
+    {
+      "path": "emails/application-received.html",
+      "sha256": "2f7d8ef958b005dcc6565158379b10881e30d912e6fb1d36d2981fd7c88654f7"
+    },
+    {
+      "path": "emails/applications-open.html",
+      "sha256": "2f80212d26a4fe8543fc7b7caef7dfe974357581cd12aa05e60222aaaeb95828"
+    },
+    {
+      "path": "emails/chair-application-mentee.html",
+      "sha256": "832f81bfbf8745b168f3986d60a49d09a16cc4813660a0fa3fbf584414623109"
+    },
+    {
+      "path": "emails/chair-application-mentor.html",
+      "sha256": "09aa31dcdfc5085886b6bc2439fa613042be255f5ca835e0402eca87cc62f3f7"
+    },
+    {
+      "path": "emails/chair-deadline.html",
+      "sha256": "a5053aee6adbc55b65e155d15ed97d1f0d3537b61fe78bb331b9f338f4cbd9dd"
+    },
+    {
+      "path": "emails/chair-email-review.html",
+      "sha256": "9f7d64d4e2e42c7a61d1a1899ebc8de140d8149059d8b418ded2e41ec380a916"
+    },
+    {
+      "path": "emails/chair-meeting-review.html",
+      "sha256": "5c79147483174cfbd22b15de6795f7b1411411e439c4670fb4b0a9fd3d87f040"
+    },
+    {
+      "path": "emails/chair-processing-error.html",
+      "sha256": "e73025ec0306cd3081d75ba37d283c46486b199f99b2e1113c8647032871835d"
+    },
+    {
+      "path": "emails/chair-review.html",
+      "sha256": "d1ed4f2bc71895d64ae8a83c7830541b30228d122e32b1d62cf43a7e59e2fd38"
+    },
+    {
+      "path": "emails/check-in-3.html",
+      "sha256": "c1c9b26ea1492e6b9a686747c20eb8a58a3d1c4ccc9c274be450df3d37b24b7f"
+    },
+    {
+      "path": "emails/check-in-6.html",
+      "sha256": "c672297b29a31547d184bef9f9a7ff56b7cfd3b84ca3f14f5bf9991e213adb0e"
+    },
+    {
+      "path": "emails/check-in-9.html",
+      "sha256": "90b7913d66c12816d7845e2f3c77ec7c2b97de3fb2d65e6bbffa7b41118c4fe7"
+    },
+    {
+      "path": "emails/custom-message.html",
+      "sha256": "6112e298c50bd18a8fecabeaf1bf9cb9fd9195d1791f974c32fef5d87f807bf3"
+    },
+    {
+      "path": "emails/final-mentee-0.html",
+      "sha256": "c7075f755810ab8dcd2dfc00c2cef8a2ddd1b6b9fe9c3686740ae4b0bc0f8c3c"
+    },
+    {
+      "path": "emails/final-mentee-12.html",
+      "sha256": "2c30a378bb878c3d7018aea7aeb42905da0178e7483a63ee60218da6aa90533d"
+    },
+    {
+      "path": "emails/final-mentor-0.html",
+      "sha256": "65c0eababc03e1b23890401490cb4d6f03df1b7112b0e1ffa4566b447af1ad88"
+    },
+    {
+      "path": "emails/final-mentor-12.html",
+      "sha256": "1be6f7bceca17e6d33e675249c31af6e6776456e3ec723c704d5bd98d2405d20"
+    },
+    {
+      "path": "emails/first-meeting.html",
+      "sha256": "fccf736299f618dd58182ee3b04dbeea8e69c78344a3520eafa3cce9e6d28ed7"
+    },
+    {
+      "path": "emails/index.html",
+      "sha256": "66d73be1fbaba085e84ce59d0ab17d14ca75810d19471aef6e950eb58e6908ff"
+    },
+    {
+      "path": "emails/index.md",
+      "sha256": "d81c54177dee069d33e8f48fc7c48d3d84719c4c63812e910c0c354c53137a88"
+    },
+    {
+      "path": "emails/match-introduction.html",
+      "sha256": "3b7e5e52c5281185a349b76ac7428a03f18636b536d9076c9298b096159b4da4"
+    },
+    {
+      "path": "emails/mentor-invitation.html",
+      "sha256": "f4c616ebb937632d7ae5ee244e2cf999c5cf6b18fa58fef5ba817251a2d7ced3"
+    },
+    {
+      "path": "emails/moving-to-matching.html",
+      "sha256": "7038b25172ac8f80606ad82d680c485d656303303c13a6732e8c43074e811eb4"
+    },
+    {
+      "path": "emails/not-selected.html",
+      "sha256": "8536b221d76aacd8a7ea712548616f6c9831222f1d89e4f0a37436389c423d6f"
+    },
+    {
+      "path": "emails/reminder-14.html",
+      "sha256": "604f3cb7b17710966eff9963942704661f90daed11dbd9e47d58e2cac4b5350c"
+    },
+    {
+      "path": "emails/reminder-7.html",
+      "sha256": "c61266eea602a73489ed89a9b25350477faff137a6e16bf7dc465eb7fc8cc73b"
+    },
+    {
+      "path": "emails/training-invitation.html",
+      "sha256": "8f14209b9893761015c41a69bd66c6688acc007fdb5acd259795b130dc1e5f7a"
     },
     {
       "path": "package-lock.json",
@@ -19,7 +127,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "e800e326137766f1c55b0b6d5b8de275a7165c35ea5b3b7b7fec9cb566e7a322"
+      "sha256": "180d3d35cd1358487a6d9eb2f1367d0c756a82f39dece462647fb260cdddb94a"
     },
     {
       "path": "program/program-manual.md",
@@ -35,7 +143,7 @@
     },
     {
       "path": "runtime/applications.mjs",
-      "sha256": "9c6751aba8eaef51a95721227d1b8f773c425e9aa0480400d3a99c85439adc84"
+      "sha256": "944a426f3817b849e6d7bbdcad419cc6e10528e6da52584c6705f7765224e04b"
     },
     {
       "path": "runtime/backblaze.mjs",
@@ -43,7 +151,7 @@
     },
     {
       "path": "runtime/chair-notifications.mjs",
-      "sha256": "8cae5f5982dff3f1a3d391dfd46205dbc1c90f0f7d447d71e5bbb10aae3f4f6c"
+      "sha256": "34db68809c2fccca3e2d9cd1c68846bd78356d58dc6e5d376987eb0a74c8ee6c"
     },
     {
       "path": "runtime/check-in-api.mjs",
@@ -56,6 +164,10 @@
     {
       "path": "runtime/corrections.mjs",
       "sha256": "13c07d80c48f42366ba4a5144d68ae70b5677a54298eebe5548411c7bc06ee17"
+    },
+    {
+      "path": "runtime/email-html.mjs",
+      "sha256": "3d1204bf80281e23b71393548bd854257af418403a8fe7f38b3d29809768c8a1"
     },
     {
       "path": "runtime/email-replies.mjs",
@@ -147,7 +259,7 @@
     },
     {
       "path": "runtime/program-mailbox.mjs",
-      "sha256": "172f6eb21a98022e3ed61e4bc6eae246d4e275b92f103530d0575e619525d3bf"
+      "sha256": "91cfbdc9988ef01f684d8184a4a1355e9c13343a391e389e53973a10cc7d6869"
     },
     {
       "path": "runtime/recovery-cycle.mjs",
@@ -176,6 +288,10 @@
     {
       "path": "runtime/scripts/authorize-mailbox.mjs",
       "sha256": "8b56e23f097b8fa79902816b6d3902df749c3e1287142a402dd073dd437b53dc"
+    },
+    {
+      "path": "runtime/scripts/build-emails.mjs",
+      "sha256": "0fa3e129d2020a4ba1d5274d753ff9350674ca440695df27d03a9997548bdb46"
     },
     {
       "path": "runtime/scripts/print-manual.mjs",
@@ -395,7 +511,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "b5b761b3a0a19f970c1c823f89b3d67084582d2b309037cdaf876053f3f56e89"
+      "sha256": "753a0aff309d92fbe1159fe54ca1e4a4914f16dee6ca90786d44eb0eb8d65e17"
     },
     {
       "path": "LICENSE-CODE.txt",
@@ -403,11 +519,11 @@
     },
     {
       "path": "LICENSE-MATERIALS.md",
-      "sha256": "9c52395836f240c63e79e7d9815f4fdce23086b732aad08e668c17a681022708"
+      "sha256": "06ce1790204839b353b1d46a842248379e80de26cf63434ebb96460282759f17"
     },
     {
       "path": "README.md",
-      "sha256": "573bc8c932276e742e17bb1b1d462c98467e972f1a30d0d85d8333336192857e"
+      "sha256": "e504c550c78d5c1967596ec957edd638c1580ebbc1d40908d9016709b99abe02"
     }
   ]
 }

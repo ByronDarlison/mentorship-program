@@ -1,5 +1,6 @@
 // A dedicated program mailbox only. This is not connected by default and
 // never falls back to an existing personal Gmail session or organization access.
+import {renderEmailHTML} from './email-html.mjs';
 const base64=text=>btoa(Array.from(new TextEncoder().encode(text),byte=>String.fromCharCode(byte)).join(''));
 export function encodeSubject(subject){
   if(typeof subject!=='string'||!subject.trim()||subject.length>250||/[\r\n]/.test(subject))throw new Error('Invalid message subject.');
@@ -89,8 +90,10 @@ export function createProgramMailbox({mailbox,chairEmail,clientId,clientSecret,r
     return messages;
   },async send(message){
     validateDelivery(message);const request=await api();
+    const boundary='mentorship-'+crypto.randomUUID();
+    const part=(type,body)=>[`--${boundary}`,`Content-Type: ${type}; charset=UTF-8`,'Content-Transfer-Encoding: base64','',base64(body).match(/.{1,76}/g).join('\r\n')].join('\r\n');
     const mime=[`From: Example Chapter Mentorship <${mailbox}>`,`To: ${message.to}`,`Date: ${rfc5322Date()}`,`Message-ID: ${message.reference}`,`${messageReferenceHeader}: ${message.reference}`,
-      `Subject: ${encodeSubject(message.subject)}`,'MIME-Version: 1.0','Content-Type: text/plain; charset=UTF-8','Content-Transfer-Encoding: base64','',base64(message.body).match(/.{1,76}/g).join('\r\n')].join('\r\n');
+      `Subject: ${encodeSubject(message.subject)}`,'MIME-Version: 1.0',`Content-Type: multipart/alternative; boundary="${boundary}"`,'',part('text/plain',message.body),part('text/html',renderEmailHTML(message)),`--${boundary}--`,''].join('\r\n');
     const response=await request('messages/send',{raw:base64(mime).replaceAll('+','-').replaceAll('/','_').replaceAll('=','')});
     return deliveryReceipt(request,response.id,message);
   },async findSent(message){

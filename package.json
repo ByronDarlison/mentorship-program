@@ -6,6 +6,7 @@
     "node": ">=22"
   },
   "scripts": {
+    "emails": "npm run build && node runtime/scripts/build-emails.mjs",
     "build": "node website/scripts/build.mjs",
     "dev": "node website/design-review/serve.mjs",
     "preview": "node website/design-review/serve.mjs",

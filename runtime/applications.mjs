@@ -1,5 +1,7 @@
 import { examples, fields } from './fixtures.mjs';
 
+export function chairApplicationMessage(name,role){return {subject:'New mentorship application',text:`${name} applied as a ${role}.`};}
+
 export class InputError extends Error {
   constructor(message, status = 400, errors = {}) { super(message); this.status = status; this.errors = errors; }
 }
@@ -51,7 +53,7 @@ export async function saveApplication(db, input, config) {
   for (const kind of ['application-receipt','chair-application']) {
     const payload = kind === 'application-receipt'
       ? {to: answers.email, subject: config.COPY.receiptSubject, text: config.COPY.receiptBody, template: 'application-received'}
-      : {to: config.CHAIR_EMAIL, subject: 'New mentorship application', text: `${answers.name} applied as a ${role}.`, template: 'chair-application', name: answers.name, role};
+      : {to: config.CHAIR_EMAIL, ...chairApplicationMessage(answers.name,role), template: 'chair-application', name: answers.name, role};
     statements.push(db.prepare("INSERT OR IGNORE INTO jobs(id,application_id,kind,status,payload,created_at) SELECT id || ?,id,?,?,?,? FROM applications WHERE submission_key=? AND payload_hash=?")
       .bind(':'+kind, kind, mailStatus, JSON.stringify(payload), now, submissionKey, payloadHash));
   }

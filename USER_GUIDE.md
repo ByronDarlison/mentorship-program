@@ -38,6 +38,8 @@ Useful requests:
 
 ## What happens automatically
 
+See [email examples](emails/index.md) for the wording, recipients and HTML format of program messages. Download the repository and open `emails/index.html` in a browser to view them as emails.
+
 - An application is saved, a receipt is queued and you are notified.
 - The day after the booked first meeting, the mentee is asked whether it happened or was rescheduled. Confirmed attendance starts the twelve-month cycle. Booking alone does not.
 - Both people receive check-ins at months 3, 6, 9 and 12. They may answer by email or private form.

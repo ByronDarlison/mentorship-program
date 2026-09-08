@@ -29,6 +29,10 @@ Run `npm test` for automated checks. `npm run preview` shows the disconnected vi
 | `runtime/migrations/` | Database tables and constraints. |
 | `runtime/tests/` | Behavior and failure tests. |
 | `runtime/classification-rules.mjs` | Feedback categories and fictional evaluation cases. |
+| `emails/` | Standalone HTML examples and a browser index. No real recipients or request links. |
+| `runtime/email-html.mjs` | Shared HTML email layout. The mailbox sends HTML plus plain text. |
+
+Edit message wording in the existing content source and the fixed notification helpers. Run `npm run emails` to rebuild the website-derived templates and HTML examples. This renders files only; it does not send email or run tests. `runtime/scripts/build-emails.mjs` generates the example catalog using the same renderers. Open `emails/index.html` in a browser; GitHub shows the files as source.
 
 Keep participant records, credentials, `.wrangler/`, generated `website/dist/` and `runtime/private/` out of Git. `SOURCE.json` and `MANIFEST.json` identify the exported source and file checksums.
 
