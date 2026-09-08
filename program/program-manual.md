@@ -1432,6 +1432,8 @@ The Mentorship Chair:
 
 These templates define the minimum message content. The Chair may personalize the wording without changing the commitments.
 
+Every email must provide a descriptive link back to the program website. The shared email heading links the program name to the homepage. When the body names the program, link its first mention too. Keep specific application, training and check-in links directed to their relevant pages. When moving domains, update the shared heading in `runtime/email-html.mjs` as well as these templates.
+
 Use descriptive hyperlinks in HTML emails. Before sending an invitation, replace any example.invalid meeting address and date placeholder with the actual arrangements. The software replaces the example.invalid check-in address with the participant's private link when it prepares a check-in. If the program moves domains, update the application and training links here and regenerate the emails. Participant emails end with the invitation to reply below; Chair-only notices instead explain the action to take in program AI chat.
 
 #### Applications open
@@ -1440,7 +1442,7 @@ Use descriptive hyperlinks in HTML emails. Before sending an invitation, replace
 
 Running a business can feel lonely, especially when an important decision rests with you. A conversation with someone who has been there can bring a fresh perspective and help you see a way forward.
 
-The Example Chapter Mentorship Program connects members with experienced mentors for a year of thoughtful conversations and practical support. For mentors, it is a chance to give back, share what they have learned and gain new perspectives themselves.
+The [Example Chapter Mentorship Program](https://mentorship.example.invalid/) connects members with experienced mentors for a year of thoughtful conversations and practical support. For mentors, it is a chance to give back, share what they have learned and gain new perspectives themselves.
 
 [Explore the program](https://mentorship.example.invalid/) to learn more about participating as a mentee or mentor.
 
@@ -1452,7 +1454,7 @@ The program sends this receipt and separately notifies the Chair of the applican
 
 **Subject:** We received your mentorship application
 
-Thank you for applying to the Example Chapter Mentorship Program.
+Thank you for applying to the [Example Chapter Mentorship Program](https://mentorship.example.invalid/).
 
 The Mentorship Chair will review your application as we prepare the next group. Finding a suitable match may take time, and we cannot guarantee a place or start date.
 
@@ -1488,7 +1490,7 @@ If you have any questions, reply to this email and the Mentorship Chair will get
 
 Your experience could help another entrepreneur see a challenge differently and decide how to move forward. Mentoring is also a chance to give back, gain fresh perspectives and sharpen your own thinking.
 
-The Example Chapter Mentorship Program connects members with mentors whose experience fits their needs. Mentors listen, ask questions, share relevant experiences and point out possible blind spots. The mentee decides what to do next.
+The [Example Chapter Mentorship Program](https://mentorship.example.invalid/) connects members with mentors whose experience fits their needs. Mentors listen, ask questions, share relevant experiences and point out possible blind spots. The mentee decides what to do next.
 
 The commitment is one live, one-hour online training session together, followed by one-hour meetings in ten of the twelve months beginning with your first mentoring meeting.
 
