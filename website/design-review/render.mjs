@@ -29,7 +29,7 @@ function header(reference = false) {
 
 function footer() {
   return `<footer class="site-footer"><div class="footer-band"><div class="container footer-inner">
-<p>Questions <a href="mailto:mentorship@example.invalid">mentorship@example.invalid</a></p>
+<p>Questions? <a href="mailto:mentorship@example.invalid">mentorship@example.invalid</a></p>
 <nav aria-label="Supporting links"><a href="/terms">Program Terms</a><a href="/privacy">Privacy Notice</a></nav>
 </div></div></footer>`;
 }

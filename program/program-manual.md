@@ -1680,7 +1680,7 @@ Selected participants receive the Chair's direct contact details.
 
 Website banner: Draft, subject to Example Chapter Board approval.
 
-Website footer: Questions mentorship@example.invalid
+Website footer: Questions? mentorship@example.invalid
 Please do not send confidential mentoring discussions or private details about other people.
 Program email uses the dedicated mentorship mailbox and forwards to the Chair. This does not grant AI access to the Chair's personal inbox.
 AI handles clear routine replies. The Chair receives unclear replies, complaints, and requests for help.

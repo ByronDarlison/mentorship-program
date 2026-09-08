@@ -159,7 +159,7 @@ function shell(route, config, body, metadata, toc = '') {
 <div class="preview-banner"><div class="container"><span class="preview-label">Local preview</span> Program under development. No applications are open.</div></div>
 <main id="main" class="container" tabindex="-1">${toc ? `<div class="reading-layout">${toc}<article>${body}</article></div>` : body}</main>
 <footer class="site-footer"><div class="container"><a class="footer-title" href="/">${escape(config.siteName)}</a>
-<nav aria-label="Supporting links"><a href="/terms">Program Terms</a><a href="/privacy">Privacy Notice</a></nav><p>Questions <a href="mailto:mentorship@example.invalid">mentorship@example.invalid</a></p>
+<nav aria-label="Supporting links"><a href="/terms">Program Terms</a><a href="/privacy">Privacy Notice</a></nav><p>Questions? <a href="mailto:mentorship@example.invalid">mentorship@example.invalid</a></p>
 <p class="review-note">Local review only. Official branding and final design remain under review.</p>
 <p class="source-note">Manual updated ${escape(metadata.updated)} · Source ${escape(metadata.commit.slice(0, 7))}</p></div></footer>
 </body></html>`;
