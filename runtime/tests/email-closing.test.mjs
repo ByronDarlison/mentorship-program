@@ -34,5 +34,8 @@ test('all check-in and reminder variants retain questions and guidance without a
     if(period===3)assert.match(message.body,/Count meetings since your mentorship began\./,label);
     if(period===0)assert.match(message.body,/Enter 0 if you have not begun meeting\./,label);
     if(phase==='initial')assert.ok(message.body.includes(guidance),label);
+    const expected=phase!=='initial'?'Thank you for taking a moment to share your feedback.':kind==='final'?'Thank you for the time and thought you brought to the relationship.':'Thank you for being part of the program and helping us make it better.';
+    assert.ok(message.body.endsWith(expected),label);
+    assert.equal((message.body.match(/Thank you/g)??[]).length,1,label);
   }
 });

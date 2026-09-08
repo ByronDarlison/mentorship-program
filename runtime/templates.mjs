@@ -15,6 +15,10 @@ export function messageRenderer(origin){
     else message=request.kind==='final'?messages.final:messages.quarterly;
     if(!message)throw new Error('Unknown approved message.');
     let body=message.body.replace('month-[three, six, nine, or twelve]','month-'+({3:'three',6:'six',9:'nine',12:'twelve'}[request.period]??request.period));
+    // Keep each template's own thank-you after the generated questions.
+    // No universal footer: messages without a closing do not acquire one.
+    const closing=body.match(/\n\n(Thank you[^\n]+)$/)?.[1]??'';
+    if(closing)body=body.slice(0,-closing.length).trim();
     if(request.kind==='final'&&request.period===0)body=body.replace(/^Your twelve months[^\n]+/,messages.earlyOpening);
     const list=[...questions[request.kind==='final'?request.role:'quarterly']];
     if(request.period===3){
@@ -35,6 +39,7 @@ export function messageRenderer(origin){
     if(phase==='initial'||phase.startsWith('reminder-')){
       body=body.trim()+'\n\n'+list.map((q,i)=>`${i+1}. ${q}`).join('\n');
     }
+    if(closing)body+='\n\n'+closing;
     return {subject:message.subject,body,requestId:request.id,phase};
   };
 }
