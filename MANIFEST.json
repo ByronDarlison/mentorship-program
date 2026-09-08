@@ -1,5 +1,5 @@
 {
-  "revision": "e9c24d979540546420e02281aae451a3eff3de92",
+  "revision": "89db11b4a390a01558d9b492d69293d529239bc0",
   "files": [
     {
       "path": ".gitignore",
@@ -7,7 +7,7 @@
     },
     {
       "path": "PROGRAM_JOURNEY.md",
-      "sha256": "f8903d1c1f663b8ddeb9c969bfdef15b5da01a64e0de58f0e9c89da1efd99683"
+      "sha256": "4311b1248b257a4049f90b737e2f3eb54bf7e26605c7f3f39469489e321414ac"
     },
     {
       "path": "TECHNICAL_GUIDE.md",
@@ -519,7 +519,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "f836fa3acfa36835376110c2158aef669148ba8ebfc9ee1e376debc04296b560"
+      "sha256": "808b2a0edad3b62f11b815acef2c2cefcc55fc5f885e89515e279c2c76a528e9"
     },
     {
       "path": "LICENSE-CODE.txt",

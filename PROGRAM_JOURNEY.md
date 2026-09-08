@@ -8,15 +8,12 @@ flowchart TD
     ME["Mentee application received"] --> R
     R -->|"Chair approves both people and their match"| P["Paired, awaiting training"]
     R -->|"No suitable match yet"| W["Waiting for a suitable match"]
-    W -->|"Chair considers for a later group"| R
     R -->|"Chair declines a place in this group"| N["Not selected for this group"]
     P -->|"Both complete live training and book meetings"| B["Trained, first meeting booked"]
     B -->|"Actual first meeting confirmed"| A["Mentorship underway"]
     B -->|"First meeting rescheduled"| B
     A -->|"Twelve months from actual first meeting"| C["Program completed"]
-    P -->|"Chair records early ending"| X["Relationship ended early"]
-    B -->|"Chair records early ending"| X
-    A -->|"Chair records early ending"| X
+    A -->|"Chair records early ending"| X["Relationship ended early"]
 
     R -.- E1["Emails: application receipt<br/>and Chair notice"]
     P -.- E2["Chair-approved emails:<br/>pair introduction and training invitation"]
@@ -30,6 +27,8 @@ flowchart TD
 ```
 
 The pair starts its twelve months at the **actual first mentoring meeting**, not when matched, trained or booked. It meets for one hour in ten distinct months. The mentee keeps the next three to six meetings booked, or the remaining meetings near the end. Training is one live, one-hour online session attended together.
+
+Waiting applicants may be reconsidered for a later group. The Chair may record an early ending at any point after matching, including before training or the first meeting; its path is drawn once to keep the diagram readable.
 
 ## Emails along the journey
 
