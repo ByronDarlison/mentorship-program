@@ -7,5 +7,3 @@ We could not confirm whether the first meeting took place. Review the reply or m
 Open your connected AI chat and say: “Show me the mentorship issue mentioned in this email.”
 
 You can paste this email into the chat to identify the issue.
-
-Reference: {{item_id}}

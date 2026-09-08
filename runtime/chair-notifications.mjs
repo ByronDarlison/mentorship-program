@@ -7,9 +7,9 @@ const reasons={
   'chair-email-review':'A program email needs your review.',
   'chair-processing-error':'A check-in could not be processed. Please review its status.'
 };
-export function chairNoticeMessage(kind,name,id){
+export function chairNoticeMessage(kind,name){
   if(!reasons[kind])throw new Error('Unknown Chair notice.');
-  return {subject:'Mentorship: your attention is needed',body:[name?'Participant: '+name:null,reasons[kind],'Open your connected AI chat and say: “Show me the mentorship issue mentioned in this email.”','You can paste this email into the chat to identify the issue.','Reference: '+id].filter(Boolean).join('\n\n')};
+  return {subject:'Mentorship: your attention is needed',body:[name?'Participant: '+name:null,reasons[kind],'Open your connected AI chat and say: “Show me the mentorship issue mentioned in this email.”','You can paste this email into the chat to identify the issue.'].filter(Boolean).join('\n\n')};
 }
 export async function queueChairNotifications(db,{delivery=false,now=new Date().toISOString()}={}){
   const flags=(await db.prepare("SELECT j.*,a.answers,a.details_removed_at FROM jobs j LEFT JOIN applications a ON a.id=j.application_id WHERE j.status IN ('captured','pending','held') ORDER BY j.created_at,j.id").all()).results;
@@ -17,7 +17,7 @@ export async function queueChairNotifications(db,{delivery=false,now=new Date().
   for(const flag of flags){
     if(!reasons[flag.kind]||flag.details_removed_at)continue;
     const name=flag.answers?JSON.parse(flag.answers).name:null;
-    const message=chairNoticeMessage(flag.kind,name,flag.id);
+    const message=chairNoticeMessage(flag.kind,name);
     const result=await db.prepare("INSERT OR IGNORE INTO jobs(id,application_id,request_id,kind,status,payload,created_at) SELECT ?,?,?,'chair-notification',?,?,? WHERE EXISTS(SELECT 1 FROM jobs WHERE id=? AND status IN ('captured','pending','held')) AND (? IS NULL OR EXISTS(SELECT 1 FROM applications WHERE id=? AND details_removed_at IS NULL)) RETURNING id")
       .bind(flag.id+':notice',flag.application_id,flag.request_id,delivery?'pending':'captured',JSON.stringify({...message,flagId:flag.id}),now,flag.id,flag.application_id,flag.application_id).first();
     queued+=Number(Boolean(result));
