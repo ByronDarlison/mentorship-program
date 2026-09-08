@@ -1,6 +1,6 @@
 import { examples, fields } from './fixtures.mjs';
 
-export function chairApplicationMessage(name,role){return {subject:'New mentorship application',text:`${name} applied as a ${role}.`};}
+export function chairApplicationMessage(name,role){return {subject:'New mentorship application',text:`${name} applied as a ${role}.\n\nReview the application in your program AI chat. Replying to this notice does not approve or decline the applicant.`};}
 
 export class InputError extends Error {
   constructor(message, status = 400, errors = {}) { super(message); this.status = status; this.errors = errors; }

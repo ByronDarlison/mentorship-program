@@ -1432,6 +1432,8 @@ The Mentorship Chair:
 
 These templates define the minimum message content. The Chair may personalize the wording without changing the commitments.
 
+Use descriptive hyperlinks in HTML emails. Before sending an invitation, replace any example.invalid meeting address and date placeholder with the actual arrangements. The software replaces the example.invalid check-in address with the participant's private link when it prepares a check-in. If the program moves domains, update the application and training links here and regenerate the emails. Participant emails end with the invitation to reply below; Chair-only notices instead explain the action to take in program AI chat.
+
 #### Applications open
 
 **Subject:** Example Chapter Mentorship applications
@@ -1454,6 +1456,8 @@ The Chair approves mentors based on relevant experience and judgment. Mentors ma
 
 Each application page explains the program and commitments. Applying does not guarantee a place or a suitable match.
 
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
+
 #### Application received
 
 The program sends this receipt and separately notifies the Chair of the applicant's name and role.
@@ -1465,7 +1469,9 @@ Thank you. Example Chapter has received your application.
 The Mentorship Chair reviews readiness, available mentors, conflicts, and match quality as the next cohort takes shape.
 There may be a wait while we arrange suitable matches and prepare the group.
 
-We will contact you when a decision is available. Please contact the Mentorship Chair if your information changes.
+We will contact you when a decision is available. If your information changes, reply to this email to let us know.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Moving to matching
 
@@ -1473,7 +1479,9 @@ We will contact you when a decision is available. Please contact the Mentorship 
 
 Your application is moving to the matching stage. A place depends on the availability of a suitable mentor.
 
-The Mentorship Chair will contact you with the next step. Please keep the cohort training options available.
+The Mentorship Chair will contact you with the next step and training arrangements. You do not need to do anything now.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Not selected
 
@@ -1483,9 +1491,11 @@ We are sorry that we cannot offer you a place in this cohort.
 
 This may reflect cohort capacity or the availability of a suitable match.
 
-Would you like us to keep your application for a future group? Please let the Mentorship Chair know.
+Would you like us to keep your application for a future group? Please reply to this email to let us know.
 If you ask to remain, we keep your application. Otherwise, the Chair decides when to delete it.
 There is no automatic deletion deadline. You may request deletion at any time.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Mentor invitation
 
@@ -1497,7 +1507,9 @@ We are seeking experienced people who can help an entrepreneur think, decide, an
 
 The commitment includes one joint online cohort training session and meeting for one hour in ten of the twelve months.
 
-Please review the mentor application page and complete the short profile if the role suits you.
+Please [review the mentor application and apply](https://mentorship.example.invalid/mentors) if the role suits you. Applying does not guarantee a place or a suitable match.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Match introduction
 
@@ -1508,9 +1520,11 @@ The Mentorship Chair would like to introduce you for a twelve-month mentorship r
 Your shared cohort training must be complete before mentoring begins. Your first mentoring meeting will start your individual cycle.
 
 The mentee owns scheduling. You will book your first 3–6 meetings together before leaving training and share the first meeting date with the Chair. At each meeting, keep the next 3–6 meetings booked, or the remaining meetings near the end of the program.
-Both participants should review the first-meeting section beforehand.
+Both participants should [review the training curriculum](https://mentorship.example.invalid/training) beforehand, including how to prepare for your first meeting.
 
-Please contact the Mentorship Chair if either person identifies a conflict or concern.
+Please reply to this email if either person identifies a conflict or concern.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Training invitation
 
@@ -1520,11 +1534,15 @@ Your joint online cohort training is scheduled for [date and time].
 
 The session lasts one hour. Both people in a pair complete the training before their mentoring relationship begins.
 
-Please review the public Training page before attending. The meeting link is [link].
+Please [review the training curriculum](https://mentorship.example.invalid/training) before attending.
+
+[Join the online training](https://example.invalid/training).
 
 Please have your calendar available. You will book your first 3–6 mentoring meetings together before leaving training.
 
-Contact the Mentorship Chair if you cannot attend. The Chair will decide whether a live make-up is appropriate.
+Reply to this email if you cannot attend so the Mentorship Chair can arrange the next step.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### First meeting confirmation
 
@@ -1535,7 +1553,9 @@ A rescheduled meeting uses the new date and follow-up sequence.
 
 **Subject:** Your first mentoring meeting
 
-Did your first mentoring meeting take place as planned? If it was rescheduled, please let us know the new date.
+Did your first mentoring meeting take place as planned? Please reply to confirm. If it was rescheduled, please include the new date.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Quarterly check-in
 
@@ -1546,11 +1566,13 @@ Use those canonical questions rather than maintaining separate form and email wo
 
 Your month-[three, six, nine, or twelve] check-in is due.
 
-Please complete your short check-in at [link]. Tell us how often you have met, what value you are getting, and whether you would like the Mentorship Chair to contact you.
+Please [complete your short check-in](https://example.invalid/check-in). Tell us how often you have met, what value you are getting, and whether you would like the Mentorship Chair to contact you.
 
 You may also reply by email with your answers. You do not need to submit them twice.
 
 Please answer briefly without confidential details. AI helps classify the feedback for program review, and the Chair reviews unclear answers.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Check-in reminders
 
@@ -1558,15 +1580,19 @@ Send only to a participant whose check-in is still unanswered. These templates c
 
 **Day seven subject:** A reminder about your mentorship check-in
 
-Please complete your short mentorship check-in at [link]. Your feedback helps us understand how the program is working for you.
+Please [complete your short mentorship check-in](https://example.invalid/check-in). Your feedback helps us understand how the program is working for you.
 
 You may also reply by email with your answers.
 
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
+
 **Day fourteen subject:** Your mentorship feedback
 
-We are still missing your mentorship check-in. Please take a moment to complete it at [link]. If you need help with the form, reply to this email.
+We are still missing your mentorship check-in. Please take a moment to [complete your check-in](https://example.invalid/check-in).
 
 You may also reply with your answers instead of using the form.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Cycle completion
 
@@ -1578,13 +1604,15 @@ Your twelve-month mentorship cycle is complete.
 
 Thank you for the time, attention, action, and experience you brought to the relationship.
 
-Please complete your final check-in at [link]. Tell us what value you received. Mentees are also asked about business progress; mentors are asked, “How would you feel about mentoring again?”
+Please [complete your final check-in](https://example.invalid/check-in). Tell us what value you received. Mentees are also asked about business progress; mentors are asked, “How would you feel about mentoring again?”
 
 You may also reply by email with your answers. Please keep confidential mentoring details out of your reply.
 
 If the relationship ends early, use the same questions and replace the twelve-month opening with: “As your mentorship relationship comes to an end, we would value your feedback.”
 
 If there is interest, Example Chapter may invite current and past participants to an optional annual gathering.
+
+If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 ## Launch-readiness checklist
 

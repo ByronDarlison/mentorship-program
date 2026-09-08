@@ -12,10 +12,13 @@ export function messageRenderer(origin){
     if(phase.startsWith('reminder-'))message=messages.reminders[Number(phase.split('-')[1])];
     else message=request.kind==='final'?messages.final:messages.quarterly;
     if(!message)throw new Error('Unknown approved message.');
-    let body=message.body.replaceAll('[link]',link).replace('month-[three, six, nine, or twelve]','month-'+({3:'three',6:'six',9:'nine',12:'twelve'}[request.period]??request.period));
+    let body=message.body.replaceAll('[link]',link).replaceAll('https://example.invalid/check-in',link).replace('month-[three, six, nine, or twelve]','month-'+({3:'three',6:'six',9:'nine',12:'twelve'}[request.period]??request.period));
     if(request.kind==='final'&&request.period===0)body=body.replace('Your twelve-month mentorship cycle is complete.',messages.earlyOpening);
     const list=questions[request.kind==='final'?request.role:'quarterly'];
-    if(phase==='initial')body+='\n\n'+list.map((q,i)=>`${i+1}. ${q}`).join('\n');
+    if(phase==='initial'){
+      const closing='If you have any questions, reply to this email and the Mentorship Chair will get back to you.';
+      body=body.replace(closing,'').trim()+'\n\n'+list.map((q,i)=>`${i+1}. ${q}`).join('\n')+'\n\n'+closing;
+    }
     return {subject:message.subject,body,link,requestId:request.id,phase};
   };
 }
