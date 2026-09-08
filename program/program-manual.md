@@ -151,6 +151,8 @@ Each pair books its first 3–6 meetings before leaving training and shares the 
 
 The first mentoring meeting begins each pair's individual twelve-month cycle.
 
+Participants begin in groups, called cohorts, and train together. Each pair's cycle runs independently of Example Chapter's fiscal year and can continue across annual membership renewal dates. A new EO year does not restart or end the pair's mentorship cycle.
+
 The day after the booked meeting, the mentee receives a brief email to confirm whether it happened or was rescheduled.
 The cycle starts on the confirmed actual meeting date, not the training or booking date.
 
@@ -809,7 +811,7 @@ Missing confirmation does not establish that the meeting happened. No details of
 
 Each active pair completes a check-in at months three, six, nine, and twelve. If a relationship ends early, a final check-in replaces later scheduled check-ins.
 
-The timing follows the pair's first meeting date. It does not follow Example Chapter's calendar year.
+The timing follows the pair's first meeting date, not Example Chapter's fiscal year or annual membership renewal cycle. Scheduled check-ins continue across those year boundaries.
 
 The check-in records meeting frequency, brief feedback on value, and whether either person wants the Mentorship Chair to contact them. Final feedback also covers business progress and interest in mentoring again.
 

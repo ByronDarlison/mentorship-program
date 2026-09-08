@@ -10,6 +10,8 @@ Mentees are current chapter members. Mentors need relevant experience but do not
 
 Both people attend a joint, live, one-hour online training. Each pair then meets for one hour in ten of the next twelve months, starting from its first actual meeting. The mentee schedules meetings and keeps the next three to six booked, or the remaining meetings near the end.
 
+Participants begin in groups, called cohorts, and train together. Each pair's twelve-month cycle runs independently of the chapter's fiscal year and can continue across annual membership renewal dates. The new year does not restart or end the mentorship cycle.
+
 The mentee comes prepared, considers what the mentor shares, decides what to do and acts on commitments. The mentor listens, asks questions, shares experience, points out possible blind spots and checks progress. Both keep conversations confidential, answer check-ins and do not engage in paid services between each other while participating together.
 
 ## What you do as Chair

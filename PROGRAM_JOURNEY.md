@@ -30,6 +30,8 @@ The pair starts its twelve months at the **actual first mentoring meeting**, not
 
 Waiting applicants may be reconsidered for a later group. The Chair may record an early ending at any point after matching, including before training or the first meeting; its path is drawn once to keep the diagram readable.
 
+Participants begin in groups, called cohorts, and train together. Each pair's twelve-month cycle runs independently of the chapter's fiscal year and can continue across annual membership renewal dates. The new year does not restart or end the mentorship cycle or its check-ins.
+
 ## Emails along the journey
 
 The links below lead to each email's stored HTML. GitHub shows HTML source; download the repository and open [the email viewer](emails/index.html) to see the formatted messages.
