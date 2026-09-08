@@ -1,5 +1,5 @@
 {
-  "revision": "34e291c0eb027f47788963a371455155720fb230",
+  "revision": "adce40fbeeeb6185f53da3e19bc30db9e5c64149",
   "files": [
     {
       "path": ".gitignore",
@@ -235,7 +235,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "283a2fc099f233ebe1257f6bb7d6de352276c946e83f661040c9fc27dcf7eabf"
+      "sha256": "9f1a15ea356e2515ce2c8b63a444865bb6d4a024d33f4f4d2c396624396259eb"
     },
     {
       "path": "runtime/administration.mjs",
@@ -547,7 +547,7 @@
     },
     {
       "path": "website/design-review/applications.mjs",
-      "sha256": "2d2d2ec67054b506444474eceeaa0d1e4f8f963ff5b2a82005a9b8cfdc28e015"
+      "sha256": "3a2aff09deca2544c66b1c6690830622123970f75b8a3c59a31b605cdae7ba3e"
     },
     {
       "path": "website/design-review/assets/Roboto-OFL.txt",
@@ -567,11 +567,11 @@
     },
     {
       "path": "website/design-review/design.css",
-      "sha256": "5eeed4d114180ada0c76002422128deee4f34b97537e1b182ed15f2368dd225d"
+      "sha256": "bb259c5eb440348730be16c91df7dade2c4b1c32f02be424884e7155c740acbe"
     },
     {
       "path": "website/design-review/render.mjs",
-      "sha256": "2ee7644ef5cd0b0833784d64e06be050f12956eb87f58e29e0c6f85751b8f5a1"
+      "sha256": "a80aaca56ca2d9f927167c0b1ff06dd60c7f0890ff9223517fed19f5897a5d25"
     },
     {
       "path": "website/design-review/review.js",
@@ -587,7 +587,7 @@
     },
     {
       "path": "website/scripts/build.mjs",
-      "sha256": "ba3760758701801b885b7e5c6183b08289d45596b36242fe9444d63061f7c83f"
+      "sha256": "f611b1aa5dd72382e7c7c71b55738b7710b2f37beb66038e55e12b68b460bf97"
     },
     {
       "path": "website/scripts/serve.mjs",
@@ -611,7 +611,7 @@
     },
     {
       "path": "website/src/routes.mjs",
-      "sha256": "b4c8875251648fd83c88c0390e95955dfd9cd82a1a29261d81113e2499184125"
+      "sha256": "08966daf958bd103d89ac9e93ffbdacbca4ede806b58b10bc15b56e3beb869b7"
     },
     {
       "path": "website/src/site.css",
@@ -635,7 +635,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "d103e021a1e433754bd29e0f6f861dac3d4cc1b3c8b0e7429b9c246513ddf52d"
+      "sha256": "bdd966b0addc69d91cdef9305b5dbb779cf5ad518bec34066c1f4762e0339ba4"
     },
     {
       "path": "LICENSE-CODE.txt",

@@ -51,6 +51,7 @@ li+li{margin-top:var(--item-gap)}
 
 /* Original EO artwork, with unchanged proportions and logo clearspace. */
 .site-header{position:fixed;inset-block-start:0;inset-inline:0;z-index:20;background:var(--white);border-bottom:1px solid var(--rule);box-shadow:0 2px 8px rgba(32,43,52,.1)}
+.draft-banner{background:#fff0bd;color:var(--base-blue);text-align:center;font-size:16px;line-height:24px;font-weight:700;padding:6px 16px}
 /* Without working navigation JS, show the links and let the header size naturally. */
 html:not([data-navigation-ready]) .site-header{position:static}
 html:not([data-navigation-ready]) .site-surface{padding-block-start:0}
@@ -104,7 +105,8 @@ a.apply:hover,.application-page button.apply:hover{box-shadow:4px 4px 0 var(--ba
 .commitment-group ul{display:grid;row-gap:12px;margin-top:var(--heading-gap);padding-left:24px}
 .commitment-group li{padding-left:4px}
 .commitment-group li+li{margin-top:0}
-.commitment-shared ul{grid-template-columns:repeat(2,1fr);column-gap:56px}
+.commitment-shared ul{display:block;column-count:2;column-gap:56px}
+.commitment-shared li{break-inside:avoid;margin-bottom:12px}
 .commitment-content>hr{height:1px;margin:32px 0;border:0;background:var(--rule)}
 .commitment-roles{display:grid;grid-template-columns:repeat(2,1fr);gap:56px}
 /* The same text hierarchy and vertical flow apply to supporting pages. */
@@ -236,6 +238,7 @@ a.apply:hover,.application-page button.apply:hover{box-shadow:4px 4px 0 var(--ba
   .conversation-moves{grid-template-columns:1fr;gap:20px}
   .conversation-moves li{padding:0 0 0 16px;border-top:0;border-left:3px solid var(--eo-blue)}
   .commitment-shared ul,.commitment-roles{grid-template-columns:1fr}
+  .commitment-shared ul{column-count:1}
   .commitment-roles{gap:24px}
   .commitment-roles .commitment-group+.commitment-group{padding-top:24px;border-top:1px solid var(--rule)}
   .application-questions{padding-left:22px}

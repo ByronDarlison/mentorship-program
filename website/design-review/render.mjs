@@ -19,7 +19,7 @@ function logo() {
 }
 
 function header(reference = false) {
-  return `<header class="site-header"><div class="container header-inner">
+  return `<header class="site-header"><div class="draft-banner">Draft</div><div class="container header-inner">
 <div class="header-identity"><a class="brand-link" href="/home" aria-label="Example Chapter Mentorship home">${logo()}</a><p class="header-program-name">Mentorship Program</p></div>
 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">Menu</button>
 <nav id="main-navigation" aria-label="Main navigation">
@@ -29,7 +29,7 @@ function header(reference = false) {
 
 function footer() {
   return `<footer class="site-footer"><div class="footer-band"><div class="container footer-inner">
-<p>Questions? <a href="mailto:chair@example.invalid">Contact the Mentorship Chair.</a></p>
+<p>Questions? Contact the Mentorship Chair: <a href="mailto:chair@example.invalid">chair@example.invalid</a></p>
 <nav aria-label="Supporting links"><a href="/terms">Program Terms</a><a href="/privacy">Privacy Notice</a></nav>
 </div></div></footer>`;
 }
@@ -147,6 +147,9 @@ export function renderDesignReview(source, options = {}) {
       referenceBody = referenceBody.replace(repeated[0], repeated[1]).replace('<h1>', `<h1${repeated[2]}>`);
     }
     pages.set(route, document(pageTitle, `<div class="site-surface"><a class="skip-link" href="#main">Skip to content</a>${header(true)}<main id="main" class="container reference-main${training ? ' training-page' : ''}" tabindex="-1">${referenceBody}</main>${footer()}</div>`, 'review-page'));
+  }
+  for (const [route, html] of pages) {
+    pages.set(route, html.replace(/<a href="\/owners-outcome(?:#[^"]*)?"/g, '$& target="_blank" rel="noopener noreferrer"'));
   }
   if (options.connected) {
     for (const [route, html] of pages) {

@@ -22,7 +22,7 @@ Work through a business challenge or opportunity with an experienced mentor.
 
 [Apply](#the-mentee-application)
 
-If helpful, [Owner's Outcome](#owners-outcome) is an optional tool for thinking through the business challenge or opportunity you want to pursue.
+If helpful, [Owner's Outcome (Coming soon)](#owners-outcome) is an optional tool for thinking through the business challenge or opportunity you want to pursue.
 
 ### For mentors
 
@@ -1127,13 +1127,15 @@ Active relationships not yet due for final feedback are not included.
 
 ## Owner's Outcome
 
-**Status: Agreed**
+**Status: Draft for review**
 
-Owner's Outcome is an optional tool that may help a mentee think through the business challenge or opportunity they want to pursue.
+**Coming soon**
 
-It is not the purpose of the mentorship program.
+It is easy to spend your days keeping the business moving without stopping to ask what you want it to make possible for you. Owner's Outcome helps you step back, clarify what matters most and decide what progress would look like.
 
-It is not required for participation or used as a program success measure.
+Through a guided AI conversation, you define the outcome you want, consider what stands in the way and choose a practical next step. You can return to reflect on what happened, what you learned and what to do next.
+
+Within the mentorship program, it is an optional aid for thinking through what you would value a mentor's help with. You do not need to use it to apply or participate, and it does not replace your conversations with your mentor.
 
 ## Governance
 

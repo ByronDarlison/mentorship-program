@@ -23,7 +23,7 @@ export async function build(configPath = 'website/config/review.json') {
   if(operating)checkIn.copy.review='';
   result.pages.set('/check-in',renderCheckInPage(checkIn.copy));
   if (!/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(config.contactEmail)) throw new Error('Set a valid contactEmail in the operator configuration.');
-  for (const [route, html] of result.pages) result.pages.set(route, html.replaceAll('mailto:chair@example.invalid', `mailto:${config.contactEmail}`));
+  for (const [route, html] of result.pages) result.pages.set(route, html.replaceAll('mailto:chair@example.invalid', `mailto:${config.contactEmail}`).replaceAll('>chair@example.invalid</a>', `>${config.contactEmail}</a>`));
   const reviewSection = source.split(`## Application ${operating?'operating':'review'} messages\n`)[1]?.split('\n## ')[0];
   const copy = JSON.parse(reviewSection?.match(/```json\n([\s\S]*?)\n```/)?.[1] || 'null');
   if (!copy?.savedTitle || !copy?.saved || !copy?.failed || !copy?.saving) throw new Error('Missing canonical application review messages');
