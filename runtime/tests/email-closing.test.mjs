@@ -42,7 +42,7 @@ test('all check-in and reminder variants retain questions and guidance without a
     assert.match(message.body,/1\. How many/,label);
     assert.match(message.body,/Would you like the Mentorship Chair to contact you\?/,label);
     assert.ok(!message.body.includes('Yes or no'),label);
-    assert.equal(message.body.includes('What could we do to improve the program?'),kind==='final'&&period===12,label);
+    assert.equal(message.body.includes('What could we do to improve the program?'),kind==='final',label);
     if(period===3)assert.match(message.body,/How many times have you met since your mentorship began\?/,label);
     if(period===0)assert.match(message.body,/Enter 0 if you have not begun meeting\./,label);
     if(phase==='initial')assert.ok(message.body.includes(guidance),label);

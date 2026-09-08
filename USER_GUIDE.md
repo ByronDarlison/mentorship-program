@@ -63,7 +63,7 @@ The hourly process runs even when your chat is closed. It sends the approved rou
 
 ## Check-ins and results
 
-At month 12, both people are also asked what could improve the program. Their written recommendations are saved with their feedback and flagged for your review. Suggestions are optional and are not scored as program outcomes.
+At month 12 or when a relationship ends early, both people are also asked what could improve the program. Their written recommendations are saved with their feedback and flagged for your review. Suggestions are optional and are not scored as program outcomes.
 
 Quarterly check-ins ask how many meetings took place, what value the participant received and whether they want you to contact them. Month three counts from the first mentoring meeting; later scheduled check-ins count from the previous check-in. An early-ending check-in allows zero meetings if the pair never began. The final check-in also asks mentees about business progress and mentors about mentoring again.
 

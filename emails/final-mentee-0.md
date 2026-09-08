@@ -9,7 +9,8 @@ Count meetings since your last check-in, or all your mentoring meetings if there
 1. How many mentoring meetings have you had in the period described above?
 2. What progress, if any, did this mentorship help you make in your business?
 3. What value, if any, did you receive from participating?
-4. Would you like the Mentorship Chair to contact you?
+4. What could we do to improve the program?
+5. Would you like the Mentorship Chair to contact you?
 
 There is no need to share the details of your mentoring conversations.
 

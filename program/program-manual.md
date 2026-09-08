@@ -845,7 +845,7 @@ At month twelve, or when a relationship ends early, the mentor answers:
 
 Meeting counts are numbers. Value, progress, and future-mentoring questions use free text, not rating choices. Only the contact request is yes or no. For the first check-in, count meetings since the relationship began.
 
-At month twelve, both participants also receive “What could we do to improve the program?” immediately before the Chair-contact question. Store their recommendations as written feedback for the Chair, not as a performance rating. Suggestions are optional: an omitted recommendation does not make an otherwise completed check-in incomplete or change program success measures. This additional question is not included in early-ending check-ins.
+At month twelve or when a relationship ends early, both participants also receive “What could we do to improve the program?” immediately before the Chair-contact question. Store their recommendations as written feedback for the Chair, not as a performance rating. Suggestions are optional: an omitted recommendation does not make an otherwise completed check-in incomplete or change program success measures.
 
 There is no need to share the details of your mentoring conversations.
 

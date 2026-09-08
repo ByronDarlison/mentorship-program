@@ -18,7 +18,7 @@ export function messageRenderer(origin){
     let body=message.body;
     if(request.kind==='final'&&request.period===0)body=body.replace(/^Your twelve months[^\n]+/,messages.earlyOpening);
     const list=[...questions[request.kind==='final'?request.role:'quarterly']];
-    if(request.kind==='final'&&request.period===12)list.splice(list.length-1,0,content.copy.improvementQuestion);
+    if(request.kind==='final')list.splice(list.length-1,0,content.copy.improvementQuestion);
     const history=request.history??initial.history;
     if([6,9,12].includes(request.period)&&!history)throw new Error('Later check-ins require the recipient’s previous-report context.');
     if(request.period===3)list[0]=content.copy.firstMeetingQuestion;

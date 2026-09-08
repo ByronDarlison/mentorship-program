@@ -3,7 +3,7 @@ import {InputError} from './applications.mjs';
 export const ratings=['Significant','Meaningful','Some','Little or none','Unclear'];
 export const returnRatings=['Interested','Unsure','Not interested'];
 export const outcomeFields=role=>role==='mentee'?['progress','value']:['value','returnInterest'];
-export const requestFields=r=>r.kind==='final'?['meetings',...outcomeFields(r.role),...(r.period===12?['recommendations']:[]),'contact']:['meetings','value','contact'];
+export const requestFields=r=>r.kind==='final'?['meetings',...outcomeFields(r.role),'recommendations','contact']:['meetings','value','contact'];
 export const addDays=(iso,n)=>new Date(Date.parse(iso)+n*86400000).toISOString();
 export function addMonths(date,n){
   const d=new Date(date+'T00:00:00Z'),day=d.getUTCDate();d.setUTCDate(1);d.setUTCMonth(d.getUTCMonth()+n);
