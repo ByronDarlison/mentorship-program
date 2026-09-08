@@ -6,7 +6,7 @@ export const routes = [
   { path: '/mentors', title: 'For mentors', sections: ['the-mentors-role', 'the-mentor-profile'] },
   { path: '/training', title: 'Training', sections: ['training-curriculum'] },
   { path: '/owners-outcome', title: "Owner's Outcome", sections: ['owners-outcome'] },
-  { path: '/terms', title: 'Program Terms', sections: ['program-terms', 'relationship-boundaries'] },
+  { path: '/terms', title: 'Program Terms', sections: ['program-terms'] },
   { path: '/privacy', title: 'Privacy Notice', sections: ['privacy-confidentiality-and-deletion'] },
   { path: '/contact', title: 'Contact and support', sections: ['contact-and-support'] },
   { path: '/licensing', title: 'Licensing and reuse', sections: ['sharing-and-reusing-the-program'] },

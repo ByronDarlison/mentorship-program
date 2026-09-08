@@ -1,5 +1,5 @@
 {
-  "revision": "adce40fbeeeb6185f53da3e19bc30db9e5c64149",
+  "revision": "635cd51c6b60a9b98d4cae5b7004fd69a40490de",
   "files": [
     {
       "path": ".gitignore",
@@ -235,7 +235,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "9f1a15ea356e2515ce2c8b63a444865bb6d4a024d33f4f4d2c396624396259eb"
+      "sha256": "09acef58d2a450f06edd6393d85e1ec6fffc8b1a5c892ae06e97b20c6dbcbd1b"
     },
     {
       "path": "runtime/administration.mjs",
@@ -571,7 +571,7 @@
     },
     {
       "path": "website/design-review/render.mjs",
-      "sha256": "a80aaca56ca2d9f927167c0b1ff06dd60c7f0890ff9223517fed19f5897a5d25"
+      "sha256": "dc38d204a6316529b7a8db1dad6d977fdcbaa90d75fc026374dedd78a2dc42bf"
     },
     {
       "path": "website/design-review/review.js",
@@ -611,7 +611,7 @@
     },
     {
       "path": "website/src/routes.mjs",
-      "sha256": "08966daf958bd103d89ac9e93ffbdacbca4ede806b58b10bc15b56e3beb869b7"
+      "sha256": "9f33d7738f956c24df5318aa6847a70b2d4fd279dc3618ba49ad73fab785b32c"
     },
     {
       "path": "website/src/site.css",
@@ -635,7 +635,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "bdd966b0addc69d91cdef9305b5dbb779cf5ad518bec34066c1f4762e0339ba4"
+      "sha256": "8733ebc43d380a4c25c5c3177f56bd352fe16c3246942afb085b89787799b611"
     },
     {
       "path": "LICENSE-CODE.txt",

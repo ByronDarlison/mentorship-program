@@ -138,6 +138,10 @@ export function renderDesignReview(source, options = {}) {
     const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
     if (!main) throw new Error(`Reference content missing: ${route}`);
     let referenceBody = main.replaceAll('href="/"', 'href="/home"').replace(/<a href="(https:[^"]+)"/g, '<a target="_blank" rel="noopener noreferrer" href="$1"');
+    if (route === '/terms') referenceBody = referenceBody
+      .replace(/<aside class="on-this-page">[\s\S]*?<\/aside>/, '')
+      .replace(/<p class="eyebrow">[\s\S]*?<\/p>/, '')
+      .replace(/<div class="related">[\s\S]*?<\/div>/, '');
     const training = route === '/training';
     if (training) referenceBody = addTrainingVisuals(referenceBody, manual);
     const pageTitle = routes.find(item => item.path === route)?.title ?? 'Page not found';

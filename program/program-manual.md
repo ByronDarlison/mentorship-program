@@ -1202,8 +1202,6 @@ When a boundary or conflict is unclear, the participant should contact the Mento
 
 
 
-**Participation expectations dated September 7, 2026.** These terms apply to the Example Chapter Mentorship Program. Applying does not guarantee a match or a start date.
-
 - Mentees must be current Example Chapter members. Mentors need experience relevant to the mentee's needs.
 - The Mentorship Chair approves every participant and match. Applying does not guarantee a place or start date.
 - Both participants complete joint, live, one-hour cohort training and book their first 3–6 meetings during training. Each pair meets for one hour in ten of its twelve months, starting with its actual first mentoring meeting.
@@ -1214,13 +1212,10 @@ When a boundary or conflict is unclear, the participant should contact the Mento
 - Both participants disclose conflicts and contact the Chair when a concern arises.
 - The Chair decides cohort readiness, capacity, and material program changes. The Board approves budgets and matters requiring chapter authority.
 
-If a relationship needs to end early, contact the Chair. A short final check-in replaces later quarterly check-ins.
+Either participant may end the mentoring relationship. Let the Mentorship Chair know.
 
-The paid-services expectation remains:
+While participating together in the program, do not engage in paid services between each other.
 
-> Do not engage in paid services between each other.
-
-This request applies only during participation together. It introduces no permanent restriction or separate enforcement process.
 The [Privacy Notice](#privacy-confidentiality-and-deletion) explains information use, AI involvement, access, retention, deletion, and program contact.
 
 ## Sharing and reusing the program
