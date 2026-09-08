@@ -845,6 +845,8 @@ At month twelve, or when a relationship ends early, the mentor answers:
 
 Meeting counts are numbers. Value, progress, and future-mentoring questions use free text, not rating choices. Only the contact request is yes or no. For the first check-in, count meetings since the relationship began.
 
+At month twelve, both participants also receive “What could we do to improve the program?” immediately before the Chair-contact question. Store their recommendations as written feedback for the Chair, not as a performance rating. Suggestions are optional: an omitted recommendation does not make an otherwise completed check-in incomplete or change program success measures. This additional question is not included in early-ending check-ins.
+
 There is no need to share the details of your mentoring conversations.
 
 Reply to the check-in email with your answers. There is no separate check-in form or participant login.
@@ -1771,6 +1773,7 @@ This is reusable program guidance. Each operator sets its own application and co
   "finalScopeMentor": "When describing the value you received, think about the whole mentorship. The meeting-count question gives its own start date.",
   "firstMeetingQuestion": "How many times have you met since your mentorship began?",
   "laterValueQuestion": "What value, if any, have you received from the mentorship since then?",
+  "improvementQuestion": "What could we do to improve the program?",
   "earlyMeetingGuidance": "Count meetings since your last check-in, or all your mentoring meetings if there has not been a check-in. Enter 0 if you have not begun meeting.",
   "earlyMeetingQuestion": "How many mentoring meetings have you had in the period described above?",
   "save": "Save answers",

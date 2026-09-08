@@ -12,7 +12,8 @@ When describing the value you received, think about the whole mentorship. The me
 1. How many times have you met since {{meeting_count_start_date}}?
 2. What value, if any, did you receive from participating as a mentor?
 3. How would you feel about mentoring again?
-4. Would you like the Mentorship Chair to contact you?
+4. What could we do to improve the program?
+5. Would you like the Mentorship Chair to contact you?
 
 There is no need to share the details of your mentoring conversations.
 

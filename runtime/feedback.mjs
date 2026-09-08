@@ -3,7 +3,7 @@ import {InputError} from './applications.mjs';
 export const ratings=['Significant','Meaningful','Some','Little or none','Unclear'];
 export const returnRatings=['Interested','Unsure','Not interested'];
 export const outcomeFields=role=>role==='mentee'?['progress','value']:['value','returnInterest'];
-export const requestFields=r=>r.kind==='final'?['meetings',...outcomeFields(r.role),'contact']:['meetings','value','contact'];
+export const requestFields=r=>r.kind==='final'?['meetings',...outcomeFields(r.role),...(r.period===12?['recommendations']:[]),'contact']:['meetings','value','contact'];
 export const addDays=(iso,n)=>new Date(Date.parse(iso)+n*86400000).toISOString();
 export function addMonths(date,n){
   const d=new Date(date+'T00:00:00Z'),day=d.getUTCDate();d.setUTCDate(1);d.setUTCMonth(d.getUTCMonth()+n);
@@ -26,7 +26,7 @@ export function validateFeedback(request,patch){
 }
 export function feedbackStatus(request,now){
   const answers=request.answers,fields=requestFields(request);
-  const missing=fields.filter(k=>!Object.hasOwn(answers,k));
+  const missing=fields.filter(k=>k!=='recommendations'&&!Object.hasOwn(answers,k));
   const expired=Boolean(request.deadline&&Date.parse(now)>=Date.parse(request.deadline));
   return {missing,complete:missing.length===0,expired,
     noResponseFailure:expired&&!request.replied_at&&!request.superseded,
@@ -63,6 +63,7 @@ export function summarizeResults(requests,now,anonymous=[]){
 // Only exact supplied fictional answers are interpreted in the review build.
 // Unknown input remains pending. This is not a production language classifier.
 export const reviewFeedback={
+  recommendations:'It would help to include more practice during training.',
   progress:'The mentorship helped me decide to close an unprofitable product line.',
   value:'The questions helped me see my own role and make useful changes.',
   returnInterest:'I would like to mentor again if the timing works.'

@@ -63,6 +63,8 @@ The hourly process runs even when your chat is closed. It sends the approved rou
 
 ## Check-ins and results
 
+At month 12, both people are also asked what could improve the program. Their written recommendations are saved with their feedback and flagged for your review. Suggestions are optional and are not scored as program outcomes.
+
 Quarterly check-ins ask how many meetings took place, what value the participant received and whether they want you to contact them. Month three counts from the first mentoring meeting; later scheduled check-ins count from the previous check-in. An early-ending check-in allows zero meetings if the pair never began. The final check-in also asks mentees about business progress and mentors about mentoring again.
 
 Month 6, 9 and 12 emails briefly recall that person's previous check-in in conversational language, including its date, meeting count and exact feedback. They do not repeat previous Chair-contact requests, show AI ratings or share the partner's report. The meeting question gives an explicit start date based on the last reported count, or the first meeting if no count was received. Missing prior answers are identified, not invented. At month 12, progress and overall value refer to the whole mentorship, while meeting counts cover only the stated period.

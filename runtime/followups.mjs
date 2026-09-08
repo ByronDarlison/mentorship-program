@@ -133,7 +133,7 @@ export async function receiveFeedback(db,{id,requestId,answers,receivedAt,source
     for(const [field,value] of Object.entries(patch)){
       if(next.answer_times[field]&&Date.parse(receivedAt)<Date.parse(next.answer_times[field]))continue;
       next.answers[field]=value;next.answer_times[field]=receivedAt;
-      if(!['meetings','contact'].includes(field)){
+      if(!['meetings','contact','recommendations'].includes(field)){
         delete next.classifications[field];delete next.conditions[field];
         let interpretation;try{interpretation=validateInterpretation(field,await classify(field,value,identity));}catch{/* Keep answer, interpretation pending. */}
         if(interpretation){next.classifications[field]=interpretation.classification;next.conditions[field]=interpretation.conditions;}
@@ -141,8 +141,8 @@ export async function receiveFeedback(db,{id,requestId,answers,receivedAt,source
     }
     const status=feedbackStatus(next,receivedAt),result={saved:true,complete:status.complete,missing:status.missing};
     const extras=[(gate,args)=>db.prepare(`INSERT OR IGNORE INTO received_responses(id,request_id,payload_hash,received_at,result) SELECT ?,?,?,?,? WHERE ${gate}`).bind(id,requestId,hash,receivedAt,JSON.stringify(result),...args)];
-    const interpretationPending=Object.keys(next.answers).some(k=>!['meetings','contact'].includes(k)&&!next.classifications[k]);
-    if(next.answers.contact===true||next.classifications.value==='Little or none'||Object.values(next.classifications).includes('Unclear')||interpretationPending){
+    const interpretationPending=Object.keys(next.answers).some(k=>!['meetings','contact','recommendations'].includes(k)&&!next.classifications[k]);
+    if(next.answers.contact===true||next.classifications.value==='Little or none'||Object.values(next.classifications).includes('Unclear')||interpretationPending||Object.hasOwn(patch,'recommendations')){
       extras.push(queue(db,id+':chair-review',r,'chair-review',{requestId:r.id,contact:next.answers.contact===true,lowValue:next.classifications.value==='Little or none',unclear:Object.values(next.classifications).includes('Unclear'),interpretationPending},receivedAt));
     }
     if(await saveRequest(db,r,next,extras,id))return result;
