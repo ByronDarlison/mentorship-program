@@ -1,5 +1,5 @@
 {
-  "revision": "68eb6ce9c399872d3f09a3c2c56cc894f32dad6a",
+  "revision": "dc17e16158566f725552b8ce62408eaf39a93c1d",
   "files": [
     {
       "path": ".gitignore",
@@ -15,7 +15,7 @@
     },
     {
       "path": "emails/application-received.html",
-      "sha256": "ee7243810554e5ff1dfa729fffd3856bd06888be35e2c74b902f948fbe5c3a91"
+      "sha256": "0e49b521ba7ad458fa6e3bf5909cb0e5994662527ed1c6d3530c2cf9d130b245"
     },
     {
       "path": "emails/applications-open.html",
@@ -131,7 +131,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "759c7ff7acf38bb79ee4a46c978188ac4191a7eb186e6bdddbd008d72f28d5c5"
+      "sha256": "5e1c9a2da4c24bf8cfcc9833a78b23fcfc04db33036db96761c448409f03185c"
     },
     {
       "path": "runtime/administration.mjs",
@@ -515,7 +515,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "ced46fb467f2f57dc6e466b6122d46729d2003131a11de9a795a5f84a599ee49"
+      "sha256": "ace09666c08e2e60df0b26f09390cdafa86d2dec443d987042518868cc5375ea"
     },
     {
       "path": "LICENSE-CODE.txt",

@@ -1467,6 +1467,7 @@ The program sends this receipt and separately notifies the Chair of the applican
 Thank you. Example Chapter has received your application.
 
 The Mentorship Chair reviews readiness, available mentors, conflicts, and match quality as the next cohort takes shape.
+
 There may be a wait while we arrange suitable matches and prepare the group.
 
 We will contact you when a decision is available. If your information changes, reply to this email to let us know.
