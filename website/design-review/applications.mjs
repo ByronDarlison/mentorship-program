@@ -50,7 +50,7 @@ export function renderApplicationBody(manual, role) {
   const acknowledgement = get(sectionId, 'I understand the commitments');
   let optionalTool = '';
   if (role === 'mentee') {
-    optionalTool = `<p class="application-tool">${escape(get(sectionId, 'If helpful,')).replace('Owner&#39;s Outcome', '<a href="/owners-outcome">Owner\'s Outcome (Coming soon)</a>')}</p>`;
+    optionalTool = `<p class="application-tool">${escape(get(sectionId, 'If helpful,')).replace('Owner&#39;s Outcome', '<a href="https://oo.darlison.com">Owner\'s Outcome</a>')}</p>`;
   }
   if (role === 'mentee') {
     const bothCommitments = listUnderHeading(manual, 'home', 'Both participants');

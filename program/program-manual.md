@@ -22,7 +22,7 @@ Work through a business challenge or opportunity with an experienced mentor.
 
 [Apply](#the-mentee-application)
 
-If helpful, [Owner's Outcome (Coming soon)](#owners-outcome) is an optional tool for thinking through the business challenge or opportunity you want to pursue.
+If helpful, [Owner's Outcome](https://oo.darlison.com) is an optional tool for thinking through the business challenge or opportunity you want to pursue.
 
 ### For mentors
 

@@ -32,7 +32,7 @@ export async function build(configPath = 'website/config/review.json') {
   if (!copy.receiptSubject || !copy.receiptBody) throw new Error('Missing canonical application receipt');
   const destination = path.join(root, 'website/dist');
   // Remove obsolete generated pages before upload; keep their source documentation in Git.
-  for (const page of ['program','mentees','mentors','contact','manual','licensing','check-in']) {
+  for (const page of ['program','mentees','mentors','contact','manual','licensing','check-in','owners-outcome']) {
     await rm(path.join(destination,page,'index.html'), {force:true});
   }
   await mkdir(path.join(destination, 'assets'), {recursive:true});

@@ -60,6 +60,7 @@ export function renderDesignReview(source, options = {}) {
   manual.md.renderer.rules.link_open = (tokens, index, options, env, self) => {
     const token = tokens[index];
     const href = token.attrGet('href');
+    if (href === 'https://oo.darlison.com') return self.renderToken(tokens, index, options);
     if (!href?.startsWith('#')) throw new Error('Home review accepts canonical internal links only');
     const destination = manual.headingDestinations.get(href.slice(1));
     if (!destination) throw new Error(`Unknown canonical link: ${href}`);
@@ -146,7 +147,7 @@ export function renderDesignReview(source, options = {}) {
     pages.set(route, document(pageTitle, `<div class="site-surface"><a class="skip-link" href="#main">Skip to content</a>${header(true)}<main id="main" class="container reference-main${training ? ' training-page' : ''}" tabindex="-1">${referenceBody}</main>${footer()}</div>`, 'review-page'));
   }
   for (const [route, html] of pages) {
-    pages.set(route, html.replace(/<a href="\/owners-outcome(?:#[^"]*)?"/g, '$& target="_blank" rel="noopener noreferrer"'));
+    pages.set(route, html.replace(/<a href="https:\/\/oo\.darlison\.com\/?"/g, '$& target="_blank" rel="noopener noreferrer"'));
   }
   if (options.connected) {
     for (const [route, html] of pages) {

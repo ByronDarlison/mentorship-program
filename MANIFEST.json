@@ -1,5 +1,5 @@
 {
-  "revision": "2868e7fd5b7741134cff6adf3db78bfa6adab6cf",
+  "revision": "20954170ed3e1f0b26bf0ea01dbdaeba59c927f9",
   "files": [
     {
       "path": ".gitignore",
@@ -235,7 +235,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "13577c359617b98ec1d887151cb49ed2ffe58255f594524728c2d435523144b6"
+      "sha256": "4f84ef8d059b1e63830ffa81166330a92ef649dbf4a61ceccf547bc85cfc8305"
     },
     {
       "path": "runtime/administration.mjs",
@@ -547,7 +547,7 @@
     },
     {
       "path": "website/design-review/applications.mjs",
-      "sha256": "3a2aff09deca2544c66b1c6690830622123970f75b8a3c59a31b605cdae7ba3e"
+      "sha256": "e45dcadf1b2358caa272c6266703207f5ff0eb3d4d45109377ad2b2f12aadbf6"
     },
     {
       "path": "website/design-review/assets/Roboto-OFL.txt",
@@ -571,7 +571,7 @@
     },
     {
       "path": "website/design-review/render.mjs",
-      "sha256": "cc25b4fe7b883d3b7491eafff450cef8cd517d6006c7128399830f9f58773753"
+      "sha256": "52ed6ff3731d386de31b2b6b9f40e9ee3ead14139a791ec8c28efabb6a9f83a6"
     },
     {
       "path": "website/design-review/review.js",
@@ -587,7 +587,7 @@
     },
     {
       "path": "website/scripts/build.mjs",
-      "sha256": "f6632d37351e2df6d4a7aed7734ebaf8e7b7ec163ba8453bcecff7ffccaf4337"
+      "sha256": "989df480e24c33ab4866c8f22f2d8160079f1fd83c19e515cca520053dfe8be1"
     },
     {
       "path": "website/scripts/serve.mjs",
@@ -611,7 +611,7 @@
     },
     {
       "path": "website/src/routes.mjs",
-      "sha256": "e619a738f24039395c5fe13ac21df86876eff24bfae53a960f140a4979f7ef7e"
+      "sha256": "bfb2146eeb8746cf4c7632459c2333d69fae042ae730fd1e5d007e5b9a011a8f"
     },
     {
       "path": "website/src/site.css",
@@ -635,7 +635,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "fd6627c7a82daee9d100390266c3a3f7d97ca43520359f4f0df2b4515dcad4aa"
+      "sha256": "623d6b0ce95c7cfc62ab8e79f79ebbf1ad02d0acb60e07a55f2b35a2be88a019"
     },
     {
       "path": "LICENSE-CODE.txt",
