@@ -1,8 +1,10 @@
 # Email examples
 
-Open `emails/index.html` in a browser after downloading the repository. Each message is also stored as a standalone HTML file. GitHub displays HTML source rather than rendering it.
+Open `emails/index.html` in a browser after downloading the repository. Select or scroll through the email list to see the template with insertion variables on the left and a finished fictional example on the right. Both panes update together. On narrow screens they stack vertically. Each pane shows its subject; the shared information above explains the recipient, sending trigger and reply handling. Emails without insertion variables have the same content in both panes. The day 7 and day 14 examples illustrate a month 6 check-in reminder.
 
-All examples are fictional. The same HTML renderer is used for outgoing email. These files are a permanent template reference, not a one-time review checklist.
+Each template is also stored as a standalone HTML file with a matching Markdown copy. Finished examples are embedded in the catalog HTML, so the complete comparison is available from the repository. GitHub displays HTML source rather than rendering it.
+
+All example details are fictional, including the non-working Zoom link. The same HTML renderer is used for outgoing email. Check-in examples use the delivery message renderer with fictional history. These files are a permanent template reference, not a one-time review checklist.
 
 - [Applications open](applications-open.html): Prospective participants. Chair-approved invitation; not automatic.
 - [Application received](application-received.html): Applicant. Automatic receipt after an application is saved.

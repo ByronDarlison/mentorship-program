@@ -1,5 +1,5 @@
 {
-  "revision": "a6e0aff53251be83d4e9878eeb65540e9a8847a7",
+  "revision": "471c2c0249432842227ad8ad2e4c860a69147363",
   "files": [
     {
       "path": ".gitignore",
@@ -163,11 +163,11 @@
     },
     {
       "path": "emails/index.html",
-      "sha256": "600908d43912976688ac95ceed883b5983327410cc14eb6cd2bd577e31a0be5d"
+      "sha256": "40680474e98326ce5dfdcbf4fd91ec413db516101b2a8f373ac8119429565123"
     },
     {
       "path": "emails/index.md",
-      "sha256": "5da0dbba0cba5d5e72d31d2f0a47dd3921fae1305fea4d16d63b13ca99fc7aa1"
+      "sha256": "3f3fa222c6318257f8c548434c041c9d588d1465be937353a525bf770a74e2ac"
     },
     {
       "path": "emails/match-introduction.html",
@@ -275,7 +275,7 @@
     },
     {
       "path": "runtime/email-catalog.mjs",
-      "sha256": "17ffcda15fbcb4ab358df3b58f79923900a5e079b7dc20a630acc93418d13dfd"
+      "sha256": "e37dd96be7f6e3860ed077ec6ef715f9e042b7247eca9b450933de9ac8c16d01"
     },
     {
       "path": "runtime/email-html.mjs",
@@ -403,7 +403,7 @@
     },
     {
       "path": "runtime/scripts/build-emails.mjs",
-      "sha256": "f686c9d4adbf39677d8e6bc4959d92a359e345457f24d4ded0c914d8d12fff50"
+      "sha256": "1f003d96dcd5277264976297d3cb95159b9d60fa65d950be8285d779850dbdfa"
     },
     {
       "path": "runtime/scripts/print-manual.mjs",
@@ -635,7 +635,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "505c1e58bfd4b6f84a3b1916d78522fadefae8a213eac4a9eb77b0019a1cf3b8"
+      "sha256": "0a8e3bea3766ac16e885d9d04766d4492d73f3659b935e90792658576f4d2573"
     },
     {
       "path": "LICENSE-CODE.txt",
