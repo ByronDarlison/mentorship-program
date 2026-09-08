@@ -138,7 +138,7 @@ export function renderDesignReview(source, options = {}) {
     const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
     if (!main) throw new Error(`Reference content missing: ${route}`);
     let referenceBody = main.replaceAll('href="/"', 'href="/home"').replace(/<a href="(https:[^"]+)"/g, '<a target="_blank" rel="noopener noreferrer" href="$1"');
-    if (route === '/terms') referenceBody = referenceBody
+    if (['/terms', '/privacy'].includes(route)) referenceBody = referenceBody
       .replace(/<aside class="on-this-page">[\s\S]*?<\/aside>/, '')
       .replace(/<p class="eyebrow">[\s\S]*?<\/p>/, '')
       .replace(/<div class="related">[\s\S]*?<\/div>/, '');
@@ -147,7 +147,7 @@ export function renderDesignReview(source, options = {}) {
     const pageTitle = routes.find(item => item.path === route)?.title ?? 'Page not found';
     // Put the repeated section's anchor on its visible page heading.
     const repeated = referenceBody.match(/(<section\b[^>]*>)\s*<h2([^>]*)>([\s\S]*?)<\/h2>/);
-    if (repeated && repeated[3].trim() === escape(pageTitle) && referenceBody.includes('<h1>')) {
+    if (repeated && (repeated[3].trim() === escape(pageTitle) || route === '/privacy') && referenceBody.includes('<h1>')) {
       referenceBody = referenceBody.replace(repeated[0], repeated[1]).replace('<h1>', `<h1${repeated[2]}>`);
     }
     pages.set(route, document(pageTitle, `<div class="site-surface"><a class="skip-link" href="#main">Skip to content</a>${header(true)}<main id="main" class="container reference-main${training ? ' training-page' : ''}" tabindex="-1">${referenceBody}</main>${footer()}</div>`, 'review-page'));
