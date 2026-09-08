@@ -1435,7 +1435,7 @@ These templates define the minimum message content. The Chair may personalize th
 
 Every email must provide a descriptive link back to the program website. The shared email heading links the program name to the homepage. When the body names the program, link its first mention too. Keep application and training links directed to their relevant pages. Check-ins are answered by email and have no form links. When moving domains, update the shared heading in `runtime/email-html.mjs` as well as these templates.
 
-Use descriptive hyperlinks in HTML emails. Before sending an invitation, replace meeting and date placeholders with the actual arrangements. If the program moves domains, update the application and training links here and regenerate the emails. Participant emails end with the invitation to reply below; Chair-only notices instead explain the action to take in program AI chat.
+Use descriptive hyperlinks in HTML emails. Before sending an invitation, replace meeting and date placeholders with the actual arrangements. If the program moves domains, update the application and training links here and regenerate the emails. Choose the closing for each message: if it already asks the reader to reply, do not add another invitation to reply. Keep the questions closing where it provides a useful contact route. Chair-only notices explain the action to take in program AI chat.
 
 #### Applications open
 
@@ -1459,9 +1459,7 @@ Thank you for applying to the [Example Chapter Mentorship Program](https://mento
 
 The Mentorship Chair will review your application as we prepare the next group. Finding a suitable match may take time, and we cannot guarantee a place or start date.
 
-We will contact you when there is an update. If your information changes, reply to this email to let us know.
-
-If you have any questions, reply to this email and the Mentorship Chair will get back to you.
+We will contact you when there is an update. If your information changes or you have questions, reply to this email.
 
 #### Moving to matching
 
@@ -1482,8 +1480,6 @@ Thank you for applying to the [Example Chapter Mentorship Program](https://mento
 Would you like us to keep your application for a future group? Please reply to this email to let us know.
 
 If you ask to remain under consideration, we will keep your application. You may ask us to delete it at any time. There is no automatic deletion deadline.
-
-If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Mentor invitation
 
@@ -1513,9 +1509,7 @@ The mentee owns scheduling. You will book your first 3–6 meetings together bef
 
 Both participants should [review the training curriculum](https://mentorship.example.invalid/training) beforehand, including how to prepare for your first meeting.
 
-Please reply to this email if either person identifies a conflict or concern.
-
-If you have any questions, reply to this email and the Mentorship Chair will get back to you.
+Please reply to this email if either person has a question, conflict or concern.
 
 #### Training invitation
 
@@ -1551,9 +1545,7 @@ Please [review the training curriculum](https://mentorship.example.invalid/train
 
 Please have your calendar available. You will book your first 3–6 mentoring meetings together before leaving training.
 
-Reply to this email if you cannot attend so the Mentorship Chair can arrange the next step.
-
-If you have any questions, reply to this email and the Mentorship Chair will get back to you.
+Reply to this email if you have questions or cannot attend so the Mentorship Chair can help.
 
 #### First meeting confirmation
 
@@ -1570,8 +1562,6 @@ Did you meet as planned? Please reply to confirm. If you rescheduled, let us kno
 
 Your first meeting starts your twelve months in the program, so your reply helps us keep the timing right.
 
-If you have any questions, reply to this email and the Mentorship Chair will get back to you.
-
 #### Quarterly check-in
 
 Include the applicable questions from [Check-in questions](#check-in-questions) so participants can answer directly by email.
@@ -1587,9 +1577,7 @@ Please reply to this email with your answers to the questions below. Tell us how
 
 Count meetings since your last check-in, or since your mentorship began if this is your first.
 
-Please answer briefly without confidential details.
-
-If you have any questions, reply to this email and the Mentorship Chair will get back to you.
+Please keep your answers brief. There is no need to share the details of your mentoring conversations.
 
 #### Check-in reminders
 
@@ -1601,15 +1589,11 @@ We recently emailed you a check-in for the [Example Chapter Mentorship Program](
 
 Please reply with your answers to the questions below.
 
-If you have any questions, reply to this email and the Mentorship Chair will get back to you.
-
 **Day fourteen subject:** Your mentorship feedback
 
 We have not yet received your answers to the check-in we emailed you for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/).
 
 Please reply with your answers to the questions below so we can understand how the mentorship is working for you.
-
-If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 #### Cycle completion
 
@@ -1621,13 +1605,13 @@ Your twelve months in the [Example Chapter Mentorship Program](https://mentorshi
 
 Thank you for the time and thought you brought to the relationship.
 
-Please reply to this email with your answers to the questions below. Your feedback helps us understand what the mentorship has meant for you and improve the program. Please keep confidential mentoring details out of your reply.
+Please reply to this email with your answers to the questions below. Your feedback helps us understand what the mentorship has meant for you and improve the program.
+
+Please keep your answers brief. There is no need to share the details of your mentoring conversations.
 
 Count meetings since your last check-in, or since your mentorship began if this is your first.
 
 If the relationship ends early, use the same questions and replace the twelve-month opening with: “As your relationship in the [Example Chapter Mentorship Program](https://mentorship.example.invalid/) comes to an end, we would value your feedback.”
-
-If you have any questions, reply to this email and the Mentorship Chair will get back to you.
 
 ## Launch-readiness checklist
 

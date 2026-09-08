@@ -30,11 +30,10 @@ export function messageRenderer(origin){
       const label=request.kind==='final'?'final check-in':`month-${request.period} check-in`;
       body=body.replace('a check-in for',`your ${label} for`).replace('the check-in we emailed you',`the ${label} we emailed you`);
       const guidance=request.period===0?content.copy.earlyMeetingGuidance:request.period===3?content.copy.firstPeriod:'Count meetings since your last check-in.';
-      body=body.replace('If you have any questions,',guidance+'\n\nIf you have any questions,');
+      body=body.trim()+'\n\n'+guidance;
     }
     if(phase==='initial'||phase.startsWith('reminder-')){
-      const closing='If you have any questions, reply to this email and the Mentorship Chair will get back to you.';
-      body=body.replace(closing,'').trim()+'\n\n'+list.map((q,i)=>`${i+1}. ${q}`).join('\n')+'\n\n'+closing;
+      body=body.trim()+'\n\n'+list.map((q,i)=>`${i+1}. ${q}`).join('\n');
     }
     return {subject:message.subject,body,requestId:request.id,phase};
   };

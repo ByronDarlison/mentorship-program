@@ -28,6 +28,6 @@ All examples are fictional. The same HTML renderer is used for outgoing email. T
 - [Missing response at deadline](chair-deadline.html): Chair. Automatic notice. The underlying item remains open until handled.
 - [Email needs review](chair-email-review.html): Chair. Automatic notice. The underlying item remains open until handled.
 - [Processing problem](chair-processing-error.html): Chair. Automatic notice. The underlying item remains open until handled.
-- [Other Chair-approved email](custom-message.html): Approved recipient. The Chair supplies and approves the actual subject, body and recipient.
+- [Other Chair-approved email](custom-message.html): Approved recipient. The Chair supplies and approves the actual subject, body and recipient, including a closing only when it adds something useful.
 
 To regenerate after editing wording or layout, run `npm run emails`. No email is sent.
