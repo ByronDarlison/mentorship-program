@@ -881,75 +881,62 @@ Both participants receive the final questions above. The same seven-, fourteen-,
 
 This notice explains how the Example Chapter Mentorship Program uses your information. Updated September 8, 2026.
 
-### Information we use
+### What we collect and why
 
-You apply through the website without creating an account. You answer check-ins by replying to email.
+We collect your application details to assess eligibility, find a suitable match and run the program. These include your name, email, business or professional experience and answers about the help you need or can offer. A LinkedIn link is optional. The Chair may read the background available there, but your application remains the main basis for matching.
 
-We use applications only to assess eligibility, suggest matches and run the program. They include your name, email, business or professional experience, matching answers and an optional LinkedIn link. The Chair may read accessible background at that link. You may leave it blank; your application answers remain the main basis for matching.
+During the program, we keep participation and meeting dates, training attendance, check-in responses, feedback and requests for support. We use these to support your relationship and understand the program's value. Emails and training invitations also contain contact details, messages and invitation responses. Accepting an invitation does not confirm attendance.
 
-During participation, we record approvals, training and meeting dates, check-in status, meeting counts, feedback, feedback classifications and requests for Chair contact. Final feedback covers business progress, value and interest in mentoring again. Emails and replies create mailbox copies. Training invitations contain guest names and email addresses, event details and RSVP responses. Accepting an invitation does not confirm attendance.
+Mentoring conversations are confidential and are not collected as program records. Please leave confidential discussions and other people's private information out of applications, check-ins and program emails.
 
-Mentoring conversations are confidential and stay outside program records. Please do not include those discussions or private details about clients, employees or other people in applications, check-ins or email replies.
+### Who has access
 
-### Who can use it
+The Mentorship Chair has access to program records and may authorize specific people to help run the program. We also use service providers to store records, manage email and training invitations, and support AI-assisted administration.
 
-The Mentorship Chair initially controls the records and handles privacy questions. Human access is limited to the Chair at first, with specific additional people authorized when needed. The providers listed below also process information.
+When you are matched, we share your name, contact details and a short explanation of the match with your partner, not your full application or information about other applicants.
 
-The Chair uses records to consider applications, approve participants and matches, arrange training, follow up on meetings, review feedback and support participants. Introductions share each person's name, contact details and a short explanation of the match. They do not share full applications, AI rankings or other candidates.
+The Board receives combined program results. We share identifiable details, individual results or stories outside program administration only with your permission. Reports about small groups must also avoid identifying anyone.
 
-Board reports use combined results. Sharing names, identifiable business details, individual results or stories beyond program administration requires the participant's permission. Reports about small groups must also avoid identifying anyone.
+Example Chapter or a future Mentorship Chair may take over the program and its records. Your information remains private and is used only for the same program purposes.
 
-The system and retained private records can transfer to Example Chapter or a future Chair for the same program purposes. Participant information and backups are kept out of GitHub and the public release of the program.
+### How we use AI
 
-### How AI helps
+AI helps suggest matches, interpret email replies and organize feedback so we can measure results and identify support needs. The Chair approves every participant and match, reviews unclear feedback assessments and decides whether feedback about low value needs follow-up. Clear meeting confirmations, date changes and check-in answers may update records automatically; unclear replies, complaints and requests for help go to the Chair. Automatic messages use approved wording. Other replies need the Chair's approval.
 
-AI suggests matches and classifies written feedback to measure results and flag support needs. The Chair approves every participant and match, reviews unclear classifications and decides whether to follow up on low-value feedback. AI can make mistakes. You may ask the Chair to review or correct information or a classification about you.
+We limit the information shared with AI. For matching and feedback analysis, we leave out the name, email and LinkedIn fields and remove identifying details we recognise within your answers. These checks are not perfect, and someone may still be identifiable from context. If a reply or application cannot be prepared for that use, the Chair reviews it instead. AI assisting the Chair with a specific administrative task may need identifiable information.
 
-For matching and classification, we send only the necessary text and context. We omit name, email and LinkedIn fields and remove recognised participant identifiers from the text. If other contact details are detected, the text goes to the Chair instead of AI. These checks cannot recognise every name or confidential detail, and someone may still be identifiable from context. If the checks cannot prepare a suitable extract, the Chair handles the matter without sending the raw text to AI.
+AI can make mistakes. You can ask the Chair to review or correct information or an assessment about you.
 
-AI also helps the Chair with administration. An authorized Chair session may need identifiable information for a specific task. Routine email processing uses your current reply and the relevant request, removing recognised signatures and quoted messages. The private program system identifies the sender.
-
-Clear confirmations, date changes and check-in answers may update records automatically. Unclear replies, complaints and requests for help go to the Chair. Only approved templates send automatically; other responses need the Chair's approval.
-
-The program requires settings that prevent participant information from being used to train public or shared AI models. These settings must be checked separately for automated AI processing and the Chair's AI session before real information is used. Providers may still retain copies.
-
-### Providers and safeguards
-
-We use Cloudflare for hosting and private records, Backblaze for private backups, Google Workspace for email and training invitations, and OpenAI for routine AI processing and the Chair's Codex interface. Deleting a program record does not erase provider-held calendar and guest copies.
-
-Providers may process information outside Canada, where other countries' laws and lawful access by authorities may apply. Backblaze backups are stored in the United States. We cannot promise Canadian-only storage or absolute security.
-
-Program records have restricted access, a history of changes and private backups. Deleted records must be excluded when backups are restored.
+Your information is not used to train public or shared AI models. Providers may still retain copies for the periods described below.
 
 ### How long we keep information
 
-The program keeps information only while it serves the stated purposes:
+- Applications stay on file while awaiting consideration. If you are not selected, the Chair asks whether you want to remain under consideration. Your application stays if you ask to remain. Otherwise, the Chair decides when to delete unmatched applications; there is no automatic expiry date.
+- We keep relationship records through the program and final review, including when a relationship ends early. After that review, we delete detailed applications, LinkedIn links, collected background information and written feedback from active records.
+- For reporting and follow-up, we may keep your name, group and participation dates, final results or missing-response status, interest in mentoring again and contact permission while needed. You can request deletion of this record too. Late feedback can correct a retained result before the personal record is deleted.
+- Temporary matching material is deleted once matches are approved. The approved match and its approval record remain while needed to run the relationship.
 
-- Applications remain on file while people await consideration. The Chair asks unselected applicants whether they wish to remain. The Chair decides when to delete unmatched applications; there is no automatic deadline. Applications remain if the applicant asks to stay under consideration.
-- Information needed to run an active relationship stays through its cycle and final review, including an early-ending review. After that review, detailed applications, LinkedIn links, collected profile background and free-text feedback are deleted from active program records.
-- Only names, cohort and participation dates, final classifications or missing-answer status, mentor return interest and contact permission may remain for program reporting and follow-up, while needed for those purposes. You may request deletion of this minimal record too.
-- Late feedback may correct a retained result and follows the same deletion rule. Missing final outcome answers count as failures for their measures after the original 21-day reply window until corrected; early endings remain in the results.
-- Temporary program-held matching inputs and outputs are deleted after the Chair approves the matches. The approved pair and minimal approval record remain while needed to administer the relationship.
-- Deleting your personal record does not remove its contribution to overall program totals. We delete your application and written feedback immediately. If a final reporting window is still open, we keep only the private results needed to finish it. These may remain traceable to you through dates. Once your result is included, we fold it into totals and remove the individual reporting record. Unanswered outcomes count as unsuccessful only after the original 21-day window. Small-group reports must still avoid identifying you.
-- If you leave and request deletion before we request final feedback, a separate reporting period applies. It lasts twenty-one days from when the Chair records the ending. We delete your personal information without waiting and send you nothing further. Your contribution stays pending for that full period. We then include it, preserving supplied answers and counting unanswered final outcomes as unsuccessful. This changes reporting only, not deletion timing.
+Deleting your personal information does not remove its contribution to combined program results. We delete your application and written feedback immediately. Limited results may remain until the final 21-day reporting period ends; dates may still make them traceable to you. Once included in the totals, the individual reporting record is removed.
+
+Relationships that end early still count in program results. Unanswered final outcomes count as unsuccessful after the original 21-day reply period, until corrected. Requests already sent keep that original deadline.
+
+If you leave and request deletion before final feedback is requested, the reporting period begins when the Chair records the ending. Deletion is not delayed and we send you nothing further. Existing answers are preserved in the results; unanswered outcomes count as unsuccessful only after that period ends. Later messages do not reconnect to an erased personal record.
 
 ### Your choices and deletion limits
 
-You may ask the Chair to access or correct your information, review its use, address a privacy concern, withdraw from consideration or participation, or delete your information at any time. The Chair will explain any effect on matching or administration.
+You can ask the Chair to see or correct your information, review how it is used, address a privacy concern, withdraw or delete your information. The Chair will explain any effect on matching or participation.
 
-Deletion covers active records and program-controlled email copies, working extracts, logs and exports. Backups and provider-held records may remain for their retention periods. Your deletion confirmation will identify remaining copies, where they are held, when they expire and any legal restrictions.
+Deletion includes records and copies under the program's control, including email and AI chat history. Some copies must be removed separately. Backups, service-provider records and legal holds may delay final removal. We cannot erase copies held independently by email or calendar recipients, or your LinkedIn profile.
 
-To keep deleted records from returning through a backup, we retain a separate record containing only coded record identifiers and deletion dates until all recoverable copies expire.
+Database recovery copies may remain for up to 30 days. Separate backups older than seven days are normally removed, but the latest usable backup is kept. Older copies may remain if backup or deletion processes fail. AI providers may retain abuse-monitoring records for up to 30 days, or longer when legally required; our automated AI calls do not save response history.
 
-We cannot erase email copies held independently by recipients or your LinkedIn profile. We remain responsible for copies under our control.
+The Chair will explain which copies remain, where they are held, when they expire and any legal restrictions. We keep a minimal record of deletions, without the deleted content, until all backups containing it have expired. This prevents deleted information from returning when a backup is restored.
 
-After your personal record is deleted, a later message cannot automatically reconnect to it or change its contribution to the totals. The Chair handles that message separately without rebuilding the erased identity link.
+### Where information is stored
 
-Cloudflare database recovery history can remain for up to 30 days. The program normally removes Backblaze backup versions older than seven days, while keeping the latest verified recovery set. If backups stop or expiry fails, older copies can remain until the Chair resolves the issue. A deletion confirmation will identify any such remaining copies.
+We restrict access and keep private backups, but no system can guarantee absolute security. Information may be stored or processed outside Canada and be subject to local laws, including lawful access by authorities. Our private backups are stored in the United States.
 
-OpenAI API calls are configured not to store response history. The provider can still retain abuse-monitoring records for up to 30 days, or longer when legally required. This is not a zero-retention service. The Chair's chat history and program-controlled email copies are deleted separately; deleting the application does not automatically delete them. Provider recovery periods and any legal holds can delay their final removal. The Chair will verify and explain these limits when handling a deletion request.
-
-For access, correction, deletion or privacy concerns, use the [Chair contact details](#contact-and-support). The contact address is `chair@example.invalid`.
+For privacy questions or requests, contact the [Mentorship Chair](#contact-and-support) at chair@example.invalid.
 
 
 

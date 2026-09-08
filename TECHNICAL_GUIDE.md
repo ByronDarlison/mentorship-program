@@ -2,6 +2,10 @@
 
 One Cloudflare Worker serves the website, API and hourly job. Private D1 storage holds applications and program records. A dedicated Google mailbox sends messages and receives replies. OpenAI interprets replies and suggests matches. Backblaze B2 stores encrypted backups. The Chair uses an existing AI chat connection, not a custom dashboard.
 
+The participant Privacy Notice describes these services by purpose. Maintainers must preserve the actual provider details here: Google Workspace also holds training invitations and guest responses; OpenAI supports routine processing and the Chair's Codex session. Verify no-training settings separately for both AI routes. The September 7 operating record confirms API data-sharing settings disabled and the Chair's model-improvement setting off. Automated calls use `store: false`, which does not remove provider abuse-monitoring retention.
+
+Cloudflare recovery history can remain for 30 days. Backblaze expiry normally removes versions older than seven days but protects the latest verified recovery set; failures can extend retention. OpenAI abuse-monitoring copies may remain up to 30 days, or longer when legally required. Program-controlled email, calendar and AI-chat copies need separate deletion handling. Preserve coded deletion identifiers and dates until all restorable copies expire, and apply them before restoring records. Participant data, exports and backups never enter GitHub or the reusable public release. The published Privacy Notice retains these substantive limits without product names or setup instructions.
+
 ## Run and test locally
 
 Install Node.js 22 or later and Git:
