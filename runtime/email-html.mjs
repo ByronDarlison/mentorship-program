@@ -15,7 +15,7 @@ function inline(text){
 export function renderEmailHTML({subject,body}){
   const blocks=String(body).split(/\n\s*\n/).map(block=>{
     const lines=block.split('\n');
-    if(lines[0]==='You wrote:'&&lines.slice(1).every(line=>line.startsWith('> ')))return `<p style="margin:0 0 8px">You wrote:</p><blockquote style="margin:0 0 20px;padding-left:16px;border-left:3px solid #d9dbe5">${lines.slice(1).map(line=>escapeHTML(line.slice(2))).join('<br>')}</blockquote>`;
+    if(lines.length>1&&lines.slice(1).every(line=>line.startsWith('> ')))return `<p style="margin:0 0 8px">${inline(lines[0])}</p><blockquote style="margin:0 0 20px;padding-left:16px;border-left:3px solid #d9dbe5">${lines.slice(1).map(line=>escapeHTML(line.slice(2))).join('<br>')}</blockquote>`;
     if(lines.every(line=>/^\d+\. /.test(line)))return `<ol style="margin:0 0 20px;padding-left:24px">${lines.map(line=>`<li style="padding-left:4px;margin:0 0 12px">${inline(line.replace(/^\d+\. /,''))}</li>`).join('')}</ol>`;
     return `<p style="margin:0 0 20px">${lines.map(inline).join('<br>')}</p>`;
   }).join('\n');
