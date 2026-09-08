@@ -18,9 +18,13 @@ The mentee comes prepared, considers what the mentor shares, decides what to do 
 
 Before your first use, the program owner authorizes your access and a technical maintainer connects your AI app using the [Chair connection steps](TECHNICAL_GUIDE.md#connect-the-chairs-ai-chat). You do not obtain a live access key from GitHub. Replacing a Chair does not require rebuilding the program.
 
-Use your connected program chat. Start with:
+Open an AI chat where the mentorship program connection is available. A general chat does not know which program you mean from “show new applications” alone. Start with:
 
-> Show new applications and anything that needs my attention.
+> Using the mentorship program connection, show me new applications and anything that needs my attention.
+
+The AI should use that connection to read current program records, not infer status from earlier conversation. If the connection is unavailable, use the setup link above; naming the program does not grant access.
+
+You can keep a dedicated mentorship chat and use shorter follow-up requests once that context is established. In a new or general chat, name the mentorship program connection explicitly. The examples below assume you have already done that.
 
 1. **Review applications.** Speak with each prospective mentee about readiness, membership and commitments. Speak with prospective mentors you do not know. Approve, wait or decline. Ask waiting applicants whether they want to remain under consideration; there is no automatic expiry.
 2. **Make matches.** Ask AI for suggestions and the reasons behind them. Consider experience, fit and conflicts. Choose the pair and group yourself, then approve a separate introduction email. Do not share full applications or rankings.

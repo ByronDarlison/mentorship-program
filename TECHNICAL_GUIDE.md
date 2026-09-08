@@ -98,6 +98,8 @@ Use private paths outside the repository; the output must not exist. The helper 
 
 ### Connect the Chair's AI chat
 
+After setup, the Chair must select or explicitly name this connection in their AI chat. Start with: “Using the mentorship program connection, show me new applications and anything that needs my attention.” A general chat cannot infer the intended application from “show new applications” alone. See the [Chair instructions](USER_GUIDE.md#what-you-do-as-chair). A dedicated mentorship chat may retain context, but the AI must still read current records through the connection.
+
 The program owner authorizes the Chair. A maintainer with permission to update this Cloudflare Worker performs the setup. This supports one Chair connection identity, not separate accounts for several Chairs.
 
 | Setting | Where to get it |
