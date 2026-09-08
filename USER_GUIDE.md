@@ -4,6 +4,8 @@ The program helps entrepreneurs make meaningful business progress through mentor
 
 ## How the program works
 
+See [the mentorship journey](PROGRAM_JOURNEY.md) for the application-to-completion diagram and the emails sent along the way.
+
 Mentees are current chapter members. Mentors need relevant experience but do not need to be members. Applications stay open, but a match and start date are not guaranteed. The Chair approves every participant and match. The first group has no more than ten pairs.
 
 Both people attend a joint, live, one-hour online training. Each pair then meets for one hour in ten of the next twelve months, starting from its first actual meeting. The mentee schedules meetings and keeps the next three to six booked, or the remaining meetings near the end.
