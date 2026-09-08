@@ -1,6 +1,6 @@
 # Email examples
 
-Open `emails/index.html` in a browser after downloading the repository. Select or scroll through the email list to see the template with insertion variables on the left and a finished fictional example on the right. Both panes update together. On narrow screens they stack vertically. Each pane shows its subject; the shared information above explains the recipient, sending trigger and reply handling. Emails without insertion variables have the same content in both panes. The day 7 and day 14 examples illustrate a month 6 check-in reminder.
+Open `emails/index.html` in a browser after downloading the repository. Select or scroll through the email list to see the template with insertion variables on the left and a finished fictional example on the right. Both panes update together. This viewer is designed for a large desktop screen. Each pane shows its subject; the shared information above explains the recipient, sending trigger and reply handling. Emails without insertion variables have the same content in both panes. The day 7 and day 14 examples illustrate a month 6 check-in reminder.
 
 Each template is also stored as a standalone HTML file with a matching Markdown copy. Finished examples are embedded in the catalog HTML, so the complete comparison is available from the repository. GitHub displays HTML source rather than rendering it.
 
