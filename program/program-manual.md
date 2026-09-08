@@ -1189,7 +1189,7 @@ When a boundary or conflict is unclear, the participant should contact the Mento
 - Mentees must be current Example Chapter members. Mentors need experience relevant to the mentee's needs.
 - The Mentorship Chair approves every participant and match. Applying does not guarantee a place or start date.
 - Attend the live, one-hour group training together and book your first 3–6 meetings.
-- Meet for one hour in ten of the twelve months following your first mentoring meeting.
+- Meet for one hour in ten months of a twelve-month cycle that starts with your first mentoring meeting.
 - The mentee schedules meetings and keeps the next 3–6 booked, or all remaining meetings if fewer are left in the program.
 - Both participants complete the short quarterly check-ins and protect confidential mentoring conversations.
 - Mentorship is voluntary. The mentor does not become the mentee's consultant, manager, or operator.

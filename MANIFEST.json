@@ -1,5 +1,5 @@
 {
-  "revision": "9927e13f6f4868f78229b66a69eb1528511ea297",
+  "revision": "080bcd438a6d2a5c51fb69c9bd056eec27a4357a",
   "files": [
     {
       "path": ".gitignore",
@@ -235,7 +235,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "94428f8ab452737cb893bcc8ce3047d0d7b8ca3f58ccb6473870f0264a02d91b"
+      "sha256": "c11c9e44923b0ae2352ee0414eca4dc7ed12f2027f2a8ddd48033eb24e0bfa68"
     },
     {
       "path": "runtime/administration.mjs",
@@ -635,7 +635,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "880dd6ec77d82aac0ccd188b6c847a9fa80df1fd386af801652486efba0d161a"
+      "sha256": "fe09b8a0a1ba295bd5b1c600f930cc3f6b438953b99b88fee51c2e7b9bf84f2e"
     },
     {
       "path": "LICENSE-CODE.txt",
