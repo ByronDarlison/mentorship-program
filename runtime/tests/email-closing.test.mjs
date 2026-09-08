@@ -24,7 +24,8 @@ test('all check-in and reminder variants retain questions and guidance without a
   const render=messageRenderer('https://example.invalid');
   for(const role of ['mentee','mentor'])for(const period of [0,3,6,9,12])for(const phase of ['initial','reminder-7','reminder-14']){
     const kind=[0,12].includes(period)?'final':'quarterly';
-    const message=render({id:'fictional',kind,role,period},phase,null);
+    const history=[6,9,12].includes(period)?{countFrom:'2026-06-15',fromStart:false,lastReport:{date:'2026-06-15',answers:{meetings:3,value:'Fictional feedback.',contact:false}}}:undefined;
+    const message=render({id:'fictional',kind,role,period,history},phase,null);
     const label=`${role}/${period}/${phase}`;
     assert.ok(!message.body.includes(closing),label);
     assert.match(message.body,/reply.*answers/i,label);

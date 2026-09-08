@@ -1,5 +1,5 @@
 {
-  "revision": "f7ca1b04840c5f7b0ff47dd00ff63c1794a5fd58",
+  "revision": "cd71841416bcaa7342c82378dd400eca8aed9598",
   "files": [
     {
       "path": ".gitignore",
@@ -11,11 +11,11 @@
     },
     {
       "path": "TECHNICAL_GUIDE.md",
-      "sha256": "27085fa903bea8bdc738aa877a62bbdd3660d9336c837e5b943d99c153da2b77"
+      "sha256": "ee5f938f4ece0ddfb343e9a65e81029c35f3a05dd04cc5d0f21ad3d131706e09"
     },
     {
       "path": "USER_GUIDE.md",
-      "sha256": "6c5bfbcfffa58117d6a55dd5996300d777733e47cc4d79c1baa2460c5f9e1531"
+      "sha256": "bc79acfa535efec6a9b2fc8702b9d9e0f3287ccfe6783780b4c9bc72b5f9fb98"
     },
     {
       "path": "emails/application-received.html",
@@ -59,11 +59,11 @@
     },
     {
       "path": "emails/check-in-6.html",
-      "sha256": "cb9c9be44651963f00cb6a766ad431d81eee23c14b66ad73635e98d2f207802f"
+      "sha256": "2d18e06ca97c9dcae77ded714cbcb90aeae6356a53d76c6808168f4f3bb583c9"
     },
     {
       "path": "emails/check-in-9.html",
-      "sha256": "59ba8c9338d2a8535fc33620ac19d8e75eaa5767782046839ddee46303204920"
+      "sha256": "5d2add6ce541521915460c7871c405c07b53b74786acee4dc2ab9def4964da0a"
     },
     {
       "path": "emails/custom-message.html",
@@ -75,7 +75,7 @@
     },
     {
       "path": "emails/final-mentee-12.html",
-      "sha256": "14a006206e84e4ebfdbe79b3fd7572a49017c0efd13233bf7e800326a0880b4d"
+      "sha256": "c7a0a7ad06ed04f3ba146e1cd0f40cd50fc16ed9eaea5fb6bf3f10e779c52434"
     },
     {
       "path": "emails/final-mentor-0.html",
@@ -83,7 +83,7 @@
     },
     {
       "path": "emails/final-mentor-12.html",
-      "sha256": "eaae8ff59e11376365d42afea284bf807ddf7b913f6085a0fc2acfc588f31326"
+      "sha256": "ebb6cf5bf2a704d376d11fdbe2bf848b94f2c4530501517e42707c40d0e45898"
     },
     {
       "path": "emails/first-meeting.html",
@@ -135,7 +135,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "d8c7d142192d2be00be692fff5a2a33038c5e6e9593c2db2628a1ad2943ed4ab"
+      "sha256": "c2399134fc4fd7ec55e32215567c807a6dc02b47ea9cf1cb70decd7b46ebd92b"
     },
     {
       "path": "runtime/administration.mjs",
@@ -162,6 +162,10 @@
       "sha256": "678c53de1bc2c7c9b518ce007f7fb22f40296ac35aacb344074114c5eb6cf809"
     },
     {
+      "path": "runtime/check-in-history.mjs",
+      "sha256": "5f114f60c6d6326270dfb0413d54889f0b0d96e7229e73c57f8f655c0bd52a96"
+    },
+    {
       "path": "runtime/classification-rules.mjs",
       "sha256": "f565581274da919339ceb38aff36dde5cde9de88b841a19ecfa44ef3b1f069d3"
     },
@@ -175,7 +179,7 @@
     },
     {
       "path": "runtime/email-html.mjs",
-      "sha256": "b1f85f276ec642d5cc692353c5e1a033282a2d084392d217fdb7b43f103ac344"
+      "sha256": "22f19fcd04d4a777a241f975457fffd0680c82e1eb58c6c46679f27e5b92b30a"
     },
     {
       "path": "runtime/email-replies.mjs",
@@ -191,7 +195,7 @@
     },
     {
       "path": "runtime/followups.mjs",
-      "sha256": "01c823af07cba44c03c46526a22748ca3d0de9fe95569e6d7861daa8f49de7ff"
+      "sha256": "5af69abe7fa6ac69f3463325e0d76c7bfc72f8561dc2c2da71d4ac48bbca5685"
     },
     {
       "path": "runtime/identifiers.mjs",
@@ -299,7 +303,7 @@
     },
     {
       "path": "runtime/scripts/build-emails.mjs",
-      "sha256": "e79b74be77be34d18404f99d5fca88a0e4214981a875d67b6647372e6ee04b2c"
+      "sha256": "5c384ceaeacc6dfde56cd98c26614821dc8c375ad7b3b1dfd12b41bc7a81a35b"
     },
     {
       "path": "runtime/scripts/print-manual.mjs",
@@ -311,7 +315,7 @@
     },
     {
       "path": "runtime/templates.mjs",
-      "sha256": "c5137bc851af7c52477d6b9652687c304c7a570d1c554941cde5984072b1b38a"
+      "sha256": "e7d5eceeac18ad49e222ad243796e6010ba9b393609250081fa73a6269b2c65b"
     },
     {
       "path": "runtime/tests/administration.test.mjs",
@@ -342,8 +346,12 @@
       "sha256": "6c79623ce7650d00361d951f3b3fa99530c6589220ea97460cdfeedea9651062"
     },
     {
+      "path": "runtime/tests/check-in-history.test.mjs",
+      "sha256": "16a025d82f93b256d42d441a2962b13ad03090b83c4798f9c36859e9efab12a2"
+    },
+    {
       "path": "runtime/tests/email-closing.test.mjs",
-      "sha256": "57e99f99118ab741e45b15636ba3dc9314faeb6e65f9d24cd3ca1e3f48437a59"
+      "sha256": "739e82e95fca8ae8c0496447ef4df48b52f5785f1a763bd575c0c25dadabd86d"
     },
     {
       "path": "runtime/tests/email-replies.test.mjs",
@@ -523,7 +531,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "e2dbfde38d99c9f4671d0fe02fec23ef7616f22c627410f2d01c49ad73325b7a"
+      "sha256": "1b2205e47cf633ae762fffb20aa1505d00425b595c6e014e1dd03dbbb16c297b"
     },
     {
       "path": "LICENSE-CODE.txt",

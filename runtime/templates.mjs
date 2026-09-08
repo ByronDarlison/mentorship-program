@@ -1,4 +1,5 @@
 import content from '../website/dist/check-in-config.json' with {type:'json'};
+import {historyDate,historyText} from './check-in-history.mjs';
 
 export function messageRenderer(origin){
   const site=new URL(origin);
@@ -21,6 +22,8 @@ export function messageRenderer(origin){
     if(closing)body=body.slice(0,-closing.length).trim();
     if(request.kind==='final'&&request.period===0)body=body.replace(/^Your twelve months[^\n]+/,messages.earlyOpening);
     const list=[...questions[request.kind==='final'?request.role:'quarterly']];
+    const history=request.history??initial.history;
+    if([6,9,12].includes(request.period)&&!history)throw new Error('Later check-ins require the recipient’s previous-report context.');
     if(request.period===3){
       body=body.replace('Count meetings since your last check-in, or since your mentorship began if this is your first.',content.copy.firstPeriod);
       list[0]=content.copy.firstMeetingQuestion;
@@ -37,9 +40,16 @@ export function messageRenderer(origin){
       body=body.trim()+'\n\n'+guidance;
     }
     if(phase==='initial'||phase.startsWith('reminder-')){
+      if([6,9,12].includes(request.period)&&history){
+        const from=historyDate(history.countFrom);
+        body=body.replace('Count meetings since your last check-in.',`Count meetings since ${from}.`);
+        list[0]=`How many times have you met since ${from}?`;
+        body+='\n\n'+historyText(history);
+      }
+      if(request.kind==='final'&&request.period===12)body+='\n\n'+content.copy[request.role==='mentor'?'finalScopeMentor':'finalScopeMentee'];
       body=body.trim()+'\n\n'+list.map((q,i)=>`${i+1}. ${q}`).join('\n');
     }
     if(closing)body+='\n\n'+closing;
-    return {subject:message.subject,body,requestId:request.id,phase};
+    return {subject:message.subject,body,requestId:request.id,phase,...(history?{history}:{})};
   };
 }

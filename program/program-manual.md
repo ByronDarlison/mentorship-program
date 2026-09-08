@@ -817,6 +817,10 @@ The check-in records meeting frequency, brief feedback on value, and whether eit
 
 The check-in does not record the confidential substance of mentoring conversations.
 
+At months six, nine and twelve, include only the recipient's own previous answers from this pair: the report date, meeting count, their feedback quoted exactly, and whether they requested Chair contact. Do not include the partner's answers or AI classifications. Label missing or partial answers honestly. State the meeting-count start date explicitly, using the date of their last reported meeting count. If no count was received, count from the actual first meeting. If the latest check-in was unanswered but an older report exists, distinguish the unanswered request from that older report. Dates in these email references use UTC calendar dates. Reminders retain the original email's reference period and history.
+
+At month twelve, the meeting count covers that latest reporting period, while business progress and overall value cover the whole mentorship.
+
 ### Check-in questions
 
 The mentee and mentor each receive the same three questions at months three, six, and nine. At month three, replace the first question with “How many times have you met since your mentorship began?” At an early ending, ask “How many mentoring meetings have you had in the period described above?” and explain that the count is zero if they have not begun meeting. Later scheduled check-ins count from the previous check-in.
@@ -1745,6 +1749,8 @@ This is reusable program guidance. Each operator sets its own application and co
   "instruction": "Please answer briefly and do not include confidential details.",
   "partialGuidance": "You can save some answers now and add others later. Answers already sent by email do not need repeating.",
   "firstPeriod": "Count meetings since your mentorship began.",
+  "finalScopeMentee": "For the progress and value questions, think about the whole mentorship. Only the meeting count covers the period stated above.",
+  "finalScopeMentor": "When describing the value you received, think about the whole mentorship. Only the meeting count covers the period stated above.",
   "firstMeetingQuestion": "How many times have you met since your mentorship began?",
   "earlyMeetingGuidance": "Count meetings since your last check-in, or all your mentoring meetings if there has not been a check-in. Enter 0 if you have not begun meeting.",
   "earlyMeetingQuestion": "How many mentoring meetings have you had in the period described above?",

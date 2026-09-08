@@ -1,5 +1,6 @@
 import {InputError,sha256} from './applications.mjs';
 import {foldFinishedOutcomes} from './outcome-storage.mjs';
+import {checkInHistory} from './check-in-history.mjs';
 import {addDays,addMonths,validateFeedback,feedbackStatus,classifyReview,validateInterpretation} from './feedback.mjs';
 const jsonColumns=['answers','answer_times','classifications','conditions','failure_history'];
 export function decodeRequest(row){if(!row)return null;return {...row,...Object.fromEntries(jsonColumns.map(k=>[k,JSON.parse(row[k])]))};}
@@ -74,6 +75,7 @@ export async function runFollowups(db,{now=new Date().toISOString(),inboxHealthy
       if(await db.prepare('SELECT id FROM jobs WHERE id=?').bind(r.id+':initial').first())continue;
       next.sent_at=delivery?null:now;next.deadline=delivery?null:addDays(now,21);next.token_hash=null;
       let messageRequest=r;
+      if([6,9,12].includes(r.period))messageRequest={...r,history:await checkInHistory(db,r)};
       if(r.kind==='first'){
         const context=await db.prepare('SELECT p.planned_date,a.answers FROM pairs p JOIN applications a ON a.id=p.mentor_id WHERE p.id=?').bind(r.pair_id).first();
         messageRequest={...r,mentor_name:context?JSON.parse(context.answers).name:null,first_meeting_date:context?.planned_date};
@@ -85,6 +87,7 @@ export async function runFollowups(db,{now=new Date().toISOString(),inboxHealthy
         // Retain the original meeting context for first-meeting reminders.
         const initial=await db.prepare('SELECT payload FROM jobs WHERE id=?').bind(r.id+':initial').first('payload');
         const original=JSON.parse(initial??'{}');
+        if([6,9,12].includes(r.period)&&!original.history)original.history=await checkInHistory(db,r);
         if(r.kind==='first'&&(!original.mentorName||!original.meetingDate)){
           const context=await db.prepare('SELECT p.planned_date,a.answers FROM pairs p JOIN applications a ON a.id=p.mentor_id WHERE p.id=?').bind(r.pair_id).first();
           original.mentorName=context?JSON.parse(context.answers).name:null;original.meetingDate=context?.planned_date;

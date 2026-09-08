@@ -193,6 +193,8 @@ AI receives limited text and coded matching facts, not name, email or LinkedIn f
 
 ## Records, deletion and recovery
 
+`runtime/check-in-history.mjs` prepares month 6/9/12 context from earlier quarterly requests for the same pair, application and role. It excludes superseded or cleaned-up wording, and copies only report dates and answers, never classifications. The initial private message payload retains this snapshot for reminders. The meeting-count boundary uses the previous count's answer timestamp, falling back to the actual first meeting if no count was received. A later correction to another answer does not move that boundary. Quotes render as escaped text without clickable links. These extra message copies follow the existing job deletion and provider-retention rules. End-to-end reply verification must confirm that quoted old answers are not mistaken for new feedback.
+
 The Chair's `administration` action `approve_match` includes `introduction: {subject, body}`. The proposal shows the pair, current recipient addresses and complete introduction. One approval saves the pair and queues both message copies in the same database transaction. Versions and the action ID prevent stale or duplicate execution. Include both names, roles and contact details in the body, since each person receives a separate email. This replaces a second approval/send step; it does not authorize an introduction that was omitted from the reviewed proposal.
 
 The SQL migrations define applications, groups, pairs, check-ins, responses, message jobs, actions, aggregate results and recovery state. Business dates are `YYYY-MM-DD`; event times use UTC. Keep booked and actual meeting dates distinct. Captured jobs are not sent jobs.
