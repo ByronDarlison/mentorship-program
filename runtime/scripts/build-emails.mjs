@@ -2,6 +2,7 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {renderEmailHTML,escapeHTML} from '../email-html.mjs';
+import {renderEmailCatalog} from '../email-catalog.mjs';
 import {messageRenderer} from '../templates.mjs';
 import {chairNoticeMessage} from '../chair-notifications.mjs';
 import {chairApplicationMessage} from '../applications.mjs';
@@ -41,7 +42,6 @@ for(const role of ['mentee','mentor'])for(const period of [12,0])await add('fina
 for(const day of [7,14])await add('reminder-'+day,'Day '+day+' reminder','Participant who has not replied','Automatic for quarterly and final check-ins. First-meeting reminders use the confirmation above.',render({id:'example',kind:'quarterly',role:'mentee',period:3},'reminder-'+day,'FICTIONAL-LINK'));
 for(const [kind,label] of Object.entries({'chair-review':'Contact request, low value or unclear feedback','chair-meeting-review':'Meeting needs review','chair-deadline':'Missing response at deadline','chair-email-review':'Email needs review','chair-processing-error':'Processing problem'}))await add(kind,label,'Chair','Automatic notice. The underlying item remains open until handled.',chairNoticeMessage(kind,'TEST Alex Example','FICTIONAL-ITEM'));
 await add('custom-message','Other Chair-approved email','Approved recipient','Illustrative only. The Chair supplies and approves the actual subject, body and recipient.',{subject:'Example of a personal follow-up',body:'Hi Alex,\n\nThis is fictional example text. A Chair-approved email uses this same layout, with the exact wording approved in chat.\n\nThank you.'});
-const links=entries.map(e=>`<li><a href="${e.id}.html">${escapeHTML(e.title)}</a><p>${escapeHTML(e.recipient)} · ${escapeHTML(e.when)}<br>Subject: ${escapeHTML(e.subject)}</p></li>`).join('\n');
-await writeFile(path.join(destination,'index.html'),`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mentorship emails</title><style>body{font:16px/1.5 Arial,sans-serif;color:#0c0c31;max-width:900px;margin:40px auto;padding:0 20px}h1{font-size:30px}a{color:#3d46f2}li{margin-bottom:24px}li p{margin:4px 0;color:#555}button{font:inherit;padding:8px 12px}</style></head><body><h1>Mentorship emails</h1><p>Open a message to see its HTML format. All examples are fictional. Links use example.invalid and cannot submit answers. The same layout is used by outgoing email, with a plain-text alternative.</p><ol>${links}</ol></body></html>`);
+await writeFile(path.join(destination,'index.html'),renderEmailCatalog(entries));
 await writeFile(path.join(destination,'index.md'),'# Email examples\n\nOpen `emails/index.html` in a browser after downloading the repository. Each message is also stored as a standalone HTML file. GitHub displays HTML source rather than rendering it.\n\nAll examples are fictional. The same HTML renderer is used for outgoing email. These files are a permanent template reference, not a one-time review checklist.\n\n'+entries.map(e=>`- [${e.title}](${e.id}.html): ${e.recipient}. ${e.when}`).join('\n')+'\n\nTo regenerate after editing wording or layout, run `npm run emails`. No email is sent.\n');
 console.log('Generated '+entries.length+' fictional HTML email examples in emails/.');
