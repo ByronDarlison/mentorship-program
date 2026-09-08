@@ -15,41 +15,26 @@ export function messageRenderer(origin){
     if(phase.startsWith('reminder-'))message=messages.reminders[Number(phase.split('-')[1])];
     else message=request.kind==='final'?messages.final:messages.quarterly;
     if(!message)throw new Error('Unknown approved message.');
-    let body=message.body.replace('month-[three, six, nine, or twelve]','month-'+({3:'three',6:'six',9:'nine',12:'twelve'}[request.period]??request.period));
-    // Keep each template's own thank-you after the generated questions.
-    // No universal footer: messages without a closing do not acquire one.
-    const closing=body.match(/\n\n(Thank you[^\n]+)$/)?.[1]??'';
-    if(closing)body=body.slice(0,-closing.length).trim();
+    let body=message.body;
     if(request.kind==='final'&&request.period===0)body=body.replace(/^Your twelve months[^\n]+/,messages.earlyOpening);
     const list=[...questions[request.kind==='final'?request.role:'quarterly']];
     const history=request.history??initial.history;
     if([6,9,12].includes(request.period)&&!history)throw new Error('Later check-ins require the recipient’s previous-report context.');
-    if(request.period===3){
-      body=body.replace('Count meetings since your last check-in, or since your mentorship began if this is your first.',content.copy.firstPeriod);
-      list[0]=content.copy.firstMeetingQuestion;
-    }else if(request.period!==0){
-      body=body.replace('Count meetings since your last check-in, or since your mentorship began if this is your first.','Count meetings since your last check-in.');
-    }else{
-      body=body.replace('Count meetings since your last check-in, or since your mentorship began if this is your first.',content.copy.earlyMeetingGuidance);
-      list[0]=content.copy.earlyMeetingQuestion;
-    }
+    if(request.period===3)list[0]=content.copy.firstMeetingQuestion;
+    if(request.period===0)list[0]=content.copy.earlyMeetingQuestion;
+    if([6,9,12].includes(request.period))list[0]=`How many times have you met since ${historyDate(history.countFrom)}?`;
+    if([6,9].includes(request.period))list[1]=content.copy.laterValueQuestion;
     if(phase.startsWith('reminder-')){
       const label=request.kind==='final'?'final check-in':`month-${request.period} check-in`;
       body=body.replace('a check-in for',`your ${label} for`).replace('the check-in we emailed you',`the ${label} we emailed you`);
-      const guidance=request.period===0?content.copy.earlyMeetingGuidance:request.period===3?content.copy.firstPeriod:'Count meetings since your last check-in.';
-      body=body.trim()+'\n\n'+guidance;
     }
-    if(phase==='initial'||phase.startsWith('reminder-')){
-      if([6,9,12].includes(request.period)&&history){
-        const from=historyDate(history.countFrom);
-        body=body.replace('Count meetings since your last check-in.',`Count meetings since ${from}.`);
-        list[0]=`How many times have you met since ${from}?`;
-        body+='\n\n'+historyText(history);
-      }
-      if(request.kind==='final'&&request.period===12)body+='\n\n'+content.copy[request.role==='mentor'?'finalScopeMentor':'finalScopeMentee'];
-      body=body.trim()+'\n\n'+list.map((q,i)=>`${i+1}. ${q}`).join('\n');
-    }
-    if(closing)body+='\n\n'+closing;
+    const values={months_elapsed:({3:'three',6:'six',9:'nine',12:'twelve'})[request.period]??'',
+      check_in_context:history?historyText(history):'',
+      reporting_guidance:request.period===0?content.copy.earlyMeetingGuidance:request.period===12?content.copy[request.role==='mentor'?'finalScopeMentor':'finalScopeMentee']:'',
+      check_in_questions:list.map((q,i)=>`${i+1}. ${q}`).join('\n')};
+    // Insert once into the approved layout. Never rewrite participant quotes or
+    // append an extra explanation/footer after rendering the canonical copy.
+    body=body.replace(/\{\{(months_elapsed|check_in_context|reporting_guidance|check_in_questions)\}\}/g,(_,key)=>values[key]).replace(/\n{3,}/g,'\n\n').trim();
     return {subject:message.subject,body,requestId:request.id,phase,...(history?{history}:{})};
   };
 }

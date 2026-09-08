@@ -826,7 +826,7 @@ At month twelve, the meeting count covers that latest reporting period, while bu
 The mentee and mentor each receive the same three questions at months three, six, and nine. At month three, replace the first question with “How many times have you met since your mentorship began?” At an early ending, ask “How many mentoring meetings have you had in the period described above?” and explain that the count is zero if they have not begun meeting. Later scheduled check-ins count from the previous check-in.
 
 1. How many times have you met since the last check-in?
-2. What value, if any, have you received from participating in this mentorship?
+2. What value, if any, have you received from the mentorship?
 3. Would you like the Mentorship Chair to contact you?
 
 At month twelve, or when a relationship ends early, the mentee answers:
@@ -1583,15 +1583,17 @@ Thank you for helping us keep your mentorship on track.
 Include the applicable questions from [Check-in questions](#check-in-questions) so participants can answer directly by email.
 Use those canonical questions in the email. Do not offer a separate check-in form.
 
-At month three, state “Count meetings since your mentorship began” and use the matching first question. At months six and nine, count since the previous check-in. Reminders name the original month or final check-in and never create another request.
+At month three, the first question counts from the mentorship's start; do not repeat that instruction above it. At months six and nine, show the dated conversational recap and ask about meetings and value since then. The renderer inserts the canonical questions where indicated. Reminders name the original month or final check-in and never create another request.
 
 **Subject:** Your Example Chapter mentorship check-in
 
-It is time for your month-[three, six, nine, or twelve] check-in for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Your feedback helps us understand how the mentorship is working for you.
+It’s been {{months_elapsed}} months since your first mentoring meeting. We’d like to hear how things are going.
 
-Please reply to this email with your answers to the questions below. Tell us how often you have met, what value you are getting, and whether you would like the Mentorship Chair to contact you.
+{{check_in_context}}
 
-Count meetings since your last check-in, or since your mentorship began if this is your first.
+Please reply with your answers to these questions:
+
+{{check_in_questions}}
 
 There is no need to share the details of your mentoring conversations.
 
@@ -1605,7 +1607,13 @@ Send only to a participant whose check-in is still unanswered. These templates c
 
 We recently emailed you a check-in for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/). Your feedback helps us understand how the program is working for you.
 
-Please reply with your answers to the questions below.
+{{check_in_context}}
+
+Please reply with your answers to these questions:
+
+{{reporting_guidance}}
+
+{{check_in_questions}}
 
 Thank you for taking a moment to share your feedback.
 
@@ -1613,7 +1621,13 @@ Thank you for taking a moment to share your feedback.
 
 We have not yet received your answers to the check-in we emailed you for the [Example Chapter Mentorship Program](https://mentorship.example.invalid/).
 
-Please reply with your answers to the questions below so we can understand how the mentorship is working for you.
+{{check_in_context}}
+
+Please reply with your answers to these questions:
+
+{{reporting_guidance}}
+
+{{check_in_questions}}
 
 Thank you for taking a moment to share your feedback.
 
@@ -1625,11 +1639,15 @@ Include the applicable final questions from [Check-in questions](#check-in-quest
 
 Your twelve months in the [Example Chapter Mentorship Program](https://mentorship.example.invalid/) are complete.
 
-Please reply to this email with your answers to the questions below. Your feedback helps us understand what the mentorship has meant for you and improve the program.
+{{check_in_context}}
+
+Please reply with your answers to these questions:
+
+{{reporting_guidance}}
+
+{{check_in_questions}}
 
 There is no need to share the details of your mentoring conversations.
-
-Count meetings since your last check-in, or since your mentorship began if this is your first.
 
 If the relationship ends early, use the same questions and replace the twelve-month opening with: “As your relationship in the [Example Chapter Mentorship Program](https://mentorship.example.invalid/) comes to an end, we would value your feedback.”
 
@@ -1749,9 +1767,10 @@ This is reusable program guidance. Each operator sets its own application and co
   "instruction": "There is no need to share the details of your mentoring conversations.",
   "partialGuidance": "You can save some answers now and add others later. Answers already sent by email do not need repeating.",
   "firstPeriod": "Count meetings since your mentorship began.",
-  "finalScopeMentee": "For the progress and value questions, think about the whole mentorship. Only the meeting count covers the period stated above.",
-  "finalScopeMentor": "When describing the value you received, think about the whole mentorship. Only the meeting count covers the period stated above.",
+  "finalScopeMentee": "For the progress and value questions, think about the whole mentorship. The meeting-count question gives its own start date.",
+  "finalScopeMentor": "When describing the value you received, think about the whole mentorship. The meeting-count question gives its own start date.",
   "firstMeetingQuestion": "How many times have you met since your mentorship began?",
+  "laterValueQuestion": "What value, if any, have you received from the mentorship since then?",
   "earlyMeetingGuidance": "Count meetings since your last check-in, or all your mentoring meetings if there has not been a check-in. Enter 0 if you have not begun meeting.",
   "earlyMeetingQuestion": "How many mentoring meetings have you had in the period described above?",
   "save": "Save answers",

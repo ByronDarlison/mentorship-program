@@ -32,6 +32,8 @@ Run `npm test` for automated checks. `npm run preview` shows the disconnected vi
 | `emails/` | Standalone HTML examples and a browser index. No real recipients or request links. |
 | `runtime/email-html.mjs` | Shared HTML email layout. The mailbox sends HTML plus plain text. |
 
+Each standalone email has matching generated `.html` and `.md` copies in `emails/`. The Markdown contains the exact subject and body used to render its HTML, not a separately rewritten example. Use it when showing email wording in chat. Edit canonical templates, not generated examples. Check-in template slots determine the recap, question and closing order so previews and outgoing messages follow the same approved layout.
+
 Edit message wording in the existing content source and the fixed notification helpers. Run `npm run emails` to rebuild the website-derived templates and HTML examples. This renders files only; it does not send email or run tests. `runtime/scripts/build-emails.mjs` generates the example catalog using the same renderers. Open `emails/index.html` in a browser; GitHub shows the files as source.
 
 Keep participant records, credentials, `.wrangler/`, generated `website/dist/` and `runtime/private/` out of Git. `SOURCE.json` and `MANIFEST.json` identify the exported source and file checksums.

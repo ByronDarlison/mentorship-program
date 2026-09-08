@@ -44,6 +44,7 @@ function behavior(id){
 async function add(id,title,recipient,when,message){
   const body=(message.body??message.text).replace(/\[([^\]]+)\]\(https:\/\/example\.invalid\/check-in#FICTIONAL-LINK\)/g,'$1: {{private_check_in_link}}');
   await writeFile(path.join(destination,id+'.html'),renderEmailHTML({subject:message.subject,body}));
+  await writeFile(path.join(destination,id+'.md'),'# '+message.subject+'\n\n'+body+'\n');
   entries.push({id,title,recipient,when,subject:message.subject,...behavior(id)});
 }
 const manualTemplate=heading=>{
