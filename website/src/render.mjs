@@ -138,7 +138,7 @@ function sectionHTML(manual, section, route, config) {
     // Approval labels describe the specification, not final public-policy approval.
     html = html.replace(/<p class="content-status"><strong>Status: Agreed<\/strong><\/p>\n?/g, '');
   }
-  if (route.path === '/mentees' && section.id === 'the-mentee-application' || route.path === '/mentors' && section.id === 'the-mentor-profile') {
+  if (route.path === '/apply/mentee' && section.id === 'the-mentee-application' || route.path === '/apply/mentor' && section.id === 'the-mentor-profile') {
     html = html.replace(/(<blockquote>\s*<p>I understand[\s\S]*?<\/blockquote>)/, '$1<p class="policy-links"><a href="/terms">Program Terms</a><span aria-hidden="true"> · </span><a href="/privacy">Privacy Notice</a></p>');
   }
   return `<section class="manual-section" data-source-section="${section.id}">${html}</section>`;
