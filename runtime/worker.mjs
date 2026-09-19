@@ -1,8 +1,7 @@
 import { InputError, saveApplication } from './applications.mjs';
 import policy from '../website/dist/application-config.json' with { type: 'json' };
-import {runReviewSchedule} from './review-schedule.mjs';
 import {handleOperatorRequest} from './operator-api.mjs';
-import {withPrivateRecovery} from './recovery-cycle.mjs';
+import {hourlyStatus,runHourlyJob} from './hourly-health.mjs';
 
 const responseHeaders = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer' };
 export const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: responseHeaders });
@@ -23,8 +22,8 @@ export async function readJSON(request, limit = 40000) {
 export default {
   async scheduled(controller,env){
     try{
-      const {value:result,recovery}=await withPrivateRecovery(env,()=>runReviewSchedule(env,new Date(controller.scheduledTime).toISOString()));
-      console.log(JSON.stringify({event:'review-followups',changed:result.changed,held:result.held,mailStatus:result.mailStatus,failures:result.errors?.length??0,alertFailures:result.alertFailures?.length??0,recovery:recovery.status,recoveryExpiry:recovery.expiry}));
+      const {schedule:result,recovery,fullySuccessful}=await runHourlyJob(env,new Date(controller.scheduledTime).toISOString());
+      console.log(JSON.stringify({event:'review-followups',changed:result.changed,held:result.held,mailStatus:result.mailStatus,failures:result.errors?.length??0,alertFailures:result.alertFailures?.length??0,recovery:recovery.status,recoveryExpiry:recovery.expiry,fullySuccessful}));
     }catch{
       console.error(JSON.stringify({event:'scheduled-review-failed'}));
       throw new Error('Scheduled mentorship review failed. Check current recovery and connection status.');
@@ -47,6 +46,7 @@ export default {
         return json(await saveApplication(env.DB, await readJSON(request),{...env, TERMS_VERSION:policy.termsVersion, PRIVACY_VERSION:policy.privacyVersion, COPY:policy.copy}));
       }
       if(url.pathname === '/api/health') { await env.DB.prepare('SELECT 1').first(); return json({ok:true, mode:env.MODE, release:env.RELEASE || 'local'}); }
+      if(url.pathname === '/api/status') return json(await hourlyStatus(env));
       if(url.pathname.startsWith('/api/'))return json({error:'Not found.'},404);
       if(!['GET','HEAD'].includes(request.method))return json({error:'Method not allowed.'},405);
       return env.ASSETS ? env.ASSETS.fetch(request) : new Response('Not found.',{status:404});
