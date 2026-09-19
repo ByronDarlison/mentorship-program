@@ -131,9 +131,15 @@ test('refuses redirected responses',async()=>{
 test('returns null for a missing object and fails for every other error',async()=>{
   const missing=fakeFetch([authorizeRoute(),{match:'/file/',reply:()=>new Response(null,{status:404})}]);
   assert.equal(await bucketFor(missing).get(SNAPSHOT_KEY),null);
-  for(const status of [403,409,500,503]) {
+  for(const status of [403,409]) {
     const fetcher=fakeFetch([authorizeRoute(),{match:'/file/',reply:()=>new Response(null,{status})}]);
     await assert.rejects(bucketFor(fetcher).get(SNAPSHOT_KEY),/could not return the object/);
+    assert.equal(fetcher.calls.filter(call=>call.url.includes('/file/')).length,1,'non-transient errors are not retried');
+  }
+  for(const status of [500,503]) {
+    const fetcher=fakeFetch([authorizeRoute(),{match:'/file/',reply:()=>new Response(null,{status})}]);
+    await assert.rejects(bucketFor(fetcher).get(SNAPSHOT_KEY),/could not return the object/);
+    assert.equal(fetcher.calls.filter(call=>call.url.includes('/file/')).length,3,'transient download errors retry then fail');
   }
 });
 
@@ -261,6 +267,52 @@ test('refuses oversized objects and oversized provider responses',async()=>{
     controller.close();
   }}),{status:200})}]);
   await assert.rejects(bucketFor(streamed).get(SNAPSHOT_KEY),/oversized response/);
+});
+
+test('retries every Backblaze call type after a transient failure',async()=>{
+  const download=fakeFetch([
+    authorizeRoute(),
+    {match:'/file/',once:true,reply:()=>new Response(null,{status:503})},
+    {match:'/file/',reply:()=>downloadReply(BODY)}
+  ]);
+  assert.equal(await (await bucketFor(download).get(SNAPSHOT_KEY)).text(),BODY);
+
+  const listed=fakeFetch([
+    authorizeRoute(),
+    {match:'b2_list_file_versions',once:true,reply:()=>jsonReply({},503)},
+    {match:'b2_list_file_versions',reply:()=>jsonReply({files:[{fileName:SNAPSHOT_KEY,fileId:FILE_ID,action:'upload',uploadTimestamp:UPLOADED_MS,contentLength:37,fileInfo:{}}],nextFileName:null,nextFileId:null})}
+  ]);
+  assert.equal((await bucketFor(listed).listVersions({prefix:'snapshots/',limit:2})).versions[0].key,SNAPSHOT_KEY);
+
+  const removed=fakeFetch([
+    authorizeRoute(),
+    {match:'b2_delete_file_version',method:'POST',once:true,reply:()=>jsonReply({},503)},
+    {match:'b2_delete_file_version',method:'POST',reply:()=>jsonReply({fileId:FILE_ID,fileName:SNAPSHOT_KEY})}
+  ]);
+  assert.deepEqual(await bucketFor(removed).deleteVersion({key:SNAPSHOT_KEY,fileId:FILE_ID}),{key:SNAPSHOT_KEY,fileId:FILE_ID,deleted:true});
+
+  const uploaded=fakeFetch([
+    authorizeRoute(),
+    {match:'b2_get_upload_url',once:true,reply:()=>jsonReply({},503)},
+    {match:'b2_get_upload_url',reply:()=>jsonReply({bucketId:BUCKET_ID,uploadUrl:UPLOAD_URL,authorizationToken:'upload-token'})},
+    {match:'b2_upload_file',method:'POST',once:true,reply:()=>jsonReply({},503)},
+    {match:'b2_upload_file',method:'POST',reply:()=>uploadedReply()}
+  ]);
+  assert.equal((await bucketFor(uploaded).put(SNAPSHOT_KEY,BODY)).fileId,FILE_ID);
+
+  const authorized=fakeFetch([
+    {match:'b2_authorize_account',once:true,reply:()=>jsonReply({},503)},
+    authorizeRoute(),
+    {match:'/file/',reply:()=>downloadReply(BODY)}
+  ]);
+  assert.equal(await (await bucketFor(authorized).get(SNAPSHOT_KEY)).text(),BODY);
+
+  const timeoutThenOk=fakeFetch([
+    authorizeRoute(),
+    {match:'/file/',once:true,reply:()=>{throw new Error('fictional timeout');}},
+    {match:'/file/',reply:()=>downloadReply(BODY)}
+  ]);
+  assert.equal(await (await bucketFor(timeoutThenOk).get(SNAPSHOT_KEY)).text(),BODY);
 });
 
 test('never repeats provider error text and re-authorizes at most once',async()=>{
