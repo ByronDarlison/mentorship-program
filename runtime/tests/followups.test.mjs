@@ -29,7 +29,7 @@ test('scheduled check-ins persist once with private hashes and no actual message
   assert.equal(await s.db.prepare('SELECT COUNT(*) n FROM requests').first('n'),8);
   assert.equal(await s.db.prepare('SELECT COUNT(*) n FROM jobs').first('n'),2);
   const r=await getRequest(s.db,await s.db.prepare("SELECT id FROM requests WHERE role='mentee' AND period=3").first('id'));
-  assert.equal(r.deadline,at(22));assert.equal(r.token_hash.length,64);assert.equal(r.scheduled_for,'2026-04-30T00:00:00.000Z');
+  assert.equal(r.deadline,at(22));assert.equal(r.token_hash,null);assert.equal(r.scheduled_for,'2026-04-30T00:00:00.000Z');
   assert.equal(await s.db.prepare("SELECT COUNT(*) n FROM jobs WHERE status!='captured'").first('n'),0);
 });
 test('partial replies stop only that participant reminders and keep the original deadline',async t=>{
@@ -107,26 +107,20 @@ test('a clear reschedule starts a new confirmation sequence and no meeting remai
 });
 test('private check-in HTTP reads reveal no answers and scanner visits change nothing',async t=>{
   const s=await setup(t),r=await quarterly(s);
-  const payload=JSON.parse(await s.db.prepare('SELECT payload FROM jobs WHERE id=?').bind(r.id+':initial').first('payload'));
-  const authorization='Bearer '+payload.link.split('#')[1];
-  const call=(method,body,auth=authorization)=>worker.fetch(new Request('https://review.example/api/check-in',{method,headers:{Authorization:auth,'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})}),{DB:s.db,MODE:'review'});
   const before=await getRequest(s.db,r.id);
-  assert.deepEqual(await (await call('GET')).json(),{kind:'quarterly',role:'mentee',period:3,fields:['meetings','value','contact']});
-  await call('GET');assert.equal((await getRequest(s.db,r.id)).version,before.version);
-  assert.equal((await call('GET',null,'Bearer bad')).status,404);
-  const submission={id:crypto.randomUUID(),answers:{value:reviewFeedback.value}};
-  const first=await (await call('POST',submission)).json();assert.equal(first.saved,true);assert.equal(first.complete,false);
-  assert.deepEqual(await (await call('POST',submission)).json(),first);
-  const meta=await (await call('GET')).json();assert.equal(Object.hasOwn(meta,'answers'),false);assert.equal(Object.hasOwn(meta,'complete'),false);
-  assert.equal((await call('POST',{id:crypto.randomUUID(),answers:{value:'Real private information'}})).status,400);
-  assert.equal((await call('POST',{id:crypto.randomUUID(),answers:{}})).status,400);
-  const complete=await (await call('POST',{id:crypto.randomUUID(),answers:{meetings:3,contact:false}})).json();assert.equal(complete.complete,true);
-  assert.equal((await getRequest(s.db,r.id)).answers.value,reviewFeedback.value);
+  const call=(method,body)=>worker.fetch(new Request('https://review.example/api/check-in',{method,headers:{'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})}),{DB:s.db,MODE:'review'});
+  const gone=await (await call('GET')).json();
+  assert.equal((await call('GET')).status,410);
+  assert.match(gone.error,/replying to the check-in email/);
+  assert.equal(Object.hasOwn(gone,'answers'),false);
+  assert.equal((await getRequest(s.db,r.id)).version,before.version);
+  assert.equal((await call('POST',{id:crypto.randomUUID(),answers:{value:reviewFeedback.value}})).status,410);
+  assert.equal((await getRequest(s.db,r.id)).answers.value,undefined);
 });
 test('review form can request Chair contact and flag the supplied low-value example',async t=>{
-  const s=await setup(t),r=await quarterly(s),payload=JSON.parse(await s.db.prepare('SELECT payload FROM jobs WHERE id=?').bind(r.id+':initial').first('payload'));
-  const response=await worker.fetch(new Request('https://review.example/api/check-in',{method:'POST',headers:{Authorization:'Bearer '+payload.link.split('#')[1],'Content-Type':'application/json'},body:JSON.stringify({id:crypto.randomUUID(),answers:{contact:true,value:reviewLowValue,meetings:0}})}),{DB:s.db,MODE:'review'});
-  assert.equal(response.status,200);assert.equal((await response.json()).complete,true);
+  const s=await setup(t),r=await quarterly(s);
+  const saved=await receiveFeedback(s.db,input(r,{answers:{contact:true,value:reviewLowValue,meetings:0}}));
+  assert.equal(saved.complete,true);
   const alert=JSON.parse(await s.db.prepare("SELECT payload FROM jobs WHERE kind='chair-review'").first('payload'));assert.equal(alert.contact,true);assert.equal(alert.lowValue,true);
 });
 test('a request processing error is visible without starving unrelated reminders',async t=>{
