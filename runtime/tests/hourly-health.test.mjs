@@ -145,6 +145,19 @@ test('status reports the last fully successful run and ok false when stale',asyn
 test('GET /api/status is distinct from GET /api/health',async t=>{
   const env=await setup(t,{});
   env.PRIVATE_RECOVERY_VERIFIED='false';
+  const RealDate=Date;
+  const frozenMs=RealDate.parse(NOW);
+  function FrozenDate(...args){
+    if(new.target)return args.length?new RealDate(...args):new RealDate(frozenMs);
+    return args.length?RealDate(...args):RealDate(frozenMs);
+  }
+  FrozenDate.now=()=>frozenMs;
+  FrozenDate.parse=RealDate.parse;
+  FrozenDate.UTC=RealDate.UTC;
+  FrozenDate.prototype=RealDate.prototype;
+  Object.setPrototypeOf(FrozenDate,RealDate);
+  globalThis.Date=FrozenDate;
+  t.after(()=>{globalThis.Date=RealDate;});
   const health=await worker.fetch(new Request('https://review.example/api/health'),{...env,RELEASE:'test-release'});
   assert.equal(health.status,200);
   assert.deepEqual(await health.json(),{ok:true,mode:'operating',release:'test-release'});
