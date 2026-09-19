@@ -37,7 +37,7 @@ export async function handleOperatorRequest(db,envelope,env,now=Date.now()){
   if(operation==='backup_now'||operation==='export_recovery'){
     if(Object.keys(params).length)throw new InputError('Unexpected operator request.');
     if(env.PRIVATE_RECOVERY_VERIFIED!=='true')throw new InputError('Private recovery is not connected.',503);
-    if(operation==='backup_now')return {recovery:(await withPrivateRecovery({...env,DB:db},async()=>{})).recovery};
+    if(operation==='backup_now')return {recovery:(await withPrivateRecovery({...env,DB:db},async()=>{},{startedBy:'operator'})).recovery};
     return readCurrentRecovery(recoveryStorage(env));
   }
   if(operation==='deletion_preview')return previewDeletion(db,params.applicationId);
@@ -58,7 +58,7 @@ export async function handleOperatorRequest(db,envelope,env,now=Date.now()){
     throw new InputError('Unknown named operator action.');
   };
   try{
-    const saved=operation==='repair_recovery'?await repairPrivateRecovery({...env,DB:db},params):await withPrivateRecovery({...env,DB:db},execute);
+    const saved=operation==='repair_recovery'?await repairPrivateRecovery({...env,DB:db},params):await withPrivateRecovery({...env,DB:db},execute,{startedBy:'operator'});
     return {...saved.value,recovery:saved.recovery};
   }catch(error){
     if(!(error instanceof InputError)||error.status>=500){
