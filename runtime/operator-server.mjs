@@ -15,8 +15,8 @@ export function readLaunchEnv(env={},path){
   }catch{return {};}
 }
 
-// Prepared executable for the eventual verified connection. Registration is
-// deliberately unchanged: the installed connection still runs the harmless probe.
+// Without complete operator settings, expose only the connection check.
+// Configured connections enable mutations only when CHAT_ACTIONS_ENABLED is 'true'.
 export function createConfiguredOperator(env={},fetcher=fetch){
   if(!env.OPERATOR_ORIGIN||!env.OPERATOR_ID||!env.OPERATOR_BRIDGE_SECRET)return createOperatorConnection();
   return createAdministrativeConnection({

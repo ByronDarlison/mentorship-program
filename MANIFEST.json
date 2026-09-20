@@ -1,5 +1,5 @@
 {
-  "revision": "fd90bceea85cd4bef40296d0d3b75ea4c1575062",
+  "revision": "1466797a591ca973f553ff015f92cff36edb4970",
   "files": [
     {
       "path": ".github/workflows/repository-tests.yml",
@@ -167,7 +167,7 @@
     },
     {
       "path": "emails/index.html",
-      "sha256": "2aa0b9b33378269ec70d7570f78d2643d3f8787ac5da9ba055ce6e1ad507cebf"
+      "sha256": "a02804ee9c5c24e8f77934bb83a71109db5c0a3939668625e84cbd0bf7b62e99"
     },
     {
       "path": "emails/index.md",
@@ -239,7 +239,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "d4c52b6b1e077b6243636d4fac3d662d9460164a8b11c756c78715f665e597b2"
+      "sha256": "f0e204c02e0184d5d0ab333a8b6b6cab4622fce6a976dd947efcffa851375502"
     },
     {
       "path": "runtime/administration.mjs",
@@ -367,11 +367,11 @@
     },
     {
       "path": "runtime/operator-server.mjs",
-      "sha256": "0ae78efb2a366d916fc693e68aa00adc05a5c79043fc97e93cdc9dd937389d01"
+      "sha256": "45756930e9d29c8014fde8bd27698e93f59057749d9c635f73be21c9df7e3951"
     },
     {
       "path": "runtime/operator-tools.mjs",
-      "sha256": "22c3d4e3868897be900d1abbc08d44604bc633428442bf796b91bd9b9c34c966"
+      "sha256": "486eb168f3027cd36c4784489ab0a06a1214afa99112c296a962911c078bd5c6"
     },
     {
       "path": "runtime/outcome-storage.mjs",
@@ -415,7 +415,7 @@
     },
     {
       "path": "runtime/scripts/build-emails.mjs",
-      "sha256": "cf1eeea0f3a93b9341c3b58c8c621f483fc69abaeb0b3d530c70914772dba025"
+      "sha256": "76366f34e751b0ec3fd7cef08e900617ad594b624c13e00e944937ab0a910097"
     },
     {
       "path": "runtime/scripts/print-manual.mjs",
@@ -659,7 +659,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "ab86ed5619f1f76320c22b7488dc0f0617a0708a9319e6d6a0f80a73122cab0b"
+      "sha256": "38ed2a260d4f2a2657ca28500fc66dda23af86bf892e38f61f01dcbd0b35b269"
     },
     {
       "path": "LICENSE-CODE.txt",

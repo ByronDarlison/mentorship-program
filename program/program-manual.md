@@ -883,7 +883,7 @@ Both participants receive the final questions above. The same seven-, fourteen-,
 
 
 
-This notice explains how the Example Chapter Mentorship Program uses your information. Updated September 8, 2026.
+This notice explains how the Example Chapter Mentorship Program uses your information. Updated September 20, 2026.
 
 ### What we collect and why
 
