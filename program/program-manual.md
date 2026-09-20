@@ -93,7 +93,7 @@ A mentee's mentorship is unsuccessful if it does not help them make meaningful b
 
 ### Mentees
 
-Mentees must be current Example Chapter members.
+Mentees must be current Example Chapter members and must remain members for the length of the mentorship. If a mentee's membership lapses, the mentoring relationship ends.
 
 A member is ready to participate when they:
 
@@ -238,7 +238,7 @@ Expect about 12 hours over the year: a one-hour training, a one-hour meeting in 
 1. What is your name?
 2. What is your preferred email address?
 3. LinkedIn profile URL (optional)
-4. Tell us what your business sells, who it serves, how long it has operated, annual revenue for its latest completed financial year (including currency), and how many people work there.
+4. Tell us what your business sells, who it serves, how long it has operated, how many people work there, and which range its annual revenue fell in for the latest completed financial year: under $1M, $1M to $2.9M, $3M to $4.9M, $5M to $9.9M, $10M to $15M, or over $15M. Include the currency.
 5. What business challenge or opportunity would you most value a mentor's help with? Briefly tell us what is happening now.
 6. Is there any experience that would make a mentor especially useful to you? (Optional)
 7. Is there anything else you would like us to know that could help us find a suitable mentor for you? (Optional)
@@ -312,7 +312,7 @@ Matching should connect the mentee's challenge or opportunity with the mentor's 
 
 The program selects mentees first, then looks for mentors who fit their actual needs. A mentee is not promised a place until the Chair has approved a suitable match.
 
-Mentors may be invited directly or express interest through the public website. A mentor who is not already known to the Chair has a short conversation with the Chair before approval. Every mentee also has a short readiness conversation with the Chair before selection.
+Mentors may be invited directly or express interest through the public website. A mentor who is not already known to the Chair is approved only after a minimum check: a short conversation with the Chair, a look at their public professional profile, one reference from an EO member or a business contact the Chair knows, and the mentor's acknowledgement of the conflict and no-paid-services rules. Every mentee also has a short readiness conversation with the Chair before selection.
 
 During the readiness and matching review, the Chair confirms that a proposed pair can schedule remote meetings and checks for conflicts before approving the match.
 
@@ -324,7 +324,7 @@ The introduction gives both people a short, positive explanation of why the Chai
 
 If either participant has a concern after the relationship begins, they contact the Mentorship Chair.
 
-The Chair handles each concern according to the situation. The program does not require a formal off-ramp process.
+Ending a relationship is no-fault. If either person believes the match is not working, they tell the Chair, and the Chair ends the relationship. Where a suitable mentor is available, the Chair may offer the mentee a new match. A new match is a new relationship with its own twelve-month cycle, starting at its first mentoring meeting. The program does not require a more formal off-ramp process.
 
 ### Information used for matching
 
@@ -901,7 +901,7 @@ When you are matched, we share your name, contact details and a short explanatio
 
 The Board receives combined program results. We share identifiable details, individual results or stories outside program administration only with your permission. Reports about small groups must also avoid identifying anyone.
 
-Example Chapter or a future Mentorship Chair may take over the program and its records. Your information remains private and is used only for the same program purposes.
+Example Chapter owns the program. A future Mentorship Chair may take over its operation and receive authorized access to its records. Your information remains private and is used only for the same program purposes.
 
 ### How we use AI
 
@@ -1035,8 +1035,8 @@ The register does not contain confidential mentoring discussion content.
 
 ### Register requirements
 
-The approved approach uses private Cloudflare storage, initially controlled by the Mentorship Chair.
-The register remains transferable to Example Chapter or a future Chair. The current software has one operator. Additional-administrator management requires a separately requested change.
+The approved approach uses private Cloudflare storage controlled by Example Chapter, with at least two authorized people able to administer the chapter's service accounts.
+The register remains transferable to a future Chair. The current software has one operator. Additional-administrator management requires a separately requested change.
 
 Keep one linked record for each pair, with separate requests and answers for each participant.
 This describes the information needed, not a spreadsheet layout. The register contains:
@@ -1120,7 +1120,9 @@ Within the mentorship program, it is an optional aid for thinking through what y
 
 **Status: Agreed**
 
-The Mentorship Chair owns the program.
+Example Chapter owns the program. The Mentorship Chair operates it on the chapter's behalf.
+
+The program's web address, mailbox, records and service accounts belong in Example Chapter's own accounts, with at least two people able to administer them. The program does not accept real participant information until that is in place.
 
 The Chair approves mentees, mentors, matches, capacity increases, and material program changes.
 
@@ -1141,11 +1143,11 @@ Mentors and mentees own their relationship and their respective commitments.
 
 ### Chair handoff
 
-The current Chair initially controls the forms, private records, repository, website domain, email service, and secure AI connection.
+The installation built for review uses the Chair's accounts. Before launch, and before any real participant information is accepted, the forms, private records, repository, website domain, email service, and secure AI connection move to Example Chapter-controlled accounts. Example Chapter names the destination accounts, the person responsible and the completion date.
 
 The system must allow the next Chair or Example Chapter to receive the administrative access needed to operate the program without manual data re-entry.
 
-Example Chapter may instead move the program to chapter-controlled equivalents.
+Example Chapter may choose chapter-controlled equivalents for any of these services.
 
 Transfer includes schedules, change history, private backups, and the recovery/export instructions.
 The next Chair must not depend on a previous Chair's AI conversation history.
@@ -1177,11 +1179,11 @@ When a boundary or conflict is unclear, the participant should contact the Mento
 
 
 
-- Mentees must be current Example Chapter members. Mentors need experience relevant to the mentee's needs.
+- Mentees must be current Example Chapter members and remain members for the length of the mentorship. If a mentee's membership lapses, the mentoring relationship ends. Mentors need experience relevant to the mentee's needs.
 - The Mentorship Chair approves every participant and match. Applying does not guarantee a place or start date.
 - Attend the live, one-hour group training together and book your first 3–6 meetings.
 - Meet for one hour in ten months of a twelve-month cycle that starts with your first mentoring meeting.
-- Together this is about 12 hours over the year for each participant. Mentees should allow additional time to prepare for each meeting and to act on their commitments.
+- Allow about 12 hours over the year for the one-hour training, the ten one-hour meetings and the four short check-ins answered by email. Mentees should allow additional time to schedule, prepare and act on their commitments.
 - The mentee schedules meetings and keeps the next 3–6 booked, or all remaining meetings if fewer are left in the program.
 - Both participants complete the short quarterly check-ins and protect confidential mentoring conversations.
 - Mentorship is voluntary. The mentor does not become the mentee's consultant, manager, or operator.
@@ -1189,7 +1191,7 @@ When a boundary or conflict is unclear, the participant should contact the Mento
 - Both participants disclose conflicts and contact the Chair when a concern arises.
 - The Chair decides when a group is ready, how many people can participate and any major program changes. The Board approves budgets and matters requiring chapter authority.
 
-Either participant may end the mentoring relationship. Let the Mentorship Chair know.
+Either participant may end the mentoring relationship at any time, without fault. Let the Mentorship Chair know. Where a suitable mentor is available, the Chair may offer the mentee a new match, which starts a new twelve-month cycle.
 
 While participating together in the program, do not engage in paid services between each other.
 
@@ -1359,7 +1361,7 @@ The Mentorship Chair:
 1. Holds a short readiness conversation with every mentee being considered.
 2. Reviews mentee readiness and selects the mentees whose needs the cohort will try to serve.
 3. Invites mentors and reviews public expressions of interest against those needs.
-4. Holds a short conversation with any prospective mentor not already known to the Chair.
+4. Completes the minimum check for any prospective mentor not already known to the Chair: a short conversation, a look at their public profile, one reference, and their acknowledgement of the conflict and no-paid-services rules.
 5. Requests only information needed to complete the review.
 6. Uses the configured matching process to prepare coded profiles. Reviews any extract the automatic privacy checks cannot safely prepare.
 7. Uses AI to prepare matching recommendations.
@@ -1396,7 +1398,8 @@ The Mentorship Chair:
 6. Reviews low-value flags and decides whether to contact the participant. Contacts participants who request help.
 7. Checks that substantive late answers correct the same record and measures. Acknowledgements do not supply missing results.
 8. If a relationship ends early, stops its scheduled check-ins and outstanding reminders, then requests final feedback with the same follow-up timing.
-9. Protects participant information and completes deletion requests.
+9. At each membership renewal, asks the chapter team to confirm that every active mentee is still a current member. Ends the relationship of any mentee whose membership has lapsed, through the same early-ending path.
+10. Protects participant information and completes deletion requests.
 
 #### At the end of each cycle
 

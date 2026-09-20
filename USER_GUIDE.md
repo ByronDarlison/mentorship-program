@@ -26,11 +26,12 @@ The AI should use that connection to read current program records, not infer sta
 
 You can keep a dedicated mentorship chat and use shorter follow-up requests once that context is established. In a new or general chat, name the mentorship program connection explicitly. The examples below assume you have already done that.
 
-1. **Review applications.** Speak with each prospective mentee about readiness, membership and commitments. Speak with prospective mentors you do not know. Approve, wait or decline. Ask waiting applicants whether they want to remain under consideration; there is no automatic expiry.
+1. **Review applications.** Speak with each prospective mentee about readiness, membership and commitments. For a prospective mentor you do not know, complete the minimum check before approving: a short conversation, a look at their public profile, one reference from an EO member or a business contact you know, and their acknowledgement of the conflict and no-paid-services rules. Approve, wait or decline. Ask waiting applicants whether they want to remain under consideration; there is no automatic expiry.
 2. **Make matches.** Ask AI for suggestions and the reasons behind them. Consider experience, fit and conflicts. Review the pair, group, recipients and introduction together. One approval records the match and queues the introduction for both people. Do not share full applications or rankings.
 3. **Arrange training.** Choose the facilitator, date, time zone and Zoom link. Ask the AI to prepare a one-hour calendar invitation for the selected matched participants. Review the invitation and guest list, then approve it. Ask to see responses or change/cancel the same event when needed. Calendar acceptance is not attendance: record actual attendance after training and the pair's planned first meeting date separately. The pair manages its own mentoring meetings, keeping three to six booked.
 4. **Review exceptions.** Handle unclear replies, requests for contact, low-value feedback and delivery problems. Ask for a proposed correction or message when needed.
-5. **Review final results.** Confirm classifications, request a summary and approve removal of detailed applications and feedback after the final review.
+5. **Check membership at renewal.** At each membership renewal, ask the chapter team to confirm that every active mentee is still a current member. If a mentee's membership has lapsed, record the early ending. There is no separate grace period.
+6. **Review final results.** Confirm classifications, request a summary and approve removal of detailed applications and feedback after the final review.
 
 For any change, the AI shows the exact proposal first. Approve it in chat, then check the saved result. Approving a participant does not approve a match or an email. If a proposal changes, approve the new version. Reading records needs no approval.
 
@@ -77,7 +78,7 @@ Results stay pending until the required outcome answers arrive or the original 2
 
 ## Changes, endings and privacy
 
-Ask for a correction if a recorded date or classification is wrong. If a pair ends early, record its actual end date. The software replaces unfinished quarterly requests with final feedback and includes the pair in results.
+Ask for a correction if a recorded date or classification is wrong. Ending is no-fault: if either person says the match is not working, record the early ending. Where a suitable mentor is available you may offer the mentee a new match, which is a new relationship with its own twelve months from its first meeting. If a pair ends early, record its actual end date. The software replaces unfinished quarterly requests with final feedback and includes the pair in results.
 
 Participants may request access, corrections or deletion. Review the proposed deletion before approving. Deletion removes personal detail, not the person's contribution to overall results. Erased feedback cannot be revisited. Limited pending reporting data remains only until its reporting window closes, then becomes totals without an individual lookup. Withdrawal and deletion before a final request use a 21-day reporting-only window without sending further messages.
 

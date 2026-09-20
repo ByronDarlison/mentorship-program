@@ -1,5 +1,5 @@
 {
-  "revision": "33e7c84869b3fc336e355a6cd5fb3dec302d805c",
+  "revision": "efe08615efe42f16c42f1d07f5efeec853a2c0ae",
   "files": [
     {
       "path": ".github/workflows/repository-tests.yml",
@@ -19,7 +19,7 @@
     },
     {
       "path": "USER_GUIDE.md",
-      "sha256": "950bb54303bb5d28f311ed73831d170a0a0cbb635fcbf1f858f77144da70101c"
+      "sha256": "6d573b9594fe64d18fd6d7c16ce3938a9e9233b94ff407c8bdb83c60f8539398"
     },
     {
       "path": "emails/application-received.html",
@@ -239,7 +239,7 @@
     },
     {
       "path": "program/program-manual.md",
-      "sha256": "8dc02f7e1b07f1105328157455c7f63cc5280395dfc09ef283eb332f3226f230"
+      "sha256": "8e05698cae570c138c06074b2cb2df1666a0eb0bda5532ca101529c11923c0b7"
     },
     {
       "path": "runtime/administration.mjs",
@@ -295,7 +295,7 @@
     },
     {
       "path": "runtime/fixtures.mjs",
-      "sha256": "bbfc77b9ce15120a154ad4f73236adcc50361ef7c3a331ae96c302a58758a998"
+      "sha256": "83c7cf7392c8af2a88eaf672322fc975c88ec5650aae5e2a8ebd96edfab61ad3"
     },
     {
       "path": "runtime/followups.mjs",
@@ -483,7 +483,7 @@
     },
     {
       "path": "runtime/tests/hourly-health.test.mjs",
-      "sha256": "b492bbe4e9d76dc4b1c97671e2afc3decf8314cb5b48d4e2d669f1e159a405c5"
+      "sha256": "453aed8350c127c85c27facc7d5dead2392d2532737a8d62a8cc402a92fc0a91"
     },
     {
       "path": "runtime/tests/message-actions.test.mjs",
@@ -659,7 +659,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "7451266cb9b1b41746f8d600fb959c72a165cc592857b8c39cae3eeadfcb001d"
+      "sha256": "2e61ca9a93d35241a8f3686222e51d5f593e826e3229a60620762e4b93e6e505"
     },
     {
       "path": "LICENSE-CODE.txt",

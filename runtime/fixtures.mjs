@@ -2,7 +2,7 @@
 export const examples = Object.freeze({
   mentee: {
     name: 'Alex Example', email: 'alex@example.test', 'linkedin-url': '',
-    business: 'Fictional North Shore Supply sells maintenance supplies to local businesses. It has operated for eight years, has annual revenue of CAD 3 million and employs eighteen people.',
+    business: 'Fictional North Shore Supply sells maintenance supplies to local businesses. It has operated for eight years and employs eighteen people. Its annual revenue for the latest completed financial year was in the $3M to $4.9M range, in Canadian dollars.',
     challenge: 'Delivery errors are increasing. I want to help our operations leader make decisions without waiting for me.',
     'mentor-experience': 'Experience delegating operations decisions in a growing distribution business.',
     'additional-information': ''
