@@ -1,5 +1,5 @@
 {
-  "revision": "efe08615efe42f16c42f1d07f5efeec853a2c0ae",
+  "revision": "fd90bceea85cd4bef40296d0d3b75ea4c1575062",
   "date": "2026-09-20",
   "status": "Reusable source edition; deployment requires operator configuration and verification",
   "changes": [
@@ -7,7 +7,7 @@
     "Chapter name, contact placeholders and palette substituted",
     "Private history, reviews, decisions, data, credentials and development output excluded",
     "Git-free provenance fallback supplied",
-    "Toronto-specific visual tests omitted; runtime tests retained",
+    "Installation-specific visual tests omitted; runtime tests retained",
     "Operating configuration supplied with placeholders and verification flags disabled"
   ]
 }

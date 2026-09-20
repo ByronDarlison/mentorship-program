@@ -176,7 +176,7 @@ export function renderSite(source, config, metadata = { updated: '2026-09-04', c
       const home = sectionHTML(manual, sections[0], route, config);
       if (home.includes('id="one-to-one-mentorship-for-meaningful-business-progress"')) {
         // Keep the existing closed preview readable after approved source-copy updates.
-        // Visual design remains a separate review artifact until Byron approves it.
+        // Visual design remains a separate review artifact until the program owner approves it.
         const closedHome = home
           .replace('<h2 id="home">Home</h2>', '<div id="home"></div>')
           .replace(/<h3 id="one-to-one-mentorship-for-meaningful-business-progress">(.*?)<\/h3>/, '<h1 id="one-to-one-mentorship-for-meaningful-business-progress">$1</h1>')

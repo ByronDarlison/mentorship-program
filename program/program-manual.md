@@ -1143,7 +1143,7 @@ Mentors and mentees own their relationship and their respective commitments.
 
 ### Chair handoff
 
-The installation built for review uses the Chair's accounts. Before launch, and before any real participant information is accepted, the forms, private records, repository, website domain, email service, and secure AI connection move to Example Chapter-controlled accounts. Example Chapter names the destination accounts, the person responsible and the completion date.
+Before launch, and before any real participant information is accepted, the forms, private records, repository, website domain, email service, and secure AI connection are established in Example Chapter-controlled accounts. Example Chapter names the accounts, the person responsible and the completion date.
 
 The system must allow the next Chair or Example Chapter to receive the administrative access needed to operate the program without manual data re-entry.
 
