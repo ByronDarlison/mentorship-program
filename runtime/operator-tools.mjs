@@ -2,8 +2,8 @@ import {z} from 'zod';
 import {createOperatorConnection} from './operator-connection.mjs';
 import {signOperatorRequest} from './operator-api.mjs';
 
-// This module is not the registered entry point. Keep the actual local server
-// on the harmless probe until chat actions are separately enabled.
+// Administrative tools use the supplied backend.
+// Mutations require chatActionsEnabled to be true.
 export function createAdministrativeConnection({callBackend,chatActionsEnabled=false}={}){
   const server=createOperatorConnection();
   if(typeof callBackend!=='function')return server;

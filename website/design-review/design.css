@@ -162,6 +162,7 @@ a.apply:hover,.application-page button.apply:hover{box-shadow:4px 4px 0 var(--ba
 .application-essentials{padding:var(--card-padding);border-radius:8px;background:var(--ghost-white)}
 .application-essentials ul,.application-information ul{padding-left:24px}
 .application-commitments{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:var(--block-gap)}
+.commitment-total{margin-top:var(--heading-gap)}
 .application-commitments h3{font-weight:700}
 .application-commitments ul{margin-top:var(--heading-gap)}
 .application-essentials blockquote{margin-top:var(--block-gap);padding:16px 20px;border-left:3px solid var(--eo-blue);background:var(--white)}

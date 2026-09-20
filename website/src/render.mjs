@@ -138,7 +138,7 @@ function sectionHTML(manual, section, route, config) {
     // Approval labels describe the specification, not final public-policy approval.
     html = html.replace(/<p class="content-status"><strong>Status: Agreed<\/strong><\/p>\n?/g, '');
   }
-  if (route.path === '/mentees' && section.id === 'the-mentee-application' || route.path === '/mentors' && section.id === 'the-mentor-profile') {
+  if (route.path === '/apply/mentee' && section.id === 'the-mentee-application' || route.path === '/apply/mentor' && section.id === 'the-mentor-profile') {
     html = html.replace(/(<blockquote>\s*<p>I understand[\s\S]*?<\/blockquote>)/, '$1<p class="policy-links"><a href="/terms">Program Terms</a><span aria-hidden="true"> · </span><a href="/privacy">Privacy Notice</a></p>');
   }
   return `<section class="manual-section" data-source-section="${section.id}">${html}</section>`;
@@ -176,7 +176,7 @@ export function renderSite(source, config, metadata = { updated: '2026-09-04', c
       const home = sectionHTML(manual, sections[0], route, config);
       if (home.includes('id="one-to-one-mentorship-for-meaningful-business-progress"')) {
         // Keep the existing closed preview readable after approved source-copy updates.
-        // Visual design remains a separate review artifact until Byron approves it.
+        // Visual design remains a separate review artifact until the program owner approves it.
         const closedHome = home
           .replace('<h2 id="home">Home</h2>', '<div id="home"></div>')
           .replace(/<h3 id="one-to-one-mentorship-for-meaningful-business-progress">(.*?)<\/h3>/, '<h1 id="one-to-one-mentorship-for-meaningful-business-progress">$1</h1>')

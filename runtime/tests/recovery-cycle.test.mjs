@@ -6,7 +6,7 @@ import {withPrivateRecovery,readCurrentRecovery,repairPrivateRecovery,pruneExpir
 import {importSnapshot} from '../recovery.mjs';
 import {handleOperatorRequest,signOperatorRequest} from '../operator-api.mjs';
 
-const MIGRATIONS=['0001_applications','0002_administration','0003_followups','0004_deletion','0005_reporting_totals','0006_final_review','0007_mail_receipt','0008_recovery_state'];
+const MIGRATIONS=['0001_applications','0002_administration','0003_followups','0004_deletion','0005_reporting_totals','0006_final_review','0007_mail_receipt','0008_recovery_state','0009_recovery_started_by'];
 const BEGIN_1='recovery/cycles/0000000001-begin.json';
 const DONE_1='recovery/cycles/0000000001-done.json';
 const BEGIN_2='recovery/cycles/0000000002-begin.json';
@@ -97,6 +97,20 @@ test('a completed cycle writes immutable markers, advances the sequence and excl
   assert.deepEqual(keysIn(env.PRIVATE_RECOVERY).filter(key=>key.startsWith('recovery/cycles/')),[BEGIN_1,DONE_1,BEGIN_2,DONE_2].sort());
   assert.equal(env.PRIVATE_RECOVERY.versions.filter(version=>version.key===DONE_1).length,1,'a completed cycle is never rewritten');
   assert.equal((await readCurrentRecovery(env.PRIVATE_RECOVERY)).manifest.sequence,2);
+});
+
+test('a scheduled cycle records who started it and an operator cycle does not look scheduled',async t=>{
+  const env=await setup(t);
+  const scheduled=await withPrivateRecovery(env,async()=>({saved:true}),{startedBy:'scheduled'});
+  assert.equal(scheduled.recovery.status,'verified');
+  assert.equal((await readState(env.DB)).started_by,'scheduled');
+  const real=env.PRIVATE_RECOVERY;
+  const broken={...real,put:async(key,...rest)=>{if(key.startsWith('recovery/checkpoints/'))throw new Error('fictional storage failure');return real.put(key,...rest);}};
+  await assert.rejects(withPrivateRecovery({...env,PRIVATE_RECOVERY:broken},async()=>{},{startedBy:'operator'}),/may have saved/);
+  const pending=await inspectRecovery(env);
+  assert.equal(pending.status,'pending');
+  assert.equal(pending.startedBy,'operator');
+  assert.notEqual(pending.id,scheduled.recovery.id);
 });
 
 test('an interrupted cycle blocks storage-only restore and never falls back to the older completed cycle',async t=>{

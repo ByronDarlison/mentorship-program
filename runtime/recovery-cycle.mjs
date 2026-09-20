@@ -52,10 +52,11 @@ async function readState(db) {
 }
 // One claim for ordinary work and for repair. A repair may only advance from
 // exactly the pending row it names, so two concurrent repairs cannot both claim.
-async function claimSequence(db,{sequence,cycleId,startedAt,fromPendingId=null}) {
-  const guard=fromPendingId?"status='pending' AND cycle_id=?5":"status IN ('empty','ready')";
-  const statement=db.prepare(`UPDATE recovery_state SET cycle_sequence=?1,status='pending',cycle_id=?2,started_at=?3,created_at=NULL,backup_key=NULL,backup_sha256=NULL,checkpoint_key=NULL,checkpoint_sha256=NULL,expiry=NULL WHERE id=1 AND cycle_sequence=?4 AND ${guard} RETURNING cycle_sequence`);
-  const row=await (fromPendingId?statement.bind(sequence,cycleId,startedAt,sequence-1,fromPendingId):statement.bind(sequence,cycleId,startedAt,sequence-1)).first();
+async function claimSequence(db,{sequence,cycleId,startedAt,fromPendingId=null,startedBy=null}) {
+  const source=startedBy==='scheduled'||startedBy==='operator'?startedBy:null;
+  const guard=fromPendingId?"status='pending' AND cycle_id=?6":"status IN ('empty','ready')";
+  const statement=db.prepare(`UPDATE recovery_state SET cycle_sequence=?1,status='pending',cycle_id=?2,started_at=?3,started_by=?5,created_at=NULL,backup_key=NULL,backup_sha256=NULL,checkpoint_key=NULL,checkpoint_sha256=NULL,expiry=NULL WHERE id=1 AND cycle_sequence=?4 AND ${guard} RETURNING cycle_sequence`);
+  const row=await (fromPendingId?statement.bind(sequence,cycleId,startedAt,sequence-1,source,fromPendingId):statement.bind(sequence,cycleId,startedAt,sequence-1,source)).first();
   return Boolean(row);
 }
 async function completeSequence(db,{sequence,cycleId,createdAt,backup,checkpoint}) {
@@ -82,7 +83,7 @@ export async function inspectRecovery(env) {
   let state;
   try { state=await readState(env.DB); } catch { return {status:'not-connected'}; }
   if(state.status==='empty')return {status:'not-started'};
-  return {status:state.status,id:state.cycle_id,sequence:state.cycle_sequence,at:state.status==='pending'?state.started_at:state.created_at,...(state.expiry?{expiry:state.expiry}:{})};
+  return {status:state.status,id:state.cycle_id,sequence:state.cycle_sequence,at:state.status==='pending'?state.started_at:state.created_at,...(state.expiry?{expiry:state.expiry}:{}),...(state.status==='pending'&&state.started_by?{startedBy:state.started_by}:{})};
 }
 
 export async function repairPrivateRecovery(env,action) {
@@ -91,7 +92,7 @@ export async function repairPrivateRecovery(env,action) {
   // The repair backs up the database as it stands now, in a new cycle. It never
   // replays the interrupted action, because a lost acknowledgement is not a
   // failed write, and it never edits the earlier cycle's markers.
-  return withPrivateRecovery(env,async()=>({repaired:true,repeatedAction:false}),{repairPendingId:action.pendingId});
+  return withPrivateRecovery(env,async()=>({repaired:true,repeatedAction:false}),{repairPendingId:action.pendingId,startedBy:'operator'});
 }
 
 async function listAll(bucket,prefix) {
@@ -166,7 +167,7 @@ export async function pruneExpiredRecovery(bucket,{retentionDays,now,keep=[]}) {
   return {removed};
 }
 
-export async function withPrivateRecovery(env,operation,{repairPendingId}={}) {
+export async function withPrivateRecovery(env,operation,{repairPendingId,startedBy}={}) {
   if(env.PRIVATE_RECOVERY_VERIFIED!=='true')return {value:await operation(),recovery:{status:'not-connected'}};
   const bucket=recoveryStorage(env);
   const retentionDays=Number(env.BACKUP_RETENTION_DAYS);
@@ -187,7 +188,7 @@ export async function withPrivateRecovery(env,operation,{repairPendingId}={}) {
   const sequence=state.cycle_sequence+1;
   if(sequence>MAX_SEQUENCE)throw new InputError('Private recovery has reached its maximum cycle count.',503);
   const cycleId=crypto.randomUUID(),startedAt=new Date().toISOString();
-  if(!await claimSequence(env.DB,{sequence,cycleId,startedAt,fromPendingId:repairPendingId??null}))throw new InputError('Recovery state changed. Review the current status before retrying.',409);
+  if(!await claimSequence(env.DB,{sequence,cycleId,startedAt,fromPendingId:repairPendingId??null,startedBy:startedBy==='scheduled'?'scheduled':'operator'}))throw new InputError('Recovery state changed. Review the current status before retrying.',409);
   await writeMarker(bucket,sequence,'begin',{format:CYCLE_FORMAT,version:CYCLE_VERSION,stage:'begin',sequence,cycleId,startedAt});
 
   let value,failure;

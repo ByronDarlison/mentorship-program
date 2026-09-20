@@ -48,7 +48,7 @@ function behavior(id){
     'not-selected':'The Chair decides not to offer a place and separately approves this message. A decision alone does not send it.',
     'mentor-invitation':'The Chair chooses a prospective mentor and approves the invitation. It is not sent automatically.',
     'match-introduction':'The Chair reviews the pair and complete introduction together. One approval records the match and queues this introduction for both participants. Each copy includes both people’s names, roles and contact details.',
-    'training-invitation':'After matching, the Chair selects participants, supplies a one-hour date/time slot, time zone and Zoom link, then approves the exact calendar invitation. Google Calendar sends the event once calendar access is configured and enabled. The code is implemented; calendar setup, testing and release are still pending.',
+    'training-invitation':'After matching, the Chair selects participants, supplies a one-hour date/time slot, time zone and Zoom link, then approves the exact calendar invitation. Google Calendar sends the event once calendar access is configured and enabled. Configure and verify calendar access in your installation before sending invitations.',
     'first-meeting':'After both participants complete training, the day after the planned first meeting. If unanswered, the same request is repeated 7 and 14 days after the first email; the Chair is notified at day 21.',
     'chair-review':'A check-in requests contact, reports low value or contains feedback needing review. The next scheduled processing run queues the Chair notice.',
     'chair-meeting-review':'The first meeting needs a Chair decision, such as an unclear reply or no new date. The next scheduled processing run queues the notice.',

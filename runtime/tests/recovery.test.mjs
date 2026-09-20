@@ -11,7 +11,7 @@ import {foldFinishedOutcomes} from '../outcome-storage.mjs';
 async function setup(t){
   const mf=new Miniflare(convertV4MiniflareOptions({modules:true,script:'export default {fetch(){return new Response("test")}}',d1Databases:['DB']}));
   t.after(()=>mf.dispose());const db=await mf.getD1Database('DB');
-  for(const name of ['0001_applications','0002_administration','0003_followups','0004_deletion','0005_reporting_totals','0006_final_review','0007_mail_receipt','0008_recovery_state'])await db.exec((await readFile(new URL('../migrations/'+name+'.sql',import.meta.url),'utf8')).replaceAll('\n',' '));return db;
+  for(const name of ['0001_applications','0002_administration','0003_followups','0004_deletion','0005_reporting_totals','0006_final_review','0007_mail_receipt','0008_recovery_state','0009_recovery_started_by'])await db.exec((await readFile(new URL('../migrations/'+name+'.sql',import.meta.url),'utf8')).replaceAll('\n',' '));return db;
 }
 test('restore accepts backups taken before rfc_message_id existed',async t=>{
   const a=await setup(t),b=await setup(t);

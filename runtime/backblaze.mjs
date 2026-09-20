@@ -25,6 +25,9 @@ const HEX40=/^[0-9a-f]{40}$/;
 const MAX_TIMESTAMP_MS=8640000000000000;
 const LIST_ACTIONS=['upload','hide','start'];
 const REQUEST_TIMEOUT_MS=20000;
+const TRANSIENT_STATUS=new Set([408,429,500,502,503]);
+const TRANSIENT_ATTEMPTS=3;
+const TRANSIENT_BACKOFF_MS=[50,150];
 const MAX_JSON_BYTES=1<<20;
 const MAX_OBJECT_BYTES=16<<20;
 const MAX_METADATA_BYTES=1024;
@@ -142,14 +145,32 @@ export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,
   const basic='Basic '+btoa(`${keyId}:${applicationKey}`);
   let session=null;
 
+  function delay(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
+
+  // Transient 5xx/429/timeouts are ordinary on every B2 call type. Retry with
+  // short backoff before the caller treats the request as failed. 401 stays
+  // immediate so an expired token can be refreshed once.
   async function send(url,init) {
-    let response;
-    try {
-      response=await fetcher(String(url),{...init,redirect:'manual',signal:AbortSignal.timeout(REQUEST_TIMEOUT_MS)});
-    } catch { throw new StorageFailure('Private backup storage did not respond.'); }
-    if(!response||typeof response.status!=='number'||!response.headers||typeof response.headers.get!=='function')throw new StorageFailure('Private backup storage did not respond.');
-    if(response.redirected||(response.status>=300&&response.status<400))throw new StorageFailure('Private backup storage attempted an unsupported redirect.');
-    return response;
+    let lastError;
+    for(let attempt=0;attempt<TRANSIENT_ATTEMPTS;attempt++) {
+      let response;
+      try {
+        response=await fetcher(String(url),{...init,redirect:'manual',signal:AbortSignal.timeout(REQUEST_TIMEOUT_MS)});
+      } catch(error) {
+        lastError=error instanceof StorageFailure?error:new StorageFailure('Private backup storage did not respond.');
+        if(attempt<TRANSIENT_ATTEMPTS-1){await delay(TRANSIENT_BACKOFF_MS[attempt]);continue;}
+        throw lastError;
+      }
+      if(!response||typeof response.status!=='number'||!response.headers||typeof response.headers.get!=='function') {
+        lastError=new StorageFailure('Private backup storage did not respond.');
+        if(attempt<TRANSIENT_ATTEMPTS-1){await delay(TRANSIENT_BACKOFF_MS[attempt]);continue;}
+        throw lastError;
+      }
+      if(response.redirected||(response.status>=300&&response.status<400))throw new StorageFailure('Private backup storage attempted an unsupported redirect.');
+      if(TRANSIENT_STATUS.has(response.status)&&attempt<TRANSIENT_ATTEMPTS-1){await delay(TRANSIENT_BACKOFF_MS[attempt]);continue;}
+      return response;
+    }
+    throw lastError??new StorageFailure('Private backup storage did not respond.');
   }
 
   // The credential must already be restricted to this one bucket, and must carry
@@ -158,7 +179,8 @@ export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,
   // reach every other bucket, and this Worker never needs that reach.
   async function authorize() {
     const response=await send(AUTHORIZE_URL,{method:'GET',headers:{Authorization:basic}});
-    if(!response.ok)throw new InputError('Private backup storage did not accept the stored credential.',503);
+    if([401,403].includes(response.status))throw new InputError('Private backup storage did not accept the stored credential.',503);
+    if(!response.ok)throw new StorageFailure('Private backup storage did not respond.');
     const body=await readJson(response);
     const storage=body?.apiInfo?.storageApi;
     if(typeof body?.authorizationToken!=='string'||!body.authorizationToken||!storage||typeof storage!=='object')throw new StorageFailure('Private backup storage returned an unusable authorization.');

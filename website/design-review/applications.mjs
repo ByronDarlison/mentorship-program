@@ -76,6 +76,7 @@ export function renderApplicationBody(manual, role) {
 
 <div class="matching-notice"><p>${escape(get(sectionId, 'We will do our best to match'))}</p></div>
 <section class="application-essentials" aria-labelledby="participation-commitments"><h2 id="participation-commitments">What we ask of you</h2>
+<p class="commitment-total">${escape(get(sectionId, 'Expect about 12 hours'))}</p>
 <div class="application-commitments">
 <section><h3>Both participants</h3><ul>${bothCommitments.map(item => `<li>${escape(item)}</li>`).join('')}</ul></section>
 <section><h3>As a mentee</h3><ul>${menteeCommitments.map(item => `<li>${escape(item)}</li>`).join('')}</ul></section>
@@ -124,6 +125,7 @@ ${chairContactParagraph(sectionId, 'You may ask the Mentorship Chair to see')}</
 
 <div class="matching-notice"><p>${escape(get(sectionId, 'We will do our best to match'))}</p></div>
 <section class="application-essentials" aria-labelledby="participation-commitments"><h2 id="participation-commitments">What we ask of you</h2>
+<p class="commitment-total">${escape(get(sectionId, 'Expect about 12 hours'))}</p>
 <div class="application-commitments">
 <section><h3>Both participants</h3><ul>${bothCommitments.map(item => `<li>${escape(item)}</li>`).join('')}</ul></section>
 <section><h3>As a mentor</h3><ul>${mentorCommitments.map(item => `<li>${escape(item)}</li>`).join('')}</ul></section>

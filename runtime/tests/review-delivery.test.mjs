@@ -103,7 +103,11 @@ test('Gmail sender is disabled by default and checks the saved reference and rec
   const mime=Buffer.from(sent.raw,'base64url').toString(),head=mime.split('\r\n\r\n')[0];
   assert.match(head,/To: reviewer@example.test/);assert.match(head,/^Date: [A-Z][a-z]{2}, \d{2} [A-Z][a-z]{2} \d{4} \d{2}:\d{2}:\d{2} \+0000$/m);
   assert.ok(head.includes(`Message-ID: ${message.reference}`));assert.ok(head.includes(`${messageReferenceHeader}: ${message.reference}`));
-  assert.equal(Buffer.from(mime.split('\r\n\r\n')[1],'base64').toString(),message.body);
+  assert.match(mime,/Content-Type: multipart\/alternative/);
+  assert.match(mime,/Content-Type: text\/plain; charset=UTF-8/);
+  assert.match(mime,/Content-Type: text\/html; charset=UTF-8/);
+  const plain=mime.match(/Content-Type: text\/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n([A-Za-z0-9+/=\r\n]+)\r\n--/)[1];
+  assert.equal(Buffer.from(plain.replace(/\s/g,''),'base64').toString(),message.body);
 });
 test('Gmail receipt fails without the internal header, and duplicate header matches are not unique',async()=>{
   const message={to:recipient,subject:'Fictional check-in',body:'Fictional body',reference:messageReference('test')};

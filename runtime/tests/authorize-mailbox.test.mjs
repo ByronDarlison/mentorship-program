@@ -177,7 +177,7 @@ test('missing and extra scopes are both rejected', async () => {
   });
   await assert.rejects(
     completeAuthorization({ config: CONFIG, verifier: 'v', code: 'c' }, missing.impl),
-    /missing a required Gmail scope/,
+    /missing a required Google scope/,
   );
 
   const extra = fakeFetch({
@@ -191,7 +191,7 @@ test('missing and extra scopes are both rejected', async () => {
     /not requested/,
   );
 
-  assert.throws(() => verifyGrantedScopes(''), /missing a required Gmail scope/);
+  assert.throws(() => verifyGrantedScopes(''), /missing a required Google scope/);
 });
 
 test('a response without a refresh token is rejected', async () => {
