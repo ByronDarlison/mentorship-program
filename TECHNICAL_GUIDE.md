@@ -211,6 +211,8 @@ Final-review cleanup removes detailed answers but retains the permitted minimal 
 
 Protected changes mark recovery pending, then ready after snapshot/checkpoint verification. If pending, verify that the previous operation stopped before using the explicit repair action. The hourly job repairs a pending cycle it started and still attempts participant mail when a backup fails. It does not repair a pending operator cycle. Never restore an older snapshot simply to clear the error.
 
+The hourly job emails the Chair when it needs attention, and at most once every 24 hours. It sends that email on the second consecutive failed hour, when a schedule-started backup was already pending at the start of the hour and is still pending after the repair attempt, and on the first hour an operator-started backup is pending. One failed hour that the next run repairs does not send the email. A thrown participant-mail schedule counts as a failed hour. The email names a failure class made only of a source, a step and a fault kind. It does not include request data, names, addresses or provider text.
+
 ### Back up or transfer the program
 
 1. The maintainer calls the signed operator API action `backup_now` and verifies success. `export_recovery` reads the current verified set. These are not registered tools in the ordinary Chair chat. Use `remoteOperatorBackend` from `runtime/operator-tools.mjs` with the private origin, ID and key, then call it with `('backup_now', {})` or `('export_recovery', {})`. Write exports directly to a private file, never chat or terminal output. The Chair can read backup status through `program_recovery_status`.

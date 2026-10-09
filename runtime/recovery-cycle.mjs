@@ -1,6 +1,6 @@
 import {InputError,sha256} from './applications.mjs';
 import {exportSnapshot,exportPrivacyCheckpoint,writePrivateBackup,readPrivateBackup,replayDeletions} from './recovery.mjs';
-import {createBackblazeBucket} from './backblaze.mjs';
+import {createBackblazeBucket,normalizeFailureClass} from './backblaze.mjs';
 
 // Backblaze has no conditional write, so the single current pointer is one D1
 // row updated by compare-and-set. Storage holds only append-once evidence:
@@ -127,6 +127,34 @@ async function surveyCycles(bucket) {
   return {latest,stages};
 }
 
+function tagFailure(error,step,fault){
+  const existing=normalizeFailureClass(error?.failureClass);
+  if(existing)return error;
+  const kind=fault??(error?.name==='TimeoutError'||error?.name==='AbortError'?'timeout':'unusable-response');
+  const failureClass={source:'backup',step,fault:kind};
+  if(error&&typeof error==='object'){
+    try{error.failureClass=failureClass;}catch{/* A frozen error still reaches the caller unchanged. */}
+    return error;
+  }
+  const wrapped=new Error('Private recovery needs attention.');
+  wrapped.failureClass=failureClass;
+  return wrapped;
+}
+function classifyingBucket(bucket){
+  const wrap=async(step,run)=>{try{return await run();}catch(error){throw tagFailure(error,step);}};
+  return {
+    get:key=>wrap('download_file',()=>bucket.get(key)),
+    put:(key,text,options)=>wrap('upload_file',()=>bucket.put(key,text,options)),
+    deleteVersion:request=>wrap('delete_file_version',()=>bucket.deleteVersion(request)),
+    listVersions:request=>wrap('list_file_versions',()=>bucket.listVersions(request))
+  };
+}
+function failureError(message,step,fault='unusable-response'){
+  const error=new Error(message);
+  error.failureClass={source:'backup',step,fault};
+  return error;
+}
+
 async function readMarker(bucket,key,stage,expectedSha256) {
   const object=await bucket.get(key);
   if(!object)throw new InputError('A recovery cycle marker is missing.',503);
@@ -147,7 +175,12 @@ async function writeMarker(bucket,sequence,stage,body) {
   const text=JSON.stringify(body);
   await bucket.put(key,text,{customMetadata:{sha256:await sha256(text)}});
   const readback=await bucket.get(key);
-  if(!readback||await readback.text()!==text)throw new Error('Recovery cycle marker readback failed.');
+  let readbackText=null;
+  if(readback){
+    try{readbackText=await readback.text();}
+    catch(error){throw tagFailure(error,'marker-readback');}
+  }
+  if(!readback||readbackText!==text)throw failureError('Recovery cycle marker readback failed.','marker-readback');
   return key;
 }
 
@@ -169,7 +202,7 @@ export async function pruneExpiredRecovery(bucket,{retentionDays,now,keep=[]}) {
 
 export async function withPrivateRecovery(env,operation,{repairPendingId,startedBy}={}) {
   if(env.PRIVATE_RECOVERY_VERIFIED!=='true')return {value:await operation(),recovery:{status:'not-connected'}};
-  const bucket=recoveryStorage(env);
+  const bucket=classifyingBucket(recoveryStorage(env));
   const retentionDays=Number(env.BACKUP_RETENTION_DAYS);
   if(!Number.isSafeInteger(retentionDays)||retentionDays<1)throw new InputError('Set the approved backup-retention period before enabling private recovery.',503);
   const state=await readState(env.DB);
@@ -199,18 +232,29 @@ export async function withPrivateRecovery(env,operation,{repairPendingId,started
   try {
     snapshot=await exportSnapshot(env.DB);
     const checkpoint=await exportPrivacyCheckpoint(null,snapshot);
-    backup=await writePrivateBackup(bucket,snapshot,`${SNAPSHOT_PREFIX}${pad(sequence)}-${cycleId}.json`);
+    try{backup=await writePrivateBackup(bucket,snapshot,`${SNAPSHOT_PREFIX}${pad(sequence)}-${cycleId}.json`);}
+    catch(error){throw tagFailure(error,'download_file');}
     const checkpointText=JSON.stringify(checkpoint),checkpointSHA=await sha256(checkpointText);
     const checkpointKey=`${CHECKPOINT_PREFIX}${pad(sequence)}-${cycleId}.json`;
     await bucket.put(checkpointKey,checkpointText,{customMetadata:{sha256:checkpointSHA}});
     const check=await bucket.get(checkpointKey);
-    if(!check||await sha256(await check.text())!==checkpointSHA)throw new Error('Recovery checkpoint readback failed.');
+    let checkpointTextRead=null;
+    if(check){
+      try{checkpointTextRead=await check.text();}
+      catch(error){throw tagFailure(error,'checkpoint-readback');}
+    }
+    if(!check||await sha256(checkpointTextRead)!==checkpointSHA)throw failureError('Recovery checkpoint readback failed.','checkpoint-readback');
     checkpointRecord={key:checkpointKey,sha256:checkpointSHA};
     await writeMarker(bucket,sequence,'done',{format:CYCLE_FORMAT,version:CYCLE_VERSION,stage:'done',sequence,cycleId,startedAt,createdAt:snapshot.createdAt,backup,checkpoint:checkpointRecord});
-    if(!await completeSequence(env.DB,{sequence,cycleId,createdAt:snapshot.createdAt,backup,checkpoint:checkpointRecord}))throw new Error('Recovery cycle changed.');
+    if(!await completeSequence(env.DB,{sequence,cycleId,createdAt:snapshot.createdAt,backup,checkpoint:checkpointRecord}))throw failureError('Recovery cycle changed.','database-confirmation');
   // The stored copy may in fact be complete and readable. What is unconfirmed is
   // this installation's record of it, so the warning does not claim more.
-  } catch { throw new InputError('The action may have saved, but its recovery confirmation needs attention. Review saved records, then repair recovery.',503); }
+  } catch(error) {
+    const failureClass=normalizeFailureClass(error?.failureClass)??{source:'backup',step:'database-confirmation',fault:'unusable-response'};
+    const wrapped=new InputError('The action may have saved, but its recovery confirmation needs attention. Review saved records, then repair recovery.',503);
+    wrapped.failureClass=failureClass;
+    throw wrapped;
+  }
 
   // Expiry is reported separately. A housekeeping failure must not turn a
   // verified, usable backup into a permanently blocked application.

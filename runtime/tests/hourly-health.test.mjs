@@ -9,7 +9,10 @@ import worker from '../worker.mjs';
 const MIGRATIONS=['0001_applications','0002_administration','0003_followups','0004_deletion','0005_reporting_totals','0006_final_review','0007_mail_receipt','0008_recovery_state','0009_recovery_started_by'];
 const NOW='2026-09-19T10:00:00.000Z';
 const LATER='2026-09-19T11:00:00.000Z';
+const SOON='2026-09-19T12:00:00.000Z';
 const NEXT_DAY='2026-09-20T11:00:00.000Z';
+const FAILURE_JOB='system:hourly-failure';
+const FIXTURE_SECRETS=['pod-secret.backblaze.com','https://pod-secret.backblaze.com/b2api/v4/b2_upload_file/secret','upload-token-SECRETVALUE','fictional-application-key-SECRET','7c88f1d182b1506446ff0b16','snapshots/secret-participant-file.json','Ada Lovelace','secret-participant@example.test','internal_error','fictional storage failure'];
 
 function fakeBucket() {
   const versions=[];let counter=0;
@@ -52,20 +55,36 @@ const schedule=()=>async()=>({changed:1,held:false,mailStatus:'synchronized',err
 function alertMailbox(sent){
   return ()=>({send:async message=>{sent.push(message);return {id:'alert',reference:message.reference,rfcMessageId:'<alert@mail.example.test>',to:message.to,sentAt:NOW};}});
 }
+function secretFailure(){
+  return new Error(FIXTURE_SECRETS.join(' '));
+}
+async function failureRecord(db){
+  const row=await db.prepare('SELECT payload FROM jobs WHERE id=?').bind(FAILURE_JOB).first();
+  return JSON.parse(row.payload);
+}
+function assertNoFixturePayload(value){
+  const text=typeof value==='string'?value:JSON.stringify(value);
+  for(const secret of FIXTURE_SECRETS)assert.equal(text.includes(secret),false,secret);
+}
 
 test('a failed backup does not block participant mail',async t=>{
   const env=await setup(t);
   const real=env.PRIVATE_RECOVERY;
-  const broken={...real,put:async(key,...rest)=>{if(key.startsWith('recovery/'))throw new Error('fictional storage failure');return real.put(key,...rest);}};
+  const broken={...real,put:async(key,...rest)=>{if(key.startsWith('recovery/'))throw secretFailure();return real.put(key,...rest);}};
   let ran=false;
   const sent=[];
   const result=await runHourlyJob({...env,PRIVATE_RECOVERY:broken},NOW,{runSchedule:async()=>{ran=true;return {changed:2,held:false,mailStatus:'synchronized'};},mailboxFactory:alertMailbox(sent)});
   assert.equal(ran,true);
   assert.equal(result.fullySuccessful,false);
   assert.equal(result.recovery.status,'failed');
-  assert.equal(sent.length,1);
-  assert.equal(sent[0].to,'chair@example.test');
-  assert.match(sent[0].subject,/hourly job needs attention/);
+  assert.equal(result.alert.sent,false);
+  assert.equal(sent.length,0);
+  const recorded=await failureRecord(env.DB);
+  assert.equal(recorded.count,1);
+  assert.equal(recorded.class.source,'backup');
+  assert.equal(recorded.class.step,'upload_file');
+  assert.equal(recorded.class.fault,'unusable-response');
+  assertNoFixturePayload(recorded);
   assert.equal((await env.DB.prepare('SELECT status FROM recovery_state WHERE id=1').first('status')),'pending');
 });
 
@@ -89,15 +108,20 @@ test('the hourly job repairs a pending cycle it started and records a successful
 test('the hourly job does not repair a pending operator cycle and still sends mail',async t=>{
   const env=await setup(t);
   const real=env.PRIVATE_RECOVERY;
-  const broken={...real,put:async(key,...rest)=>{if(key.startsWith('recovery/checkpoints/'))throw new Error('fictional storage failure');return real.put(key,...rest);}};
+  const broken={...real,put:async(key,...rest)=>{if(key.startsWith('recovery/checkpoints/'))throw secretFailure();return real.put(key,...rest);}};
   await assert.rejects(withPrivateRecovery({...env,PRIVATE_RECOVERY:broken},async()=>{},{startedBy:'operator'}),/may have saved/);
   const pending=await env.DB.prepare('SELECT cycle_id,cycle_sequence FROM recovery_state WHERE id=1').first();
   let ran=false;
-  const result=await runHourlyJob(env,NOW,{runSchedule:async()=>{ran=true;return {changed:1};},mailboxFactory:alertMailbox([])});
+  const sent=[];
+  const result=await runHourlyJob(env,NOW,{runSchedule:async()=>{ran=true;return {changed:1};},mailboxFactory:alertMailbox(sent)});
   assert.equal(ran,true);
   assert.equal(result.fullySuccessful,false);
   assert.equal(result.recovery.status,'pending');
   assert.equal(result.recovery.startedBy,'operator');
+  assert.equal(result.alert.sent,true);
+  assert.equal(sent.length,1);
+  assert.match(sent[0].body,/Failure class: operator-pending/);
+  assertNoFixturePayload(sent[0].body);
   const after=await env.DB.prepare('SELECT cycle_id,cycle_sequence,status FROM recovery_state WHERE id=1').first();
   assert.equal(after.status,'pending');
   assert.equal(after.cycle_id,pending.cycle_id);
@@ -107,17 +131,25 @@ test('the hourly job does not repair a pending operator cycle and still sends ma
 test('Chair alert is sent from outside the backup wrapper at most once a day while stuck',async t=>{
   const env=await setup(t);
   const real=env.PRIVATE_RECOVERY;
-  const broken={...real,put:async()=>{throw new Error('fictional storage failure');}};
+  const broken={...real,put:async()=>{throw secretFailure();}};
   const sent=[];
   const first=await runHourlyJob({...env,PRIVATE_RECOVERY:broken},NOW,{runSchedule:schedule(),mailboxFactory:alertMailbox(sent)});
-  assert.equal(first.alert.sent,true);
-  assert.equal(sent.length,1);
+  assert.equal(first.alert.sent,false);
+  assert.equal(sent.length,0);
+  assert.equal((await failureRecord(env.DB)).count,1);
   const second=await runHourlyJob({...env,PRIVATE_RECOVERY:broken},LATER,{runSchedule:schedule(),mailboxFactory:alertMailbox(sent)});
-  assert.equal(second.alert.sent,false);
-  assert.equal(second.alert.skipped,true);
+  assert.equal(second.alert.sent,true);
   assert.equal(sent.length,1);
-  const third=await runHourlyJob({...env,PRIVATE_RECOVERY:broken},NEXT_DAY,{runSchedule:schedule(),mailboxFactory:alertMailbox(sent)});
-  assert.equal(third.alert.sent,true);
+  assert.equal((await failureRecord(env.DB)).count,2);
+  assert.match(sent[0].body,/Failure class: backup upload_file unusable-response/);
+  assertNoFixturePayload(sent[0].body);
+  assertNoFixturePayload(await failureRecord(env.DB));
+  const third=await runHourlyJob({...env,PRIVATE_RECOVERY:broken},SOON,{runSchedule:schedule(),mailboxFactory:alertMailbox(sent)});
+  assert.equal(third.alert.sent,false);
+  assert.equal(third.alert.skipped,true);
+  assert.equal(sent.length,1);
+  const fourth=await runHourlyJob({...env,PRIVATE_RECOVERY:broken},NEXT_DAY,{runSchedule:schedule(),mailboxFactory:alertMailbox(sent)});
+  assert.equal(fourth.alert.sent,true);
   assert.equal(sent.length,2);
   assert.ok(sent.every(message=>message.to==='chair@example.test'));
 });
@@ -126,8 +158,57 @@ test('a thrown mail run still alerts the Chair outside the backup wrapper',async
   const env=await setup(t);
   const sent=[];
   await assert.rejects(runHourlyJob(env,NOW,{runSchedule:async()=>{throw new Error('fictional mailbox failure');},mailboxFactory:alertMailbox(sent)}),/fictional mailbox failure/);
-  assert.equal(sent.length,1);
+  assert.equal(sent.length,0);
+  assert.equal((await failureRecord(env.DB)).count,1);
+  assert.equal((await failureRecord(env.DB)).class.source,'schedule');
   assert.equal((await env.DB.prepare('SELECT status FROM recovery_state WHERE id=1').first('status')),'ready');
+  await assert.rejects(runHourlyJob(env,LATER,{runSchedule:async()=>{throw new Error('fictional mailbox failure');},mailboxFactory:alertMailbox(sent)}),/fictional mailbox failure/);
+  assert.equal(sent.length,1);
+  assert.match(sent[0].body,/Failure class: schedule unusable-response/);
+  assert.equal(sent[0].body.includes('fictional mailbox failure'),false);
+  assert.equal((await env.DB.prepare('SELECT status FROM recovery_state WHERE id=1').first('status')),'ready');
+});
+
+test('two consecutive failed hours alert once and a success between failures resets the count',async t=>{
+  const env=await setup(t);
+  const real=env.PRIVATE_RECOVERY;
+  const broken={...real,put:async()=>{throw new Error('fictional storage failure');}};
+  const sent=[];
+  const run=(bucket,at)=>runHourlyJob({...env,PRIVATE_RECOVERY:bucket},at,{runSchedule:schedule(),mailboxFactory:alertMailbox(sent)});
+  assert.equal((await run(broken,NOW)).alert.sent,false);
+  assert.equal((await run(broken,LATER)).alert.sent,true);
+  assert.equal(sent.length,1);
+
+  const reset=await setup(t);
+  const resetReal=reset.PRIVATE_RECOVERY;
+  const resetBroken={...resetReal,put:async()=>{throw new Error('fictional storage failure');}};
+  const quiet=[];
+  const resetRun=(bucket,at)=>runHourlyJob({...reset,PRIVATE_RECOVERY:bucket},at,{runSchedule:schedule(),mailboxFactory:alertMailbox(quiet)});
+  assert.equal((await resetRun(resetBroken,NOW)).alert.sent,false);
+  const repaired=await resetRun(resetReal,LATER);
+  assert.equal(repaired.fullySuccessful,true);
+  assert.equal((await failureRecord(reset.DB)).count,0);
+  assert.equal((await resetRun(resetBroken,SOON)).alert.sent,false);
+  assert.equal(quiet.length,0);
+  assert.equal((await failureRecord(reset.DB)).count,1);
+});
+
+test('a schedule-started backup still pending after the repair attempt alerts',async t=>{
+  const env=await setup(t);
+  const real=env.PRIVATE_RECOVERY;
+  const broken={...real,put:async(key,...rest)=>{if(key.startsWith('recovery/checkpoints/'))throw secretFailure();return real.put(key,...rest);}};
+  await assert.rejects(withPrivateRecovery({...env,PRIVATE_RECOVERY:broken},async()=>{},{startedBy:'scheduled'}),/may have saved/);
+  const sent=[];
+  let ran=false;
+  const result=await runHourlyJob({...env,PRIVATE_RECOVERY:broken},NOW,{runSchedule:async()=>{ran=true;return {changed:1,held:false,mailStatus:'synchronized'};},mailboxFactory:alertMailbox(sent)});
+  assert.equal(ran,true);
+  assert.equal(result.alert.sent,true);
+  assert.equal(result.recovery.status,'pending');
+  assert.equal(sent.length,1);
+  assert.match(sent[0].body,/Failure class: backup upload_file unusable-response/);
+  assertNoFixturePayload(sent[0].body);
+  assert.equal((await failureRecord(env.DB)).count,1);
+  assert.equal((await env.DB.prepare('SELECT status FROM recovery_state WHERE id=1').first('status')),'pending');
 });
 
 test('status reports the last fully successful run and ok false when stale',async t=>{
