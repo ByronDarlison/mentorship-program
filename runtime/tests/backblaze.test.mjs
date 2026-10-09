@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
-import {createBackblazeBucket} from '../backblaze.mjs';
+import {backoffDelayMs,createBackblazeBucket} from '../backblaze.mjs';
 
 const KEY_ID='00512eab3aef1230000000001';
 const APP_KEY='fictional-backblaze-application-key';
@@ -53,7 +53,8 @@ function fakeFetch(routes) {
   return fetcher;
 }
 const authorizeRoute=options=>({match:'b2_authorize_account',reply:()=>jsonReply(authorization(options))});
-const bucketFor=fetcher=>createBackblazeBucket({keyId:KEY_ID,applicationKey:APP_KEY,bucketId:BUCKET_ID,bucketName:BUCKET_NAME,fetcher});
+const instantSleep=(resolve)=>resolve();
+const bucketFor=(fetcher,options={})=>createBackblazeBucket({keyId:KEY_ID,applicationKey:APP_KEY,bucketId:BUCKET_ID,bucketName:BUCKET_NAME,fetcher,sleep:instantSleep,random:()=>0,...options});
 
 test('stores and reads a snapshot through the native B2 endpoints',async()=>{
   const fetcher=fakeFetch([
@@ -139,7 +140,7 @@ test('returns null for a missing object and fails for every other error',async()
   for(const status of [500,503]) {
     const fetcher=fakeFetch([authorizeRoute(),{match:'/file/',reply:()=>new Response(null,{status})}]);
     await assert.rejects(bucketFor(fetcher).get(SNAPSHOT_KEY),/could not return the object/);
-    assert.equal(fetcher.calls.filter(call=>call.url.includes('/file/')).length,3,'transient download errors retry then fail');
+    assert.equal(fetcher.calls.filter(call=>call.url.includes('/file/')).length,4,'transient download errors retry then fail');
   }
 });
 
@@ -320,6 +321,8 @@ test('never repeats provider error text and re-authorizes at most once',async()=
   const failure=await bucketFor(leaky).get(SNAPSHOT_KEY).then(()=>null,error=>error);
   assert.match(failure.message,/^Private backup storage could not return the object\.$/);
   assert.ok(!failure.message.includes(APP_KEY)&&!failure.message.includes(BUCKET_ID)&&!failure.message.includes('internal_error'));
+  assert.deepEqual(failure.failureClass,{source:'backup',step:'download_file',fault:'transient-status'});
+  assert.ok(!JSON.stringify(failure.failureClass).includes(APP_KEY)&&!JSON.stringify(failure.failureClass).includes(BUCKET_ID)&&!JSON.stringify(failure.failureClass).includes('internal_error'));
 
   const expired=fakeFetch([
     authorizeRoute(),
@@ -343,7 +346,61 @@ test('refuses an unconfigured or unusable storage binding',async()=>{
     ]);
     await assert.rejects(bucketFor(fetcher).put(SNAPSHOT_KEY,BODY),/did not confirm managed encryption/);
   }
-  for(const override of [{keyId:''},{applicationKey:'has spaces'},{bucketId:'not-hex'},{bucketName:'Not_A_Bucket'},{fetcher:null}]) {
+  for(const override of [{keyId:''},{applicationKey:'has spaces'},{bucketId:'not-hex'},{bucketName:'Not_A_Bucket'},{fetcher:null},{sleep:null},{random:null}]) {
     assert.throws(()=>createBackblazeBucket({keyId:KEY_ID,applicationKey:APP_KEY,bucketId:BUCKET_ID,bucketName:BUCKET_NAME,fetcher:fakeFetch([]),...override}),/not configured/);
   }
+});
+
+test('retries 504 with jittered waits of about 1s, 4s and 16s and does not really wait',async()=>{
+  const waits=[];
+  const rolls=[0,0.5,0.999999];
+  let index=0;
+  const started=Date.now();
+  const fetcher=fakeFetch([authorizeRoute(),{match:'/file/',reply:()=>new Response(null,{status:504})}]);
+  const failure=await bucketFor(fetcher,{sleep:(resolve,ms)=>{waits.push(ms);resolve();},random:()=>rolls[index++]}).get(SNAPSHOT_KEY).then(()=>null,error=>error);
+  assert.match(failure.message,/could not return the object/);
+  assert.deepEqual(failure.failureClass,{source:'backup',step:'download_file',fault:'transient-status'});
+  assert.deepEqual(waits,[backoffDelayMs(0,()=>0),backoffDelayMs(1,()=>0.5),backoffDelayMs(2,()=>0.999999)]);
+  assert.deepEqual(waits,[1000,4500,19999]);
+  for(const [wait,low,high] of [[waits[0],1000,1250],[waits[1],4000,5000],[waits[2],16000,20000]])assert.ok(wait>=low&&wait<high);
+  assert.equal(fetcher.calls.filter(call=>call.url.includes('/file/')).length,4);
+  assert.ok(Date.now()-started<500,'injected sleep must not wait on the clock');
+  assert.ok(!failure.message.includes('504'));
+});
+
+test('a busy upload takes a fresh location after the same waits',async()=>{
+  const waits=[];
+  const fetcher=fakeFetch([
+    authorizeRoute(),
+    {match:'b2_get_upload_url',reply:()=>jsonReply({bucketId:BUCKET_ID,uploadUrl:UPLOAD_URL,authorizationToken:'upload-token'})},
+    {match:'b2_upload_file',method:'POST',reply:()=>new Response(JSON.stringify({code:'service_unavailable',message:`busy ${APP_KEY}`}),{status:503,headers:{'content-type':'application/json'}})}
+  ]);
+  const failure=await bucketFor(fetcher,{sleep:(resolve,ms)=>{waits.push(ms);resolve();},random:()=>0}).put(SNAPSHOT_KEY,BODY).then(()=>null,error=>error);
+  assert.match(failure.message,/did not accept the object/);
+  assert.deepEqual(failure.failureClass,{source:'backup',step:'upload_file',fault:'transient-status'});
+  assert.deepEqual(waits,[1000,4000,16000]);
+  assert.equal(fetcher.calls.filter(call=>call.url.includes('b2_upload_file')).length,4);
+  assert.equal(fetcher.calls.filter(call=>call.url.includes('b2_get_upload_url')).length,4);
+  assert.ok(!failure.message.includes(APP_KEY)&&!JSON.stringify(failure.failureClass).includes(APP_KEY)&&!JSON.stringify(failure.failureClass).includes('service_unavailable'));
+});
+
+test('401 refresh stays immediate and a redirect is not retried',async()=>{
+  const waits=[];
+  const sleep=(resolve,ms)=>{waits.push(ms);resolve();};
+  const expired=fakeFetch([
+    authorizeRoute(),
+    {match:'/file/',once:true,reply:()=>new Response(null,{status:401})},
+    {match:'/file/',reply:()=>downloadReply(BODY)}
+  ]);
+  assert.equal(await (await bucketFor(expired,{sleep,random:()=>0.99}).get(SNAPSHOT_KEY)).text(),BODY);
+  assert.deepEqual(waits,[]);
+  assert.equal(expired.calls.filter(call=>call.url.includes('b2_authorize_account')).length,2);
+
+  const redirected=fakeFetch([
+    authorizeRoute(),
+    {match:'/file/',reply:()=>new Response(null,{status:302,headers:{location:'https://backups.attacker.example/copy'}})}
+  ]);
+  await assert.rejects(bucketFor(redirected,{sleep,random:()=>0}).get(SNAPSHOT_KEY),/unsupported redirect/);
+  assert.deepEqual(waits,[]);
+  assert.equal(redirected.calls.filter(call=>call.url.includes('/file/')).length,1);
 });

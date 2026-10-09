@@ -25,9 +25,15 @@ const HEX40=/^[0-9a-f]{40}$/;
 const MAX_TIMESTAMP_MS=8640000000000000;
 const LIST_ACTIONS=['upload','hide','start'];
 const REQUEST_TIMEOUT_MS=20000;
-const TRANSIENT_STATUS=new Set([408,429,500,502,503]);
-const TRANSIENT_ATTEMPTS=3;
-const TRANSIENT_BACKOFF_MS=[50,150];
+const TRANSIENT_STATUS=new Set([408,429,500,502,503,504]);
+// One attempt, then three waits. Busy uploads use the same waits for a fresh location.
+export const BACKOFF_BASE_MS=[1000,4000,16000];
+export const BACKOFF_JITTER_RATIO=0.25;
+const TRANSIENT_ATTEMPTS=BACKOFF_BASE_MS.length+1;
+const UPLOAD_BUSY=new Set([408,429,503,504]);
+export const FAILURE_SOURCES=['schedule','backup','operator-pending'];
+export const FAILURE_STEPS=['authorize','get_upload_url','upload_file','download_file','list_file_versions','delete_file_version','marker-readback','checkpoint-readback','database-confirmation'];
+export const FAILURE_FAULTS=['timeout','transient-status','refused','unusable-response'];
 const MAX_JSON_BYTES=1<<20;
 const MAX_OBJECT_BYTES=16<<20;
 const MAX_METADATA_BYTES=1024;
@@ -39,11 +45,42 @@ const REAUTHORIZE=Symbol('reauthorize');
 // Storage faults never carry a provider payload, host, token or error code.
 class StorageFailure extends Error {}
 
-function requireSafeUrl(value,label) {
+export function normalizeFailureClass(value){
+  if(!value||typeof value!=='object'||Array.isArray(value))return null;
+  if(!FAILURE_SOURCES.includes(value.source))return null;
+  const normalized={source:value.source};
+  if(FAILURE_STEPS.includes(value.step))normalized.step=value.step;
+  if(FAILURE_FAULTS.includes(value.fault))normalized.fault=value.fault;
+  return normalized;
+}
+export function formatFailureClass(value){
+  const normalized=normalizeFailureClass(value);
+  return normalized?[normalized.source,normalized.step,normalized.fault].filter(Boolean).join(' '):null;
+}
+// random() is in [0, 1). Jitter adds up to almost 25% and never reaches the next band.
+export function backoffDelayMs(index,random=Math.random){
+  const base=BACKOFF_BASE_MS[index];
+  if(!Number.isSafeInteger(base))return 0;
+  const roll=typeof random==='function'?random():random;
+  const unit=typeof roll==='number'&&roll>=0&&roll<1?roll:0;
+  return base+Math.floor(unit*base*BACKOFF_JITTER_RATIO);
+}
+function storageFailure(message,step,fault){
+  const error=new StorageFailure(message);
+  error.failureClass=normalizeFailureClass({source:'backup',step,fault});
+  return error;
+}
+function faultForStatus(status){
+  if(TRANSIENT_STATUS.has(status))return 'transient-status';
+  if(status===401||status===403)return 'refused';
+  return 'unusable-response';
+}
+
+function requireSafeUrl(value,label,step) {
   let url;
-  try { url=new URL(String(value)); } catch { throw new StorageFailure(`Private backup storage returned an unusable ${label} address.`); }
+  try { url=new URL(String(value)); } catch { throw storageFailure(`Private backup storage returned an unusable ${label} address.`,step,'unusable-response'); }
   const host=url.hostname.toLowerCase();
-  if(url.protocol!=='https:'||url.username||url.password||(url.port&&url.port!=='443')||!ALLOWED_HOSTS.some(domain=>host===domain||host.endsWith('.'+domain)))throw new StorageFailure(`Private backup storage returned an unusable ${label} address.`);
+  if(url.protocol!=='https:'||url.username||url.password||(url.port&&url.port!=='443')||!ALLOWED_HOSTS.some(domain=>host===domain||host.endsWith('.'+domain)))throw storageFailure(`Private backup storage returned an unusable ${label} address.`,step,'unusable-response');
   return url;
 }
 function requireKey(key) {
@@ -66,9 +103,9 @@ function decodeHeader(value) {
   if(typeof value!=='string')return null;
   try { return decodeURIComponent(value); } catch { return null; }
 }
-function decodeText(bytes) {
+function decodeText(bytes,step) {
   try { return new TextDecoder('utf-8',{fatal:true}).decode(bytes); }
-  catch { throw new StorageFailure('Private backup storage returned unreadable text.'); }
+  catch { throw storageFailure('Private backup storage returned unreadable text.',step,'unusable-response'); }
 }
 async function sha1Hex(bytes) {
   return [...new Uint8Array(await crypto.subtle.digest('SHA-1',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');
@@ -112,9 +149,9 @@ function buildMetadataHeaders(customMetadata) {
 
 // Every read is bounded and every response is refused before its body is used
 // if it declares or streams more than the limit for that call.
-async function readBytes(response,limit) {
+async function readBytes(response,limit,step) {
   const declared=response.headers.get('content-length');
-  if(declared!==null&&(!/^\d{1,15}$/.test(declared)||Number(declared)>limit))throw new StorageFailure('Private backup storage returned an oversized response.');
+  if(declared!==null&&(!/^\d{1,15}$/.test(declared)||Number(declared)>limit))throw storageFailure('Private backup storage returned an oversized response.',step,'unusable-response');
   if(!response.body)return new Uint8Array();
   const reader=response.body.getReader();
   const chunks=[];let total=0;
@@ -123,54 +160,59 @@ async function readBytes(response,limit) {
       const {done,value}=await reader.read();
       if(done)break;
       total+=value.byteLength;
-      if(total>limit) { await reader.cancel(); throw new StorageFailure('Private backup storage returned an oversized response.'); }
+      if(total>limit) { await reader.cancel(); throw storageFailure('Private backup storage returned an oversized response.',step,'unusable-response'); }
       chunks.push(value);
     }
   } catch(error) {
     if(error instanceof StorageFailure)throw error;
-    throw new StorageFailure('Private backup storage response could not be read.');
+    throw storageFailure('Private backup storage response could not be read.',step,'unusable-response');
   }
   const bytes=new Uint8Array(total);let at=0;
   for(const chunk of chunks) { bytes.set(chunk,at); at+=chunk.byteLength; }
   return bytes;
 }
-async function readJson(response,limit=MAX_JSON_BYTES) {
-  const text=decodeText(await readBytes(response,limit));
-  try { return JSON.parse(text); } catch { throw new StorageFailure('Private backup storage returned an unusable response.'); }
+async function readJson(response,step,limit=MAX_JSON_BYTES) {
+  const text=decodeText(await readBytes(response,limit,step),step);
+  try { return JSON.parse(text); } catch { throw storageFailure('Private backup storage returned an unusable response.',step,'unusable-response'); }
 }
 
-export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,fetcher=fetch}={}) {
-  if(!CREDENTIAL_PATTERN.test(String(keyId??''))||!CREDENTIAL_PATTERN.test(String(applicationKey??''))||!BUCKET_ID_PATTERN.test(String(bucketId??''))||!BUCKET_NAME_PATTERN.test(String(bucketName??''))||typeof fetcher!=='function')throw new InputError('Private backup storage is not configured.',503);
+export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,fetcher=fetch,sleep=setTimeout,random=Math.random}={}) {
+  if(!CREDENTIAL_PATTERN.test(String(keyId??''))||!CREDENTIAL_PATTERN.test(String(applicationKey??''))||!BUCKET_ID_PATTERN.test(String(bucketId??''))||!BUCKET_NAME_PATTERN.test(String(bucketName??''))||typeof fetcher!=='function'||typeof sleep!=='function'||typeof random!=='function')throw new InputError('Private backup storage is not configured.',503);
   const bucket={id:bucketId,name:bucketName};
   const basic='Basic '+btoa(`${keyId}:${applicationKey}`);
   let session=null;
 
-  function delay(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
+  function delay(ms){return new Promise(resolve=>{sleep(resolve,ms);});}
 
-  // Transient 5xx/429/timeouts are ordinary on every B2 call type. Retry with
-  // short backoff before the caller treats the request as failed. 401 stays
-  // immediate so an expired token can be refreshed once.
-  async function send(url,init) {
+  // Transient 408/429/5xx (including 504) and timeouts retry with jittered
+  // waits of about 1s, 4s and 16s. 401 stays immediate so an expired token
+  // can be refreshed once. release() returns selected statuses to the caller
+  // without this wait, which the upload path uses for a fresh location.
+  async function send(url,init,step,options={}) {
+    const release=typeof options.release==='function'?options.release:()=>false;
+    const attempts=options.singleAttempt?1:TRANSIENT_ATTEMPTS;
     let lastError;
-    for(let attempt=0;attempt<TRANSIENT_ATTEMPTS;attempt++) {
+    for(let attempt=0;attempt<attempts;attempt++) {
       let response;
       try {
         response=await fetcher(String(url),{...init,redirect:'manual',signal:AbortSignal.timeout(REQUEST_TIMEOUT_MS)});
       } catch(error) {
-        lastError=error instanceof StorageFailure?error:new StorageFailure('Private backup storage did not respond.');
-        if(attempt<TRANSIENT_ATTEMPTS-1){await delay(TRANSIENT_BACKOFF_MS[attempt]);continue;}
+        lastError=error instanceof StorageFailure?error:storageFailure('Private backup storage did not respond.',step,'timeout');
+        if(!lastError.failureClass)lastError.failureClass=normalizeFailureClass({source:'backup',step,fault:'timeout'});
+        if(attempt<attempts-1){await delay(backoffDelayMs(attempt,random));continue;}
         throw lastError;
       }
       if(!response||typeof response.status!=='number'||!response.headers||typeof response.headers.get!=='function') {
-        lastError=new StorageFailure('Private backup storage did not respond.');
-        if(attempt<TRANSIENT_ATTEMPTS-1){await delay(TRANSIENT_BACKOFF_MS[attempt]);continue;}
+        lastError=storageFailure('Private backup storage did not respond.',step,'unusable-response');
+        if(attempt<attempts-1){await delay(backoffDelayMs(attempt,random));continue;}
         throw lastError;
       }
-      if(response.redirected||(response.status>=300&&response.status<400))throw new StorageFailure('Private backup storage attempted an unsupported redirect.');
-      if(TRANSIENT_STATUS.has(response.status)&&attempt<TRANSIENT_ATTEMPTS-1){await delay(TRANSIENT_BACKOFF_MS[attempt]);continue;}
+      if(response.redirected||(response.status>=300&&response.status<400))throw storageFailure('Private backup storage attempted an unsupported redirect.',step,'refused');
+      if(release(response.status))return response;
+      if(TRANSIENT_STATUS.has(response.status)&&attempt<attempts-1){await delay(backoffDelayMs(attempt,random));continue;}
       return response;
     }
-    throw lastError??new StorageFailure('Private backup storage did not respond.');
+    throw lastError??storageFailure('Private backup storage did not respond.',step,'timeout');
   }
 
   // The credential must already be restricted to this one bucket, and must carry
@@ -178,14 +220,14 @@ export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,
   // a missing one is not. An account-wide key is refused outright: it could
   // reach every other bucket, and this Worker never needs that reach.
   async function authorize() {
-    const response=await send(AUTHORIZE_URL,{method:'GET',headers:{Authorization:basic}});
+    const response=await send(AUTHORIZE_URL,{method:'GET',headers:{Authorization:basic}},'authorize');
     if([401,403].includes(response.status))throw new InputError('Private backup storage did not accept the stored credential.',503);
-    if(!response.ok)throw new StorageFailure('Private backup storage did not respond.');
-    const body=await readJson(response);
+    if(!response.ok)throw storageFailure('Private backup storage did not respond.','authorize',faultForStatus(response.status));
+    const body=await readJson(response,'authorize');
     const storage=body?.apiInfo?.storageApi;
-    if(typeof body?.authorizationToken!=='string'||!body.authorizationToken||!storage||typeof storage!=='object')throw new StorageFailure('Private backup storage returned an unusable authorization.');
-    const apiUrl=requireSafeUrl(storage.apiUrl,'API');
-    const downloadUrl=requireSafeUrl(storage.downloadUrl,'download');
+    if(typeof body?.authorizationToken!=='string'||!body.authorizationToken||!storage||typeof storage!=='object')throw storageFailure('Private backup storage returned an unusable authorization.','authorize','unusable-response');
+    const apiUrl=requireSafeUrl(storage.apiUrl,'API','authorize');
+    const downloadUrl=requireSafeUrl(storage.downloadUrl,'download','authorize');
     const allowed=storage.allowed;
     const buckets=Array.isArray(allowed?.buckets)?allowed.buckets:null;
     if(!buckets||buckets.length!==1||buckets[0]?.id!==bucket.id||buckets[0]?.name!==bucket.name)throw new InputError('The private backup credential is not restricted to the mentorship bucket.',503);
@@ -196,7 +238,7 @@ export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,
   }
 
   // One bounded retry. An expired 24-hour token is ordinary; a second refusal is not.
-  async function useSession(run) {
+  async function useSession(run,step) {
     session??=await authorize();
     let outcome=await run(session);
     if(outcome===REAUTHORIZE) {
@@ -204,7 +246,7 @@ export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,
       session=await authorize();
       outcome=await run(session);
     }
-    if(outcome===REAUTHORIZE)throw new StorageFailure('Private backup storage refused the authorized request.');
+    if(outcome===REAUTHORIZE)throw storageFailure('Private backup storage refused the authorized request.',step,'refused');
     return outcome;
   }
 
@@ -214,31 +256,31 @@ export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,
     return url;
   }
 
-  async function requestUploadLocation(current) {
-    const response=await send(apiUrlFor(current,'b2_get_upload_url',{bucketId:bucket.id}),{method:'GET',headers:{Authorization:current.token}});
+  async function requestUploadLocation(current,{singleAttempt=false}={}) {
+    const response=await send(apiUrlFor(current,'b2_get_upload_url',{bucketId:bucket.id}),{method:'GET',headers:{Authorization:current.token}},'get_upload_url',{singleAttempt});
     if(response.status===401)return REAUTHORIZE;
-    if(!response.ok)throw new StorageFailure('Private backup storage did not provide an upload location.');
-    const body=await readJson(response);
-    if(body?.bucketId!==bucket.id||typeof body?.authorizationToken!=='string'||!body.authorizationToken)throw new StorageFailure('Private backup storage returned an unusable upload location.');
+    if(!response.ok)throw storageFailure('Private backup storage did not provide an upload location.','get_upload_url',faultForStatus(response.status));
+    const body=await readJson(response,'get_upload_url');
+    if(body?.bucketId!==bucket.id||typeof body?.authorizationToken!=='string'||!body.authorizationToken)throw storageFailure('Private backup storage returned an unusable upload location.','get_upload_url','unusable-response');
     // Validate the returned host before the upload token leaves this Worker.
-    return {url:requireSafeUrl(body.uploadUrl,'upload'),token:body.authorizationToken};
+    return {url:requireSafeUrl(body.uploadUrl,'upload','get_upload_url'),token:body.authorizationToken};
   }
 
   async function get(key) {
     const name=requireKey(key);
     return useSession(async current=>{
       const url=new URL(`/file/${encodePath(bucket.name)}/${encodePath(name)}`,current.downloadUrl.origin);
-      const response=await send(url,{method:'GET',headers:{Authorization:current.token}});
+      const response=await send(url,{method:'GET',headers:{Authorization:current.token}},'download_file');
       if(response.status===401)return REAUTHORIZE;
       if(response.status===404)return null;
-      if(!response.ok)throw new StorageFailure('Private backup storage could not return the object.');
-      const bytes=await readBytes(response,MAX_OBJECT_BYTES);
+      if(!response.ok)throw storageFailure('Private backup storage could not return the object.','download_file',faultForStatus(response.status));
+      const bytes=await readBytes(response,MAX_OBJECT_BYTES,'download_file');
       const fileId=response.headers.get('x-bz-file-id')??'';
-      if(!FILE_ID_PATTERN.test(fileId)||decodeHeader(response.headers.get('x-bz-file-name'))!==name)throw new StorageFailure('Private backup storage returned an unexpected object.');
+      if(!FILE_ID_PATTERN.test(fileId)||decodeHeader(response.headers.get('x-bz-file-name'))!==name)throw storageFailure('Private backup storage returned an unexpected object.','download_file','unusable-response');
       const contentSha1=String(response.headers.get('x-bz-content-sha1')??'').replace(/^unverified:/,'').toLowerCase();
-      if(!HEX40.test(contentSha1)||await sha1Hex(bytes)!==contentSha1)throw new StorageFailure('Private backup storage returned a damaged object.');
-      return {key:name,fileId,size:bytes.byteLength,contentSha1,uploadedAt:timestampToIso(response.headers.get('x-bz-upload-timestamp')),customMetadata:readMetadataHeaders(response.headers),text:async()=>decodeText(bytes)};
-    });
+      if(!HEX40.test(contentSha1)||await sha1Hex(bytes)!==contentSha1)throw storageFailure('Private backup storage returned a damaged object.','download_file','unusable-response');
+      return {key:name,fileId,size:bytes.byteLength,contentSha1,uploadedAt:timestampToIso(response.headers.get('x-bz-upload-timestamp')),customMetadata:readMetadataHeaders(response.headers),text:async()=>decodeText(bytes,'download_file')};
+    },'download_file');
   }
 
   async function put(key,text,options={}) {
@@ -250,28 +292,40 @@ export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,
     const metadata=buildMetadataHeaders(options.customMetadata);
     const contentSha1=await sha1Hex(bytes);
     return useSession(async current=>{
-      const upload=await requestUploadLocation(current);
-      if(upload===REAUTHORIZE)return REAUTHORIZE;
       // The runtime sets Content-Length from this fixed-length byte body, which
       // b2_upload_file requires; chunked uploads are not supported.
-      const response=await send(upload.url,{method:'POST',headers:{
-        Authorization:upload.token,
+      const init={method:'POST',headers:{
+        Authorization:'',
         'X-Bz-File-Name':encodePath(name),
         'Content-Type':'application/json',
         'X-Bz-Content-Sha1':contentSha1,
         'X-Bz-Server-Side-Encryption':'AES256',
         ...metadata
-      },body:bytes});
-      // B2 asks callers to take a fresh upload location for these statuses.
-      if([401,408,429,503].includes(response.status))return REAUTHORIZE;
-      if(!response.ok)throw new StorageFailure('Private backup storage did not accept the object.');
-      const saved=await readJson(response);
-      if(saved?.fileName!==name||!FILE_ID_PATTERN.test(String(saved?.fileId??''))||String(saved?.contentSha1??'').toLowerCase()!==contentSha1)throw new StorageFailure('Private backup storage confirmed a different object.');
-      // Managed encryption is requested on upload and confirmed from the
-      // receipt, so an unencrypted store is refused rather than reported.
-      if(saved.serverSideEncryption?.mode!=='SSE-B2'||saved.serverSideEncryption?.algorithm!=='AES256')throw new StorageFailure('Private backup storage did not confirm managed encryption.');
-      return {key:name,fileId:saved.fileId,size:bytes.byteLength,contentSha1,encryption:{mode:'SSE-B2',algorithm:'AES256'},customMetadata:readMetadataObject(saved.fileInfo)};
-    });
+      },body:bytes};
+      for(let fresh=0;;fresh++){
+        // The first location keeps the normal transient retries. Later locations
+        // are one shot so a busy upload does not repeat that wait schedule.
+        const upload=await requestUploadLocation(current,{singleAttempt:fresh>0});
+        if(upload===REAUTHORIZE)return REAUTHORIZE;
+        init.headers.Authorization=upload.token;
+        // Busy statuses take a fresh upload location after the same waits.
+        // 401 refreshes the account session immediately, with no wait.
+        const response=await send(upload.url,init,'upload_file',{release:status=>UPLOAD_BUSY.has(status)});
+        if(response.status===401)return REAUTHORIZE;
+        if(UPLOAD_BUSY.has(response.status)){
+          if(fresh>=BACKOFF_BASE_MS.length)throw storageFailure('Private backup storage did not accept the object.','upload_file','transient-status');
+          await delay(backoffDelayMs(fresh,random));
+          continue;
+        }
+        if(!response.ok)throw storageFailure('Private backup storage did not accept the object.','upload_file',faultForStatus(response.status));
+        const saved=await readJson(response,'upload_file');
+        if(saved?.fileName!==name||!FILE_ID_PATTERN.test(String(saved?.fileId??''))||String(saved?.contentSha1??'').toLowerCase()!==contentSha1)throw storageFailure('Private backup storage confirmed a different object.','upload_file','unusable-response');
+        // Managed encryption is requested on upload and confirmed from the
+        // receipt, so an unencrypted store is refused rather than reported.
+        if(saved.serverSideEncryption?.mode!=='SSE-B2'||saved.serverSideEncryption?.algorithm!=='AES256')throw storageFailure('Private backup storage did not confirm managed encryption.','upload_file','unusable-response');
+        return {key:name,fileId:saved.fileId,size:bytes.byteLength,contentSha1,encryption:{mode:'SSE-B2',algorithm:'AES256'},customMetadata:readMetadataObject(saved.fileInfo)};
+      }
+    },'upload_file');
   }
 
   // Versions, not names. Retention has to delete every historical version, and
@@ -282,25 +336,25 @@ export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,
     const start=requireCursor(cursor,scope);
     return useSession(async current=>{
       const url=apiUrlFor(current,'b2_list_file_versions',{bucketId:bucket.id,prefix:scope,maxFileCount:limit,startFileName:start?.startFileName??null,startFileId:start?.startFileId??null});
-      const response=await send(url,{method:'GET',headers:{Authorization:current.token}});
+      const response=await send(url,{method:'GET',headers:{Authorization:current.token}},'list_file_versions');
       if(response.status===401)return REAUTHORIZE;
-      if(!response.ok)throw new StorageFailure('Private backup storage could not list stored versions.');
-      const body=await readJson(response);
-      if(!body||!Array.isArray(body.files)||body.files.length>limit)throw new StorageFailure('Private backup storage returned an unusable listing.');
+      if(!response.ok)throw storageFailure('Private backup storage could not list stored versions.','list_file_versions',faultForStatus(response.status));
+      const body=await readJson(response,'list_file_versions');
+      if(!body||!Array.isArray(body.files)||body.files.length>limit)throw storageFailure('Private backup storage returned an unusable listing.','list_file_versions','unusable-response');
       const versions=body.files.map(file=>{
         const name=file?.fileName;
-        if(typeof name!=='string'||!name.startsWith(scope)||name.length>MAX_KEY_LENGTH||!KEY_PATTERN.test(name)||!FILE_ID_PATTERN.test(String(file?.fileId??''))||!LIST_ACTIONS.includes(file?.action)||!Number.isSafeInteger(file?.uploadTimestamp)||file.uploadTimestamp<0||file.uploadTimestamp>MAX_TIMESTAMP_MS)throw new StorageFailure('Private backup storage returned an unusable listing.');
+        if(typeof name!=='string'||!name.startsWith(scope)||name.length>MAX_KEY_LENGTH||!KEY_PATTERN.test(name)||!FILE_ID_PATTERN.test(String(file?.fileId??''))||!LIST_ACTIONS.includes(file?.action)||!Number.isSafeInteger(file?.uploadTimestamp)||file.uploadTimestamp<0||file.uploadTimestamp>MAX_TIMESTAMP_MS)throw storageFailure('Private backup storage returned an unusable listing.','list_file_versions','unusable-response');
         return {key:name,fileId:file.fileId,action:file.action,uploadedAt:new Date(file.uploadTimestamp).toISOString(),size:Number.isSafeInteger(file.contentLength)?file.contentLength:null,customMetadata:readMetadataObject(file.fileInfo)};
       });
       const nextName=body.nextFileName??null,nextId=body.nextFileId??null;
-      if(nextName!==null&&(typeof nextName!=='string'||!nextName.startsWith(scope)||nextName.length>MAX_KEY_LENGTH))throw new StorageFailure('Private backup storage returned an unusable listing.');
-      if(nextId!==null&&!FILE_ID_PATTERN.test(String(nextId)))throw new StorageFailure('Private backup storage returned an unusable listing.');
+      if(nextName!==null&&(typeof nextName!=='string'||!nextName.startsWith(scope)||nextName.length>MAX_KEY_LENGTH))throw storageFailure('Private backup storage returned an unusable listing.','list_file_versions','unusable-response');
+      if(nextId!==null&&!FILE_ID_PATTERN.test(String(nextId)))throw storageFailure('Private backup storage returned an unusable listing.','list_file_versions','unusable-response');
       // A finished listing carries no continuation at all, and a continuation that
       // repeats the request would page forever. Both are refused, not followed.
-      if(nextName===null&&nextId!==null)throw new StorageFailure('Private backup storage returned an unusable listing.');
-      if(nextName!==null&&start&&nextName===start.startFileName&&(nextId??null)===(start.startFileId??null))throw new StorageFailure('Private backup storage returned a repeating listing cursor.');
+      if(nextName===null&&nextId!==null)throw storageFailure('Private backup storage returned an unusable listing.','list_file_versions','unusable-response');
+      if(nextName!==null&&start&&nextName===start.startFileName&&(nextId??null)===(start.startFileId??null))throw storageFailure('Private backup storage returned a repeating listing cursor.','list_file_versions','unusable-response');
       return {versions,cursor:nextName?{startFileName:nextName,startFileId:nextId}:null};
-    });
+    },'list_file_versions');
   }
 
   // Exact version removal. This module never calls b2_hide_file, because a hide
@@ -311,13 +365,13 @@ export function createBackblazeBucket({keyId,applicationKey,bucketId,bucketName,
     const fileId=request.fileId;
     if(typeof fileId!=='string'||!FILE_ID_PATTERN.test(fileId))throw new InputError('Removing a private backup version requires its key and exact version id.');
     return useSession(async current=>{
-      const response=await send(apiUrlFor(current,'b2_delete_file_version'),{method:'POST',headers:{Authorization:current.token,'Content-Type':'application/json'},body:JSON.stringify({fileName:name,fileId})});
+      const response=await send(apiUrlFor(current,'b2_delete_file_version'),{method:'POST',headers:{Authorization:current.token,'Content-Type':'application/json'},body:JSON.stringify({fileName:name,fileId})},'delete_file_version');
       if(response.status===401)return REAUTHORIZE;
-      if(!response.ok)throw new StorageFailure('Private backup storage did not remove the requested version.');
-      const body=await readJson(response);
-      if(body?.fileName!==name||body?.fileId!==fileId)throw new StorageFailure('Private backup storage removed a different version.');
+      if(!response.ok)throw storageFailure('Private backup storage did not remove the requested version.','delete_file_version',faultForStatus(response.status));
+      const body=await readJson(response,'delete_file_version');
+      if(body?.fileName!==name||body?.fileId!==fileId)throw storageFailure('Private backup storage removed a different version.','delete_file_version','unusable-response');
       return {key:name,fileId,deleted:true};
-    });
+    },'delete_file_version');
   }
 
   return {get,put,listVersions,deleteVersion};

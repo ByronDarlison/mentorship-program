@@ -1,5 +1,5 @@
 {
-  "revision": "1466797a591ca973f553ff015f92cff36edb4970",
+  "revision": "9aef57d130369b90b278a7f3ac8fc6050426a338",
   "files": [
     {
       "path": ".github/workflows/repository-tests.yml",
@@ -15,7 +15,7 @@
     },
     {
       "path": "TECHNICAL_GUIDE.md",
-      "sha256": "21c9bef3b8c4422fe851a9f0e6183bb8644553ca40d0200cef6015b1f94c1819"
+      "sha256": "7682fc796763b91ca4185a442b48dbc9b190f1dddc21e3d4dc357734a8d66905"
     },
     {
       "path": "USER_GUIDE.md",
@@ -255,7 +255,7 @@
     },
     {
       "path": "runtime/backblaze.mjs",
-      "sha256": "8691736b715ec5e157655a86fa9b543a1607ab91f85dd464ef26e90ec9794309"
+      "sha256": "8975897af3961d1b638df6f57b523461e70db5db40cf7551580c175afca4b979"
     },
     {
       "path": "runtime/chair-notifications.mjs",
@@ -303,7 +303,7 @@
     },
     {
       "path": "runtime/hourly-health.mjs",
-      "sha256": "de04336033495da740ef23dc8d45d318f2ee5ab6c10ba8a20936887122b5a587"
+      "sha256": "860b5f4c60e39303bef2df802720440ddcd5a516db5e1d03f75f051e6599c435"
     },
     {
       "path": "runtime/identifiers.mjs",
@@ -387,7 +387,7 @@
     },
     {
       "path": "runtime/recovery-cycle.mjs",
-      "sha256": "775f83dd901a5ea84c09bbfb11f22d6a82397436851a0f8d51708128bbe2a1d6"
+      "sha256": "bf81da73e1d0b1200cd2e5fc7bffc10118df6de52aa427e38fbf77ddac5214b0"
     },
     {
       "path": "runtime/recovery.mjs",
@@ -447,7 +447,7 @@
     },
     {
       "path": "runtime/tests/backblaze.test.mjs",
-      "sha256": "1f27d30f1c8920ecc9972488931afbce8eec401c57b7f5345703e8624c036cc1"
+      "sha256": "68c324eb85085620dc83565a999a76e0e614c0c15011c14ab7ad5d12f1895c2a"
     },
     {
       "path": "runtime/tests/browser-check.mjs",
@@ -483,7 +483,7 @@
     },
     {
       "path": "runtime/tests/hourly-health.test.mjs",
-      "sha256": "453aed8350c127c85c27facc7d5dead2392d2532737a8d62a8cc402a92fc0a91"
+      "sha256": "16cf9e6bafac1a8dd1e22996514076a0025dc3da0716849c4ca86c1a4d66a607"
     },
     {
       "path": "runtime/tests/message-actions.test.mjs",
@@ -659,7 +659,7 @@
     },
     {
       "path": "SOURCE.json",
-      "sha256": "38ed2a260d4f2a2657ca28500fc66dda23af86bf892e38f61f01dcbd0b35b269"
+      "sha256": "e590b7d299862dd5e5fad1f8503c8085ae9f596bd0f3a3c1a4017e8e974d9a30"
     },
     {
       "path": "LICENSE-CODE.txt",
